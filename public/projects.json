@@ -13,11 +13,11 @@
       "MongoDB",
       "Kotlin"
     ],
-    "githubUrl": "https://github.com"
+    "githubUrl": ""
   },
   {
     "id": 2,
-    "title": "Sri Cast – News Management System",
+    "title": "News App",
     "badge": "FEATURED",
     "category": "Mobile App",
     "description": "A news management system that streamlines the process of creating, reviewing, approving, and publishing news articles. Reporters can submit articles, editors can review and provide feedback, and administrators can manage users and content. Published news is available to users in real time, with ratings to encourage engagement.",
@@ -28,10 +28,10 @@
       "MongoDB",
       "Next.js"
     ],
-    "githubUrl": "https://github.com"
+    "githubUrl": "https://github.com/chamila04/NewsApp"
   },
   {
-    "id": 3,
+    "id": 0,
     "title": "Horizon Cloud OS",
     "badge": "POPULAR",
     "category": "Cloud Platform",
@@ -46,7 +46,7 @@
     "githubUrl": "https://github.com"
   },
   {
-    "id": 4,
+    "id": 0,
     "title": "Vortex 3D Engine",
     "badge": "GRAPHICS",
     "category": "WebGL / Shaders",
@@ -61,7 +61,7 @@
     "githubUrl": "https://github.com"
   },
   {
-    "id": 5,
+    "id": 0,
     "title": "Neural Weather ML",
     "badge": "AI / ML",
     "category": "Predictive AI",
@@ -76,7 +76,7 @@
     "githubUrl": "https://github.com"
   },
   {
-    "id": 6,
+    "id": 0,
     "title": "Luminary Design System",
     "badge": "SYSTEM",
     "category": "UI Framework",

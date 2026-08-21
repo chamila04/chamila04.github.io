@@ -1,6 +1,15 @@
 [
   {
-    "id": 1,
+    "id": 0,
+    "type": "education",
+    "title": "Primary and Secondary Education",
+    "organization": "Trinity College Kandy",
+    "period": "2008 — 2021",
+    "logo": "/images/companies/trinity.png",
+    "description": "Completed my primary and secondary education, where I developed a strong academic foundation and essential skills in teamwork, communication, problem-solving, and leadership."
+  },
+  {
+    "id": 2,
     "type": "education",
     "title": "Higer National Deploma in Software Engineering",
     "organization": "National Institute of Business Management",
@@ -9,7 +18,7 @@
     "description": "Completed with a Merit Pass, covering software development, programming, databases, web development, and software engineering principles."
   },
   {
-    "id": 2,
+    "id": 3,
     "type": "work",
     "title": "Software Engineering Intern",
     "organization": "Board of Investment Sri Lanka",
@@ -18,7 +27,7 @@
     "description": "Assisted in software development, UI design, and provided IT support, including troubleshooting hardware and software issues across departments."
   },
   {
-    "id": 3,
+    "id": 4,
     "type": "education",
     "title": "BSc Computer Science with Data Science",
     "organization": "Coventry University",
@@ -27,7 +36,7 @@
     "description": "Focusing on Data Science, Artificial Intelligence, Machine Learning, and modern computing technologies."
   },
   {
-    "id": 4,
+    "id": 5,
     "type": "work",
     "title": "Technical Support Assosiate",
     "organization": "Torch Labs Software",

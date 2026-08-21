@@ -209,11 +209,11 @@
   box-shadow: 0 0 8px rgba(16, 185, 129, 0.95);
 }
 
-/* ── 4. Contact Section Theme (Slate-900 & Rose Coral) ── */
+/* ── 4. Contact Section Theme (Slate-900 & Ocean Blue #0077b6) ── */
 .navbar--contact .navbar__dock {
   background: rgba(15, 23, 42, 0.86);
-  border: 1px solid rgba(244, 63, 94, 0.28);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 28px rgba(244, 63, 94, 0.18);
+  border: 1px solid rgba(0, 119, 182, 0.32);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 28px rgba(0, 119, 182, 0.2);
 }
 
 .navbar--contact .navbar__link {
@@ -222,24 +222,24 @@
 
 .navbar--contact .navbar__link:hover {
   color: #ffffff;
-  background: rgba(244, 63, 94, 0.14);
+  background: rgba(0, 119, 182, 0.16);
 }
 
 .navbar--contact .navbar__link--active {
-  color: #f43f5e;
+  color: #0096c7;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(244, 63, 94, 0.28), rgba(236, 72, 153, 0.18));
-  border: 1px solid rgba(244, 63, 94, 0.45);
-  box-shadow: 0 4px 16px rgba(244, 63, 94, 0.25);
+  background: linear-gradient(135deg, rgba(0, 119, 182, 0.32), rgba(0, 150, 199, 0.18));
+  border: 1px solid rgba(0, 119, 182, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 119, 182, 0.3);
 }
 
 .navbar--contact .navbar__link--active .navbar__link-icon {
-  color: #f43f5e;
+  color: #0096c7;
 }
 
 .navbar--contact .navbar__active-indicator {
-  background: #f43f5e;
-  box-shadow: 0 0 8px rgba(244, 63, 94, 0.95);
+  background: #0096c7;
+  box-shadow: 0 0 8px rgba(0, 150, 199, 0.95);
 }
 
 /* ═══════════════════════════════════════════════

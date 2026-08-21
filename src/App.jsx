@@ -90,6 +90,8 @@ function App() {
         return;
       }
 
+      if (e.defaultPrevented) return;
+
       if (isScrollingRef.current) {
         e.preventDefault();
         return;
@@ -144,7 +146,7 @@ function App() {
     };
 
     const handleTouchEnd = (e) => {
-      if (heroVisible || isScrollingRef.current) return;
+      if (heroVisible || isScrollingRef.current || e.defaultPrevented) return;
       const deltaY = touchStartY.current - e.changedTouches[0].clientY;
       const deltaX = touchStartX.current - e.changedTouches[0].clientX;
 
@@ -178,6 +180,7 @@ function App() {
   // Keyboard navigation (ArrowDown, ArrowUp, PageDown, PageUp, Space)
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (e.defaultPrevented) return;
       // Don't intercept when typing in form inputs
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
 

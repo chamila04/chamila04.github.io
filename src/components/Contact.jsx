@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState({ state: 'idle', message: '' }); // 'idle' | 'loading' | 'success' | 'error'
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
@@ -26,14 +27,69 @@ export default function Contact() {
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (status.state === 'error') {
+      setStatus({ state: 'idle', message: '' });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setFormData({ name: '', email: '', message: '' });
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const templateIdMe = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ME;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || (!templateId && !templateIdMe) || !publicKey) {
+      setStatus({
+        state: 'error',
+        message: 'Email service is not configured. Please set EmailJS keys in .env',
+      });
+      return;
+    }
+
+    setStatus({ state: 'loading', message: '' });
+
+    try {
+      const templateParams = {
+        name: formData.name,
+        from_name: formData.name,
+        email: formData.email,
+        from_email: formData.email,
+        reply_to: formData.email,
+        message: formData.message,
+        to_email: import.meta.env.VITE_EMAIL || 'chamilasenaratne.me@gmail.com',
+        to_name: 'Chamila',
+      };
+
+      const sendRequests = [];
+
+      // Template 1: e.g. auto-reply / confirmation to visitor
+      if (templateId) {
+        sendRequests.push(
+          emailjs.send(serviceId, templateId, templateParams, publicKey)
+        );
+      }
+
+      // Template 2: notification sent to owner
+      if (templateIdMe) {
+        sendRequests.push(
+          emailjs.send(serviceId, templateIdMe, templateParams, publicKey)
+        );
+      }
+
+      await Promise.all(sendRequests);
+
+      setStatus({ state: 'success', message: 'Message sent successfully!' });
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus({ state: 'idle', message: '' }), 5000);
+    } catch (err) {
+      console.error('EmailJS send error:', err);
+      setStatus({
+        state: 'error',
+        message: err?.text || 'Failed to send message. Please try again.',
+      });
+    }
   };
 
   return (
@@ -162,12 +218,28 @@ export default function Contact() {
                 className="contact__input contact__textarea"
               />
             </div>
+            {status.state === 'error' && (
+              <div className="contact__alert contact__alert--error">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>{status.message}</span>
+              </div>
+            )}
+
             <button
               type="submit"
-              className="contact__submit"
-              disabled={submitted}
+              className={`contact__submit ${status.state === 'loading' ? 'contact__submit--loading' : ''}`}
+              disabled={status.state === 'loading' || status.state === 'success'}
             >
-              {submitted ? (
+              {status.state === 'loading' ? (
+                <span className="contact__btn-content">
+                  <span className="contact__spinner" />
+                  <span>Sending...</span>
+                </span>
+              ) : status.state === 'success' ? (
                 <span className="contact__success">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />

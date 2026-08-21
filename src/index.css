@@ -110,18 +110,16 @@ button {
   z-index: 2;
 }
 
-/* ───────── Scrollbar ───────── */
+/* ───────── Scrollbar (Hidden) ───────── */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-charcoal);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-amber);
-  border-radius: 3px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* ───────── Selection ───────── */

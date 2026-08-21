@@ -14,7 +14,10 @@ export default function Timeline() {
     fetch('/journey.json')
       .then((res) => res.json())
       .then((data) => {
-        const sorted = [...data].sort((a, b) => Number(b.id) - Number(a.id));
+        const filtered = (Array.isArray(data) ? data : []).filter(
+          (item) => Number(item.id) !== 0
+        );
+        const sorted = filtered.sort((a, b) => Number(b.id) - Number(a.id));
         setTimelineData(sorted);
         setLoading(false);
       })

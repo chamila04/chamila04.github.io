@@ -9,22 +9,23 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [cardMetrics, setCardMetrics] = useState({ width: 380, gap: 32 });
 
   const sectionRef = useRef(null);
-  const stageRef = useRef(null);
+  const trackRef = useRef(null);
   const dragStartX = useRef(0);
   const hasDragged = useRef(false);
   const lastWheelTime = useRef(0);
 
+  // Fetch projects data
   useEffect(() => {
     fetch('/projects.json')
       .then((res) => res.json())
       .then((data) => {
-        setProjects(data);
-        if (data.length > 1) {
-          // Default to the 2nd item for an immediate balanced fanning deck
-          setActiveIndex(Math.min(1, data.length - 1));
-        }
+        const filtered = (Array.isArray(data) ? data : []).filter(
+          (item) => Number(item.id) !== 0
+        );
+        setProjects(filtered);
         setLoading(false);
       })
       .catch((err) => {
@@ -33,7 +34,7 @@ export default function Projects() {
       });
   }, []);
 
-  // IntersectionObserver for reveal animation
+  // Section reveal observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -51,6 +52,27 @@ export default function Projects() {
     return () => observer.disconnect();
   }, []);
 
+  // Measure actual card width & gap dynamically on resize
+  const measureCardMetrics = useCallback(() => {
+    if (!trackRef.current) return;
+    const firstCard = trackRef.current.querySelector('.scroll-card');
+    if (firstCard) {
+      const rect = firstCard.getBoundingClientRect();
+      const style = window.getComputedStyle(trackRef.current);
+      const gap = parseFloat(style.gap) || 32;
+      setCardMetrics({
+        width: rect.width || 380,
+        gap: gap,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    measureCardMetrics();
+    window.addEventListener('resize', measureCardMetrics);
+    return () => window.removeEventListener('resize', measureCardMetrics);
+  }, [measureCardMetrics, projects, loading]);
+
   const goToIndex = useCallback((index) => {
     if (index >= 0 && index < projects.length) {
       setActiveIndex(index);
@@ -65,7 +87,45 @@ export default function Projects() {
     setActiveIndex((prev) => Math.min(projects.length - 1, prev + 1));
   }, [projects.length]);
 
-  // Keyboard navigation when user uses arrow keys
+  // Native non-passive Wheel listener to smoothly control horizontal card steps
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || projects.length === 0) return;
+
+    const handleNativeWheel = (e) => {
+      const now = Date.now();
+      if (Math.abs(e.deltaY) < 14 && Math.abs(e.deltaX) < 14) return;
+
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+
+      if (delta > 14) {
+        // Scrolling down / right -> advance cards
+        if (activeIndex < projects.length - 1) {
+          e.preventDefault();
+          if (now - lastWheelTime.current > 240) {
+            goToNext();
+            lastWheelTime.current = now;
+          }
+        }
+        // If on the last card, do NOT preventDefault -> page smoothly transitions to Contact!
+      } else if (delta < -14) {
+        // Scrolling up / left -> previous card
+        if (activeIndex > 0) {
+          e.preventDefault();
+          if (now - lastWheelTime.current > 240) {
+            goToPrev();
+            lastWheelTime.current = now;
+          }
+        }
+        // If on the first card, do NOT preventDefault -> page smoothly transitions to Journey!
+      }
+    };
+
+    el.addEventListener('wheel', handleNativeWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleNativeWheel);
+  }, [activeIndex, projects.length, goToNext, goToPrev]);
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isVisible) return;
@@ -82,25 +142,9 @@ export default function Projects() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isVisible, goToPrev, goToNext]);
 
-  // Horizontal wheel / trackpad support
-  const handleWheel = (e) => {
-    const now = Date.now();
-    if (now - lastWheelTime.current < 280) return;
-
-    if (Math.abs(e.deltaX) > 20) {
-      if (e.deltaX > 20) {
-        goToNext();
-        lastWheelTime.current = now;
-      } else if (e.deltaX < -20) {
-        goToPrev();
-        lastWheelTime.current = now;
-      }
-    }
-  };
-
   // Mouse Drag handlers
   const handleMouseDown = (e) => {
-    if (e.button !== 0) return; // Primary button only
+    if (e.button !== 0) return;
     setIsDragging(true);
     hasDragged.current = false;
     dragStartX.current = e.clientX;
@@ -112,18 +156,17 @@ export default function Projects() {
     if (Math.abs(diff) > 6) {
       hasDragged.current = true;
     }
-    // Clamped drag elasticity
-    const clampedDiff = Math.max(-140, Math.min(140, diff));
-    setDragOffset(clampedDiff);
+    setDragOffset(diff);
   };
 
   const handleMouseUp = () => {
     if (!isDragging) return;
     setIsDragging(false);
 
-    if (dragOffset < -35 && activeIndex < projects.length - 1) {
+    const threshold = 60;
+    if (dragOffset < -threshold && activeIndex < projects.length - 1) {
       goToNext();
-    } else if (dragOffset > 35 && activeIndex > 0) {
+    } else if (dragOffset > threshold && activeIndex > 0) {
       goToPrev();
     }
 
@@ -146,17 +189,17 @@ export default function Projects() {
     if (Math.abs(diff) > 6) {
       hasDragged.current = true;
     }
-    const clampedDiff = Math.max(-140, Math.min(140, diff));
-    setDragOffset(clampedDiff);
+    setDragOffset(diff);
   };
 
   const handleTouchEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
 
-    if (dragOffset < -35 && activeIndex < projects.length - 1) {
+    const threshold = 50;
+    if (dragOffset < -threshold && activeIndex < projects.length - 1) {
       goToNext();
-    } else if (dragOffset > 35 && activeIndex > 0) {
+    } else if (dragOffset > threshold && activeIndex > 0) {
       goToPrev();
     }
 
@@ -165,6 +208,10 @@ export default function Projects() {
       hasDragged.current = false;
     }, 50);
   };
+
+  // Calculate translation so that the active card is centered in the viewport
+  const trackTranslateX = -(activeIndex * (cardMetrics.width + cardMetrics.gap)) + dragOffset;
+  const progressRatio = projects.length > 1 ? activeIndex / (projects.length - 1) : 0;
 
   return (
     <section
@@ -175,7 +222,7 @@ export default function Projects() {
     >
       <span className="section-label projects__label">Projects</span>
 
-      {/* Decorative ambient neon spotlights */}
+      {/* Ambient Glows */}
       <div className="projects__bg-glow projects__bg-glow--cyan" />
       <div className="projects__bg-glow projects__bg-glow--indigo" />
       <div className="projects__bg-grid" />
@@ -190,11 +237,8 @@ export default function Projects() {
         </h2>
       </div>
 
-      {/* 3D Deck / Stack Stage */}
-      <div
-        className="projects__stage-wrapper"
-        onWheel={handleWheel}
-      >
+      {/* Webflow Horizontal Scrolling Cards Stage */}
+      <div className="projects__stage-container">
         {loading ? (
           <div className="projects__loading">
             <div className="projects__spinner" />
@@ -203,8 +247,7 @@ export default function Projects() {
           <p className="projects__empty">No projects available.</p>
         ) : (
           <div
-            className={`projects__stage ${isDragging ? 'projects__stage--dragging' : ''}`}
-            ref={stageRef}
+            className="sticky-wrap"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -212,23 +255,31 @@ export default function Projects() {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            style={{
-              '--drag-x': `${dragOffset}px`,
-            }}
           >
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                activeIndex={activeIndex}
-                totalCards={projects.length}
-                onClick={goToIndex}
-                isDragging={hasDragged.current}
-              />
-            ))}
+            <div
+              className={`scroll-inner ${isDragging ? 'scroll-inner--dragging' : ''}`}
+              ref={trackRef}
+              style={{
+                transform: `translate3d(${trackTranslateX}px, 0, 0)`,
+                paddingLeft: `calc(50vw - ${cardMetrics.width / 2}px)`,
+                paddingRight: `calc(50vw - ${cardMetrics.width / 2}px)`,
+              }}
+            >
+              {projects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  totalCards={projects.length}
+                  isActive={index === activeIndex}
+                  offset={index - activeIndex}
+                  onClick={goToIndex}
+                  isDragging={hasDragged.current}
+                />
+              ))}
+            </div>
 
-            {/* Navigation Arrows with Neon Glass Styling */}
+            {/* Navigation Arrows */}
             <button
               type="button"
               className={`projects__nav-btn projects__nav-btn--prev ${
@@ -260,7 +311,7 @@ export default function Projects() {
         )}
       </div>
 
-      {/* Bottom Pagination & Navigation Controls */}
+      {/* Bottom Controls & Progress Bar */}
       {!loading && projects.length > 0 && (
         <div className="projects__controls">
           <div className="projects__pagination">
@@ -273,6 +324,14 @@ export default function Projects() {
                 aria-label={`Go to project ${idx + 1}`}
               />
             ))}
+          </div>
+
+          {/* Linear Progress Bar */}
+          <div className="projects__progress-bar-wrap">
+            <div
+              className="projects__progress-bar"
+              style={{ width: `${Math.max(8, progressRatio * 100)}%` }}
+            />
           </div>
 
           <div className="projects__counter">
@@ -289,4 +348,3 @@ export default function Projects() {
     </section>
   );
 }
-
