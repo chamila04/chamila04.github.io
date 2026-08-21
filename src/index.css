@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Sora:wght@300;400;500;600;700;800&display=swap');
+
+/* ───────── CSS Reset ───────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  font-size: 16px;
+  overflow-y: scroll;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background: var(--color-off-white);
+  color: var(--color-black);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ───────── Design Tokens ───────── */
+:root {
+  /* Colors */
+  --color-amber: #F0A500;
+  --color-amber-light: #FFB820;
+  --color-amber-dark: #D49000;
+  --color-charcoal: #2D2D2D;
+  --color-charcoal-light: #3D3D3D;
+  --color-off-white: #F5F5F5;
+  --color-white: #FFFFFF;
+  --color-black: #111111;
+  --color-muted: #999999;
+  --color-muted-light: #CCCCCC;
+  --color-dark-muted: #555555;
+
+  /* Typography */
+  --font-display: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --section-padding: 80px;
+  --container-max: 1200px;
+
+  /* Radius */
+  --radius-card: 24px;
+  --radius-card-inner: 18px;
+  --radius-btn: 50px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Shadows */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.2);
+}
+
+/* ───────── Utility Classes ───────── */
+.section {
+  min-height: 100vh;
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--section-padding) 60px;
+}
+
+.section-label {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--color-muted-light);
+  text-transform: capitalize;
+  user-select: none;
+  z-index: 2;
+}
+
+/* ───────── Scrollbar ───────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-amber);
+  border-radius: 3px;
+}
+
+/* ───────── Selection ───────── */
+::selection {
+  background: var(--color-amber);
+  color: var(--color-black);
+}
+
+/* ───────── Responsive ───────── */
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 24px;
+  }
+
+  .section-label {
+    top: 12px;
+    left: 12px;
+    font-size: 0.75rem;
+  }
+}

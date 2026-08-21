@@ -1,0 +1,307 @@
+/* ==========================================================================
+   Hero Section - Clean, High-Performance Splash / Quote Screen
+   ========================================================================== */
+
+.hero {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--color-off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Subtle ambient background glow */
+.hero__backdrop-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70vw;
+  max-width: 800px;
+  height: 50vh;
+  max-height: 500px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(240, 165, 0, 0.08) 0%,
+    rgba(240, 165, 0, 0.02) 45%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroGlowPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlowPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* Smooth exit state */
+.hero--exiting {
+  opacity: 0;
+  transform: translate3d(0, -35px, 0) scale(0.985);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.hero--exiting .hero__content {
+  transform: translate3d(0, -20px, 0);
+  opacity: 0;
+  transition:
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.45s ease-out;
+}
+
+/* Content Container */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Quote Layout & Typography */
+.hero__quote-wrapper {
+  position: relative;
+  display: inline;
+  width: 100%;
+  line-height: 1.4;
+}
+
+.hero__headline {
+  display: inline;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.36;
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+  word-wrap: break-word;
+}
+
+/* Staggered Word Reveal */
+.hero__word {
+  display: inline-block;
+  margin-right: 0.28em;
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  filter: blur(5px);
+  animation: heroWordReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+.hero__word:last-child {
+  margin-right: 0;
+}
+
+@keyframes heroWordReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+/* Quote Marks */
+.hero__quote-mark {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+  font-weight: 700;
+  color: var(--color-amber);
+  vertical-align: baseline;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  animation: heroMarkReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero__quote-mark--open {
+  margin-right: 0.12em;
+}
+
+.hero__quote-mark--close {
+  margin-left: 0.12em;
+}
+
+@keyframes heroMarkReveal {
+  to {
+    opacity: 0.9;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Author Section */
+.hero__author {
+  margin-top: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+  font-weight: 500;
+  color: var(--color-dark-muted);
+  letter-spacing: 0.3px;
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  animation: heroAuthorReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.hero__author-dash {
+  color: var(--color-amber);
+  font-weight: 700;
+}
+
+.hero__author-name {
+  color: #4a4a4a;
+}
+
+@keyframes heroAuthorReveal {
+  to {
+    opacity: 0.95;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Scroll Hint Interactive Pill */
+.hero__scroll-hint {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  animation: heroHintReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.hero__scroll-hint:hover {
+  transform: translate3d(0, -3px, 0);
+}
+
+.hero__scroll-text {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color var(--transition-fast);
+}
+
+.hero__scroll-hint:hover .hero__scroll-text {
+  color: var(--color-black);
+}
+
+/* Modern Capsule Scroll Indicator */
+.hero__scroll-indicator {
+  width: 22px;
+  height: 38px;
+  border: 2px solid rgba(0, 0, 0, 0.22);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+  position: relative;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.hero__scroll-hint:hover .hero__scroll-indicator {
+  border-color: var(--color-amber);
+}
+
+.hero__scroll-dot {
+  width: 4px;
+  height: 8px;
+  background: var(--color-amber);
+  border-radius: 3px;
+  animation: heroScrollBob 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes heroScrollBob {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes heroHintReveal {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hero__content {
+    padding: 0 24px;
+  }
+
+  .hero__headline {
+    font-size: clamp(1.25rem, 5vw, 1.7rem);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .hero__author {
+    margin-top: 20px;
+    font-size: 0.88rem;
+  }
+
+  .hero__scroll-hint {
+    margin-top: 40px;
+  }
+
+  .hero__scroll-indicator {
+    width: 20px;
+    height: 34px;
+  }
+}
+
