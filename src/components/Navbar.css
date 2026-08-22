@@ -1,29 +1,33 @@
 /* ═══════════════════════════════════════════════
-   Navbar Component — Modern Right-Side Vertical Floating Capsule Dock
+   Navbar Component — Modern Top-Floating Horizontal Capsule Dock
    With Dynamic Per-Section Color Palettes
    ═══════════════════════════════════════════════ */
 
+.navbar-wrapper,
 .navbar-vertical-wrapper {
   position: fixed;
-  right: 28px;
-  top: 28px;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   pointer-events: none;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: calc(100vw - 32px);
 }
 
+.navbar-wrapper--hidden,
 .navbar-vertical-wrapper--hidden {
   opacity: 0 !important;
   pointer-events: none !important;
-  transform: translateY(-24px) translateX(24px) !important;
+  transform: translateY(-32px) translateX(-50%) !important;
 }
 
-/* ── Vertical Floating Capsule Dock ── */
+/* ── Horizontal Floating Capsule Dock ── */
 .navbar__dock {
   pointer-events: all;
-  border-radius: 26px;
-  padding: 8px 8px;
+  border-radius: 9999px;
+  padding: 6px 8px;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -32,8 +36,8 @@
 
 .navbar__list {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row;
+  align-items: center;
   gap: 6px;
   margin: 0;
   padding: 0;
@@ -47,9 +51,9 @@
 .navbar__link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  border-radius: 18px;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
   font-family: 'Inter', sans-serif;
   font-size: 0.84rem;
   font-weight: 500;
@@ -64,7 +68,7 @@
 }
 
 .navbar__link:hover {
-  transform: translateX(-3px);
+  transform: translateY(-2px);
 }
 
 .navbar__link-icon {
@@ -89,7 +93,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  margin-left: auto;
+  margin-left: 2px;
   flex-shrink: 0;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   animation: pulseDot 2s infinite ease-in-out;
@@ -246,22 +250,14 @@
    Responsive Design
    ═══════════════════════════════════════════════ */
 
-@media (max-width: 1024px) {
-  .navbar-vertical-wrapper {
-    top: 20px;
-    right: 18px;
-  }
-}
-
 @media (max-width: 768px) {
+  .navbar-wrapper,
   .navbar-vertical-wrapper {
     top: 16px;
-    right: 12px;
   }
 
   .navbar__dock {
-    padding: 6px 6px;
-    border-radius: 22px;
+    padding: 5px 6px;
   }
 
   .navbar__list {
@@ -269,27 +265,35 @@
   }
 
   .navbar__link {
-    padding: 8px 11px;
-    font-size: 0.78rem;
-    gap: 8px;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    gap: 6px;
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 480px) {
+  .navbar-wrapper,
   .navbar-vertical-wrapper {
     top: 12px;
-    right: 8px;
+    width: calc(100% - 24px);
+    display: flex;
+    justify-content: center;
   }
 
   .navbar__dock {
-    padding: 6px 5px;
-    border-radius: 20px;
+    padding: 4px 6px;
+    max-width: 100%;
+  }
+
+  .navbar__list {
+    gap: 3px;
+    justify-content: center;
   }
 
   .navbar__link {
-    padding: 8px 9px;
-    font-size: 0.75rem;
-    gap: 6px;
+    padding: 6px 10px;
+    font-size: 0.74rem;
+    gap: 5px;
   }
 
   .navbar__active-indicator {

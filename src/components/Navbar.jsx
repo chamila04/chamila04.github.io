@@ -91,12 +91,12 @@ export default function Navbar({ heroVisible = false }) {
 
   return (
     <aside
-      className={`navbar-vertical-wrapper navbar--${activeSection} ${
-        isHidden ? 'navbar-vertical-wrapper--hidden' : ''
+      className={`navbar-wrapper navbar--${activeSection} ${
+        isHidden ? 'navbar-wrapper--hidden' : ''
       }`}
       aria-label="Page navigation"
     >
-      {/* Floating Vertical Capsule Dock */}
+      {/* Floating Horizontal Capsule Dock */}
       <nav className="navbar__dock">
         <ul className="navbar__list">
           {navItems.map((item) => {
