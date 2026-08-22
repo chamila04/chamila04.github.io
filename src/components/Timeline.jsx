@@ -11,8 +11,11 @@ export default function Timeline() {
 
   // Fetch timeline data from journey.json
   useEffect(() => {
-    fetch('/journey.json')
-      .then((res) => res.json())
+    fetch(`${import.meta.env.BASE_URL}journey.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
         const filtered = (Array.isArray(data) ? data : []).filter(
           (item) => Number(item.id) !== 0
@@ -121,7 +124,11 @@ export default function Timeline() {
                 <div className="timeline__dot">
                   {item.logo ? (
                     <img
-                      src={item.logo}
+                      src={
+                        item.logo.startsWith('http://') || item.logo.startsWith('https://')
+                          ? item.logo
+                          : `${import.meta.env.BASE_URL}${item.logo.startsWith('/') ? item.logo.slice(1) : item.logo}`
+                      }
                       alt={item.organization}
                       className="timeline__dot-logo"
                       loading="lazy"

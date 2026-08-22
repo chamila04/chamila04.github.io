@@ -51,7 +51,7 @@ export default function Hero({ exiting, onDismiss }) {
 
   // Also fetch any dynamic quotes from quotes.json if updated
   useEffect(() => {
-    fetch('/quotes.json')
+    fetch(`${import.meta.env.BASE_URL}quotes.json`)
       .then((res) => {
         if (!res.ok) throw new Error('Network error');
         return res.json();

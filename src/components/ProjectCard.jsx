@@ -21,6 +21,15 @@ export default function ProjectCard({
     }
   };
 
+  const resolveAssetUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    const cleanPath = url.startsWith('/') ? url.slice(1) : url;
+    return `${import.meta.env.BASE_URL}${cleanPath}`;
+  };
+
+  const projectImage = resolveAssetUrl(project.image);
+
   return (
     <article
       className={`scroll-card ${isActive ? 'scroll-card--active' : ''} ${
@@ -38,7 +47,7 @@ export default function ProjectCard({
           <div
             className="full-image"
             style={{
-              backgroundImage: project.image ? `url(${project.image})` : 'none',
+              backgroundImage: projectImage ? `url("${projectImage}")` : 'none',
             }}
           >
             {!project.image && (

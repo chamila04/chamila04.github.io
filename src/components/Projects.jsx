@@ -19,8 +19,11 @@ export default function Projects() {
 
   // Fetch projects data
   useEffect(() => {
-    fetch('/projects.json')
-      .then((res) => res.json())
+    fetch(`${import.meta.env.BASE_URL}projects.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
         const filtered = (Array.isArray(data) ? data : []).filter(
           (item) => Number(item.id) !== 0
