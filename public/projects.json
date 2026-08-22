@@ -5,7 +5,7 @@
     "badge": "WEB",
     "category": "Travel",
     "description": "A personalized travel planning system that recommends destinations based on user preferences and generates detailed trip itineraries based on budget, dates, and travel group. It also provides travel information, hotel and restaurant listings, booking options, an AI travel assistant, reviews and ratings, and an interactive AR feature for exploring locations.",
-    "image": "/images/project1.jpg",
+    "image": "/project/project1.jpg",
     "techStack": [
       "Next.js",
       "Python Flask",
@@ -21,7 +21,7 @@
     "badge": "FEATURED",
     "category": "Mobile App",
     "description": "A news management system that streamlines the process of creating, reviewing, approving, and publishing news articles. Reporters can submit articles, editors can review and provide feedback, and administrators can manage users and content. Published news is available to users in real time, with ratings to encourage engagement.",
-    "image": "/images/project2.jpg",
+    "image": "/project/project2.jpg",
     "techStack": [
       "Kotlin",
       "Node.js",
@@ -36,7 +36,7 @@
     "badge": "POPULAR",
     "category": "Cloud Platform",
     "description": "Collaborative browser-based operating system with drag-and-drop file organization, real-time sync, and distributed compute.",
-    "image": "/images/project3.jpg",
+    "image": "/project/project3.jpg",
     "techStack": [
       "React",
       "Firebase",
@@ -51,7 +51,7 @@
     "badge": "GRAPHICS",
     "category": "WebGL / Shaders",
     "description": "Lightweight WebGL rendering sandbox for procedural generation, interactive physics simulations, and custom shader pipelines.",
-    "image": "/images/project1.jpg",
+    "image": "/project/project1.jpg",
     "techStack": [
       "Three.js",
       "GLSL",
@@ -66,7 +66,7 @@
     "badge": "AI / ML",
     "category": "Predictive AI",
     "description": "Predictive meteorology model forecasting micro-climates using deep satellite data and atmospheric sensor grids.",
-    "image": "/images/project2.jpg",
+    "image": "/project/project2.jpg",
     "techStack": [
       "Python",
       "PyTorch",
@@ -81,7 +81,7 @@
     "badge": "SYSTEM",
     "category": "UI Framework",
     "description": "Comprehensive accessible UI component system with cross-platform token synchronization and live documentation.",
-    "image": "/images/project3.jpg",
+    "image": "/project/project3.jpg",
     "techStack": [
       "Storybook",
       "React",

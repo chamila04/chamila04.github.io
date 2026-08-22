@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════════
-   Projects Section — Webflow Simple Horizontal Cards
+   Projects Section — Webflow Horizontal Cards Aesthetic
    ═══════════════════════════════════════════════ */
 
 .projects {
-  background: #080b11;
+  background: #12151a;
   min-height: 100vh;
   height: 100vh;
   max-height: 100vh;
@@ -11,7 +11,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 0 20px;
+  padding-top: clamp(86px, 11vh, 108px);
+  padding-bottom: clamp(16px, 2.5vh, 26px);
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
   z-index: 2;
   box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.6);
@@ -32,24 +35,22 @@
   opacity: 1;
 }
 
-.projects__bg-glow--cyan,
-.projects__bg-glow--emerald {
+.projects__bg-glow--cyan {
   width: 750px;
   height: 550px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse, rgba(16, 185, 129, 0.045) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(148, 163, 184, 0.07) 0%, transparent 65%);
   filter: blur(95px);
 }
 
-.projects__bg-glow--indigo,
-.projects__bg-glow--teal {
+.projects__bg-glow--indigo {
   width: 800px;
   height: 800px;
   bottom: -20%;
   right: -10%;
-  background: radial-gradient(circle, rgba(5, 150, 105, 0.035) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(100, 116, 139, 0.05) 0%, transparent 60%);
   filter: blur(110px);
 }
 
@@ -94,9 +95,9 @@
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 1.4px;
-  color: #34d399;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.22);
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 3px 12px;
   border-radius: 100px;
   margin-bottom: 6px;
@@ -104,7 +105,7 @@
 }
 
 .projects__tag-sparkle {
-  color: #10b981;
+  color: #94a3b8;
   margin-right: 4px;
 }
 
@@ -162,76 +163,25 @@
 /* ── Horizontal Scroll Inner Track ── */
 .scroll-inner {
   display: flex;
-  gap: 32px;
+  gap: clamp(20px, 2.5vw, 32px);
   align-items: center;
   will-change: transform;
   transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .scroll-inner--dragging {
   transition: none;
 }
 
-/* ── Navigation Arrows ── */
-.projects__nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 25;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(14, 18, 28, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f1f5f9;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-  transition: all 0.25s ease;
-}
-
-.projects__nav-btn--prev {
-  left: 28px;
-}
-
-.projects__nav-btn--next {
-  right: 28px;
-}
-
-.projects__nav-btn:hover:not(:disabled) {
-  background: #10b981;
-  color: #04140e;
-  border-color: #10b981;
-  transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 10px 28px rgba(16, 185, 129, 0.4);
-}
-
-.projects__nav-btn:active:not(:disabled) {
-  transform: translateY(-50%) scale(0.96);
-}
-
-.projects__nav-btn--disabled,
-.projects__nav-btn:disabled {
-  opacity: 0.15;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* ── Bottom Controls & Progress Bar ── */
+/* ── Bottom Controls ── */
 .projects__controls {
   position: relative;
   z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  width: 100%;
-  max-width: 520px;
+  justify-content: center;
+  gap: 28px;
   padding: 0 24px;
   opacity: 0;
   transition: opacity 0.6s ease;
@@ -267,24 +217,8 @@
 .projects__dot--active {
   width: 22px;
   border-radius: 100px;
-  background: #10b981;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-}
-
-/* ── Linear Progress Bar ── */
-.projects__progress-bar-wrap {
-  flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.projects__progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #10b981, #34d399);
-  border-radius: 100px;
-  transition: width 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+  background: #e2e8f0;
+  box-shadow: 0 0 12px rgba(226, 232, 240, 0.5);
 }
 
 .projects__counter {
@@ -292,9 +226,13 @@
   align-items: center;
   gap: 4px;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: 100px;
 }
 
 .projects__counter-current {
@@ -321,11 +259,11 @@
 .projects__spinner {
   width: 44px;
   height: 44px;
-  border: 3px solid rgba(16, 185, 129, 0.15);
-  border-top-color: #10b981;
+  border: 3px solid rgba(148, 163, 184, 0.2);
+  border-top-color: #cbd5e1;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 16px rgba(148, 163, 184, 0.25);
 }
 
 @keyframes spin {
@@ -343,32 +281,9 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 1024px) {
-  .scroll-inner {
-    gap: 24px;
-  }
-
-  .projects__nav-btn--prev {
-    left: 14px;
-  }
-
-  .projects__nav-btn--next {
-    right: 14px;
-  }
-}
-
 @media (max-width: 768px) {
   .projects {
-    padding: 20px 0 16px;
-  }
-
-  .scroll-inner {
-    gap: 16px;
-  }
-
-  .projects__nav-btn {
-    width: 40px;
-    height: 40px;
+    padding: 72px 0 14px;
   }
 
   .projects__controls {
@@ -379,11 +294,13 @@
 }
 
 @media (max-width: 480px) {
-  .projects__nav-btn {
-    display: none;
+  .projects {
+    padding: 64px 0 12px;
   }
 
   .projects__controls {
     max-width: 300px;
   }
 }
+
+

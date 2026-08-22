@@ -9,7 +9,7 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [cardMetrics, setCardMetrics] = useState({ width: 380, gap: 32 });
+  const [cardMetrics, setCardMetrics] = useState({ width: 360, gap: 28 });
 
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
@@ -62,9 +62,9 @@ export default function Projects() {
     if (firstCard) {
       const rect = firstCard.getBoundingClientRect();
       const style = window.getComputedStyle(trackRef.current);
-      const gap = parseFloat(style.gap) || 32;
+      const gap = parseFloat(style.gap) || 28;
       setCardMetrics({
-        width: rect.width || 380,
+        width: rect.width || 360,
         gap: gap,
       });
     }
@@ -90,7 +90,7 @@ export default function Projects() {
     setActiveIndex((prev) => Math.min(projects.length - 1, prev + 1));
   }, [projects.length]);
 
-  // Native non-passive Wheel listener to smoothly control horizontal card steps
+  // Native non-passive Wheel listener to smoothly step horizontally 1 card at a time
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || projects.length === 0) return;
@@ -102,7 +102,7 @@ export default function Projects() {
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
 
       if (delta > 14) {
-        // Scrolling down / right -> advance cards
+        // Scrolling down / right -> advance 1 card
         if (activeIndex < projects.length - 1) {
           e.preventDefault();
           if (now - lastWheelTime.current > 240) {
@@ -110,9 +110,9 @@ export default function Projects() {
             lastWheelTime.current = now;
           }
         }
-        // If on the last card, do NOT preventDefault -> page smoothly transitions to Contact!
+        // On last card, allow normal vertical page scroll down to Contact
       } else if (delta < -14) {
-        // Scrolling up / left -> previous card
+        // Scrolling up / left -> previous 1 card
         if (activeIndex > 0) {
           e.preventDefault();
           if (now - lastWheelTime.current > 240) {
@@ -120,7 +120,7 @@ export default function Projects() {
             lastWheelTime.current = now;
           }
         }
-        // If on the first card, do NOT preventDefault -> page smoothly transitions to Journey!
+        // On first card, allow normal vertical page scroll up to Journey
       }
     };
 
@@ -166,7 +166,7 @@ export default function Projects() {
     if (!isDragging) return;
     setIsDragging(false);
 
-    const threshold = 60;
+    const threshold = 50;
     if (dragOffset < -threshold && activeIndex < projects.length - 1) {
       goToNext();
     } else if (dragOffset > threshold && activeIndex > 0) {
@@ -199,7 +199,7 @@ export default function Projects() {
     if (!isDragging) return;
     setIsDragging(false);
 
-    const threshold = 50;
+    const threshold = 45;
     if (dragOffset < -threshold && activeIndex < projects.length - 1) {
       goToNext();
     } else if (dragOffset > threshold && activeIndex > 0) {
@@ -212,9 +212,8 @@ export default function Projects() {
     }, 50);
   };
 
-  // Calculate translation so that the active card is centered in the viewport
+  // Centering translation so the active card is always centered in the viewport
   const trackTranslateX = -(activeIndex * (cardMetrics.width + cardMetrics.gap)) + dragOffset;
-  const progressRatio = projects.length > 1 ? activeIndex / (projects.length - 1) : 0;
 
   return (
     <section
@@ -240,7 +239,7 @@ export default function Projects() {
         </h2>
       </div>
 
-      {/* Webflow Horizontal Scrolling Cards Stage */}
+      {/* Webflow Style Horizontal Cards Row */}
       <div className="projects__stage-container">
         {loading ? (
           <div className="projects__loading">
@@ -281,40 +280,11 @@ export default function Projects() {
                 />
               ))}
             </div>
-
-            {/* Navigation Arrows */}
-            <button
-              type="button"
-              className={`projects__nav-btn projects__nav-btn--prev ${
-                activeIndex === 0 ? 'projects__nav-btn--disabled' : ''
-              }`}
-              onClick={goToPrev}
-              disabled={activeIndex === 0}
-              aria-label="Previous project"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <button
-              type="button"
-              className={`projects__nav-btn projects__nav-btn--next ${
-                activeIndex === projects.length - 1 ? 'projects__nav-btn--disabled' : ''
-              }`}
-              onClick={goToNext}
-              disabled={activeIndex === projects.length - 1}
-              aria-label="Next project"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
           </div>
         )}
       </div>
 
-      {/* Bottom Controls & Progress Bar */}
+      {/* Bottom Controls */}
       {!loading && projects.length > 0 && (
         <div className="projects__controls">
           <div className="projects__pagination">
@@ -327,14 +297,6 @@ export default function Projects() {
                 aria-label={`Go to project ${idx + 1}`}
               />
             ))}
-          </div>
-
-          {/* Linear Progress Bar */}
-          <div className="projects__progress-bar-wrap">
-            <div
-              className="projects__progress-bar"
-              style={{ width: `${Math.max(8, progressRatio * 100)}%` }}
-            />
           </div>
 
           <div className="projects__counter">
@@ -351,3 +313,4 @@ export default function Projects() {
     </section>
   );
 }
+
