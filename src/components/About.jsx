@@ -47,9 +47,16 @@ export default function About() {
     >
       <span className="section-label about__label">About</span>
 
-      {/* Decorative background elements */}
-      <div className="about__bg-glow about__bg-glow--1" />
-      <div className="about__bg-glow about__bg-glow--2" />
+      {/* Subtle theme gradient background behind frosted glass */}
+      <div className="about__gradient-bg" aria-hidden="true">
+        <div className="about__gradient-mesh" />
+        <div className="about__bg-glow about__bg-glow--1" />
+        <div className="about__bg-glow about__bg-glow--2" />
+        <div className="about__bg-glow about__bg-glow--3" />
+      </div>
+
+      {/* Frosted Glass Layer */}
+      <div className="about__frosted-glass" aria-hidden="true" />
 
       <div className="about__container">
         {/* Left column — text content */}

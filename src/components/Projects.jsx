@@ -224,10 +224,16 @@ export default function Projects() {
     >
       <span className="section-label projects__label">Projects</span>
 
-      {/* Ambient Glows */}
-      <div className="projects__bg-glow projects__bg-glow--cyan" />
-      <div className="projects__bg-glow projects__bg-glow--indigo" />
-      <div className="projects__bg-grid" />
+      {/* Subtle theme gradient background behind frosted glass */}
+      <div className="projects__gradient-bg" aria-hidden="true">
+        <div className="projects__gradient-mesh" />
+        <div className="projects__bg-glow projects__bg-glow--1" />
+        <div className="projects__bg-glow projects__bg-glow--2" />
+        <div className="projects__bg-glow projects__bg-glow--3" />
+      </div>
+
+      {/* Frosted Glass Layer */}
+      <div className="projects__frosted-glass" aria-hidden="true" />
 
       {/* Section Header */}
       <div className="projects__header">

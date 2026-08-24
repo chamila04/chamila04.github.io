@@ -80,9 +80,16 @@ export default function Timeline() {
     >
       <span className="section-label timeline__label">Journey</span>
 
-      {/* Decorative elements */}
-      <div className="timeline__bg-accent timeline__bg-accent--1" />
-      <div className="timeline__bg-accent timeline__bg-accent--2" />
+      {/* Subtle theme gradient background behind frosted glass */}
+      <div className="timeline__gradient-bg" aria-hidden="true">
+        <div className="timeline__gradient-mesh" />
+        <div className="timeline__bg-accent timeline__bg-accent--1" />
+        <div className="timeline__bg-accent timeline__bg-accent--2" />
+        <div className="timeline__bg-accent timeline__bg-accent--3" />
+      </div>
+
+      {/* Frosted Glass Layer */}
+      <div className="timeline__frosted-glass" aria-hidden="true" />
 
       <div className="timeline__header">
         <span className="timeline__tag">Education & Experience</span>

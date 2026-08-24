@@ -101,10 +101,16 @@ export default function Contact() {
     >
       <span className="section-label contact__label">Contact</span>
 
-      {/* Floating background orbs */}
-      <div className="contact__orb contact__orb--1" />
-      <div className="contact__orb contact__orb--2" />
-      <div className="contact__orb contact__orb--3" />
+      {/* Subtle theme gradient background behind frosted glass */}
+      <div className="contact__gradient-bg" aria-hidden="true">
+        <div className="contact__gradient-mesh" />
+        <div className="contact__orb contact__orb--1" />
+        <div className="contact__orb contact__orb--2" />
+        <div className="contact__orb contact__orb--3" />
+      </div>
+
+      {/* Frosted Glass Layer */}
+      <div className="contact__frosted-glass" aria-hidden="true" />
 
       <div className="contact__grid">
         {/* Left column — CTA + Socials */}
