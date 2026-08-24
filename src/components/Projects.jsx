@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { WheelCard, ProjectDetail } from './ProjectCard';
 import './Projects.css';
 
-const SLOT_HEIGHT = 80; // px height + spacing between items
+const SLOT_HEIGHT = 112; // px height + spacing between items
 const VISIBLE_SLOTS = [-3, -2, -1, 0, 1, 2, 3];
 
 export default function Projects() {
@@ -306,13 +306,13 @@ export default function Projects() {
                     const proj = projects[projIdx];
                     if (!proj) return null;
 
-                    // Physical continuous distance from center
+                    // Physical continuous distance from center with larger wheel radius
                     const dist = virtualIdx - scrollPos;
-                    const rotateX = -dist * 24; // Deg
+                    const rotateX = -dist * 13; // Deg (Gentle, expansive curvature)
                     const translateY = dist * SLOT_HEIGHT; // Px
-                    const translateZ = Math.max(-160, -Math.abs(dist) * 38);
-                    const scale = Math.max(0.72, 1 - Math.abs(dist) * 0.075);
-                    const opacity = Math.max(0, 1 - Math.abs(dist) * 0.28);
+                    const translateZ = Math.max(-90, -Math.abs(dist) * 18);
+                    const scale = Math.max(0.88, 1 - Math.abs(dist) * 0.045);
+                    const opacity = Math.max(0.2, 1 - Math.abs(dist) * 0.22);
                     const zIndex = 30 - Math.abs(Math.round(dist));
                     const isActive = Math.abs(dist) < 0.45;
 
@@ -337,10 +337,6 @@ export default function Projects() {
                     );
                   })}
                 </div>
-
-                {/* Top and Bottom Fade Vignettes */}
-                <div className="projects__wheel-vignette projects__wheel-vignette--top" />
-                <div className="projects__wheel-vignette projects__wheel-vignette--bottom" />
               </div>
             </div>
 

@@ -240,11 +240,12 @@
 
 /* ── Left 1/3rd: 3D Infinite Vertical Scroll Wheel Column ── */
 .projects__wheel-column {
-  flex: 0 0 32%;
-  max-width: 360px;
-  min-width: 280px;
+  flex: 0 0 35%;
+  max-width: 420px;
+  min-width: 300px;
   height: 100%;
-  max-height: clamp(560px, 72vh, 690px);
+  max-height: clamp(580px, 75vh, 720px);
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -258,12 +259,13 @@
 .projects__wheel-viewport {
   position: relative;
   width: 100%;
+  height: 100%;
   flex: 1;
-  min-height: clamp(410px, 54vh, 520px);
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1100px;
+  perspective: 1200px;
   perspective-origin: 50% 50%;
   overflow: hidden;
   cursor: grab;
@@ -272,6 +274,8 @@
   background: transparent;
   border: none;
   box-shadow: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 4%, black 96%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 4%, black 96%, transparent 100%);
 }
 
 .projects__wheel-viewport:active {
@@ -281,7 +285,7 @@
 .projects__wheel-drum {
   position: relative;
   width: 100%;
-  height: 66px;
+  height: 72px;
   transform-style: preserve-3d;
 }
 
@@ -292,31 +296,11 @@
 .projects__wheel-item {
   position: absolute;
   width: 100%;
-  height: 66px;
+  height: 72px;
   top: 0;
   left: 0;
   transform-style: preserve-3d;
   will-change: transform, opacity;
-}
-
-/* Top & Bottom Vignette Mask */
-.projects__wheel-vignette {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 65px;
-  pointer-events: none;
-  z-index: 12;
-}
-
-.projects__wheel-vignette--top {
-  top: 0;
-  background: linear-gradient(180deg, rgba(238, 246, 251, 0.95) 0%, rgba(238, 246, 251, 0) 100%);
-}
-
-.projects__wheel-vignette--bottom {
-  bottom: 0;
-  background: linear-gradient(0deg, rgba(238, 246, 251, 0.95) 0%, rgba(238, 246, 251, 0) 100%);
 }
 
 /* ── Right 2/3rds: Details Column ── */
@@ -324,7 +308,8 @@
   flex: 1;
   min-width: 0;
   height: 100%;
-  max-height: clamp(560px, 72vh, 690px);
+  max-height: clamp(580px, 75vh, 720px);
+  align-self: stretch;
   display: flex;
   align-items: center;
   justify-content: center;
