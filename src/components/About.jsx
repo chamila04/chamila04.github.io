@@ -18,15 +18,15 @@ const interests = [
   { label: 'Autonomous Agents', icon: '🦾' },
 ];
 
-export default function About({ isHeroExiting = false }) {
+export default function About({ isHeroVisible = false, isHeroExiting = false }) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (isHeroExiting) {
+    if (isHeroExiting || !isHeroVisible) {
       setIsVisible(true);
     }
-  }, [isHeroExiting]);
+  }, [isHeroExiting, isHeroVisible]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,10 +52,16 @@ export default function About({ isHeroExiting = false }) {
     }
   };
 
+  const coverStateClass = isHeroVisible
+    ? isHeroExiting
+      ? 'about--revealing'
+      : 'about--covered'
+    : 'about--revealed';
+
   return (
     <section
       id="about"
-      className={`section about ${isVisible ? 'about--visible' : ''}`}
+      className={`section about ${isVisible ? 'about--visible' : ''} ${coverStateClass}`}
       data-bg="dark"
       ref={sectionRef}
     >

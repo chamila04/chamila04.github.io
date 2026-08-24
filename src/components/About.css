@@ -12,6 +12,21 @@
   z-index: 1;
   overflow: hidden;
   position: relative;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.85s ease;
+  will-change: transform, opacity;
+}
+
+/* While hero cover is on top */
+.about--covered {
+  transform: scale(0.97) translateY(20px);
+  opacity: 0.85;
+}
+
+/* While hero cover is lifting up to reveal */
+.about--revealing,
+.about--revealed {
+  transform: scale(1) translateY(0);
+  opacity: 1;
 }
 
 /* ── Subtle Gradient Wash Behind Glass ── */

@@ -230,20 +230,14 @@ function App() {
     };
   }, [heroVisible]);
 
-  const mainClass = heroVisible
-    ? heroExiting
-      ? 'main main--page-slide-up'
-      : 'main main--hero-active'
-    : 'main main--ready';
-
   return (
     <div className="app">
       <Navbar heroVisible={heroVisible} />
       {heroVisible && (
         <Hero exiting={heroExiting} onDismiss={dismissHero} />
       )}
-      <main className={mainClass}>
-        <About isHeroExiting={heroExiting} />
+      <main>
+        <About isHeroVisible={heroVisible} isHeroExiting={heroExiting} />
         <Timeline />
         <Projects />
         <Contact />
