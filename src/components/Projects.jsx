@@ -1,19 +1,25 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import ProjectCard from './ProjectCard';
+import { WheelCard, ProjectDetail } from './ProjectCard';
 import './Projects.css';
+
+const SLOT_HEIGHT = 80; // px height + spacing between items
+const VISIBLE_SLOTS = [-3, -2, -1, 0, 1, 2, 3];
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [cardMetrics, setCardMetrics] = useState({ width: 360, gap: 28 });
+  const [scrollPos, setScrollPos] = useState(0);
 
   const sectionRef = useRef(null);
-  const trackRef = useRef(null);
-  const dragStartX = useRef(0);
+  const wheelContainerRef = useRef(null);
+  const scrollPosRef = useRef(0);
+  const targetPosRef = useRef(0);
+  const animFrameRef = useRef(null);
+  const dragStartY = useRef(0);
+  const dragStartPos = useRef(0);
+  const isDraggingRef = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
   const hasDragged = useRef(false);
   const lastWheelTime = useRef(0);
 
@@ -25,10 +31,10 @@ export default function Projects() {
         return res.json();
       })
       .then((data) => {
-        const filtered = (Array.isArray(data) ? data : []).filter(
-          (item) => Number(item.id) !== 0
-        );
-        setProjects(filtered);
+        const list = Array.isArray(data)
+          ? data.filter((item) => item && item.title && Number(item.id) !== 0)
+          : [];
+        setProjects(list);
         setLoading(false);
       })
       .catch((err) => {
@@ -45,7 +51,7 @@ export default function Projects() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
 
     if (sectionRef.current) {
@@ -55,78 +61,83 @@ export default function Projects() {
     return () => observer.disconnect();
   }, []);
 
-  // Measure actual card width & gap dynamically on resize
-  const measureCardMetrics = useCallback(() => {
-    if (!trackRef.current) return;
-    const firstCard = trackRef.current.querySelector('.scroll-card');
-    if (firstCard) {
-      const rect = firstCard.getBoundingClientRect();
-      const style = window.getComputedStyle(trackRef.current);
-      const gap = parseFloat(style.gap) || 28;
-      setCardMetrics({
-        width: rect.width || 360,
-        gap: gap,
-      });
-    }
-  }, []);
+  const totalProjects = projects.length;
 
-  useEffect(() => {
-    measureCardMetrics();
-    window.addEventListener('resize', measureCardMetrics);
-    return () => window.removeEventListener('resize', measureCardMetrics);
-  }, [measureCardMetrics, projects, loading]);
+  // Continuous animation ticker (smooth spring / lerp damping)
+  const startAnimation = useCallback(() => {
+    if (animFrameRef.current) return;
 
-  const goToIndex = useCallback((index) => {
-    if (index >= 0 && index < projects.length) {
-      setActiveIndex(index);
-    }
-  }, [projects.length]);
-
-  const goToPrev = useCallback(() => {
-    setActiveIndex((prev) => Math.max(0, prev - 1));
-  }, []);
-
-  const goToNext = useCallback(() => {
-    setActiveIndex((prev) => Math.min(projects.length - 1, prev + 1));
-  }, [projects.length]);
-
-  // Native non-passive Wheel listener to smoothly step horizontally 1 card at a time
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el || projects.length === 0) return;
-
-    const handleNativeWheel = (e) => {
-      const now = Date.now();
-      if (Math.abs(e.deltaY) < 14 && Math.abs(e.deltaX) < 14) return;
-
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-
-      if (delta > 14) {
-        // Scrolling down / right -> advance 1 card
-        if (activeIndex < projects.length - 1) {
-          e.preventDefault();
-          if (now - lastWheelTime.current > 240) {
-            goToNext();
-            lastWheelTime.current = now;
-          }
-        }
-        // On last card, allow normal vertical page scroll down to Contact
-      } else if (delta < -14) {
-        // Scrolling up / left -> previous 1 card
-        if (activeIndex > 0) {
-          e.preventDefault();
-          if (now - lastWheelTime.current > 240) {
-            goToPrev();
-            lastWheelTime.current = now;
-          }
-        }
-        // On first card, allow normal vertical page scroll up to Journey
+    const tick = () => {
+      const diff = targetPosRef.current - scrollPosRef.current;
+      if (Math.abs(diff) > 0.001) {
+        scrollPosRef.current += diff * 0.15;
+        setScrollPos(scrollPosRef.current);
+        animFrameRef.current = requestAnimationFrame(tick);
+      } else {
+        scrollPosRef.current = targetPosRef.current;
+        setScrollPos(targetPosRef.current);
+        animFrameRef.current = null;
       }
     };
 
-    el.addEventListener('wheel', handleNativeWheel, { passive: false });
-    return () => el.removeEventListener('wheel', handleNativeWheel);
-  }, [activeIndex, projects.length, goToNext, goToPrev]);
+    animFrameRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  // Cleanup animation frame on unmount
+  useEffect(() => {
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, []);
+
+  const stepBy = useCallback(
+    (delta) => {
+      targetPosRef.current += delta;
+      startAnimation();
+    },
+    [startAnimation]
+  );
+
+  const goToPrev = useCallback(() => {
+    stepBy(-1);
+  }, [stepBy]);
+
+  const goToNext = useCallback(() => {
+    stepBy(1);
+  }, [stepBy]);
+
+  const handleCardClick = useCallback(
+    (virtualIdx) => {
+      if (hasDragged.current) return;
+      targetPosRef.current = virtualIdx;
+      startAnimation();
+    },
+    [startAnimation]
+  );
+
+  // Native non-passive Wheel listener on wheel container
+  useEffect(() => {
+    const wheelEl = wheelContainerRef.current;
+    if (!wheelEl || totalProjects === 0) return;
+
+    const handleWheel = (e) => {
+      if (Math.abs(e.deltaY) < 10) return;
+      e.preventDefault();
+
+      const now = Date.now();
+      if (now - lastWheelTime.current > 150) {
+        const dir = e.deltaY > 0 ? 1 : -1;
+        targetPosRef.current += dir;
+        startAnimation();
+        lastWheelTime.current = now;
+      }
+    };
+
+    wheelEl.addEventListener('wheel', handleWheel, { passive: false });
+    return () => wheelEl.removeEventListener('wheel', handleWheel);
+  }, [totalProjects, startAnimation]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -134,9 +145,11 @@ export default function Projects() {
       if (!isVisible) return;
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
 
-      if (e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
         goToPrev();
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
         goToNext();
       }
     };
@@ -148,72 +161,88 @@ export default function Projects() {
   // Mouse Drag handlers
   const handleMouseDown = (e) => {
     if (e.button !== 0) return;
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = null;
+    }
+    isDraggingRef.current = true;
     setIsDragging(true);
     hasDragged.current = false;
-    dragStartX.current = e.clientX;
+    dragStartY.current = e.clientY;
+    dragStartPos.current = scrollPosRef.current;
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const diff = e.clientX - dragStartX.current;
-    if (Math.abs(diff) > 6) {
+    if (!isDraggingRef.current) return;
+    const diff = e.clientY - dragStartY.current;
+    if (Math.abs(diff) > 4) {
       hasDragged.current = true;
     }
-    setDragOffset(diff);
+    const newPos = dragStartPos.current - diff / SLOT_HEIGHT;
+    scrollPosRef.current = newPos;
+    targetPosRef.current = newPos;
+    setScrollPos(newPos);
   };
 
   const handleMouseUp = () => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
     setIsDragging(false);
 
-    const threshold = 50;
-    if (dragOffset < -threshold && activeIndex < projects.length - 1) {
-      goToNext();
-    } else if (dragOffset > threshold && activeIndex > 0) {
-      goToPrev();
-    }
+    targetPosRef.current = Math.round(scrollPosRef.current);
+    startAnimation();
 
-    setDragOffset(0);
     setTimeout(() => {
       hasDragged.current = false;
-    }, 50);
+    }, 60);
   };
 
   // Touch handlers
   const handleTouchStart = (e) => {
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = null;
+    }
+    isDraggingRef.current = true;
     setIsDragging(true);
     hasDragged.current = false;
-    dragStartX.current = e.touches[0].clientX;
+    dragStartY.current = e.touches[0].clientY;
+    dragStartPos.current = scrollPosRef.current;
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const diff = e.touches[0].clientX - dragStartX.current;
-    if (Math.abs(diff) > 6) {
+    if (!isDraggingRef.current) return;
+    const diff = e.touches[0].clientY - dragStartY.current;
+    if (Math.abs(diff) > 4) {
       hasDragged.current = true;
     }
-    setDragOffset(diff);
+    const newPos = dragStartPos.current - diff / SLOT_HEIGHT;
+    scrollPosRef.current = newPos;
+    targetPosRef.current = newPos;
+    setScrollPos(newPos);
   };
 
   const handleTouchEnd = () => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
     setIsDragging(false);
 
-    const threshold = 45;
-    if (dragOffset < -threshold && activeIndex < projects.length - 1) {
-      goToNext();
-    } else if (dragOffset > threshold && activeIndex > 0) {
-      goToPrev();
-    }
+    targetPosRef.current = Math.round(scrollPosRef.current);
+    startAnimation();
 
-    setDragOffset(0);
     setTimeout(() => {
       hasDragged.current = false;
-    }, 50);
+    }, 60);
   };
 
-  // Centering translation so the active card is always centered in the viewport
-  const trackTranslateX = -(activeIndex * (cardMetrics.width + cardMetrics.gap)) + dragOffset;
+  // Calculate active project index for details view
+  const activeIndex = totalProjects > 0
+    ? ((Math.round(scrollPos) % totalProjects) + totalProjects) % totalProjects
+    : 0;
+  const currentProject = totalProjects > 0 ? projects[activeIndex] : null;
+
+  // Build visible range of slots around current center
+  const centerInt = Math.round(scrollPos);
 
   return (
     <section
@@ -238,85 +267,97 @@ export default function Projects() {
       {/* Section Header */}
       <div className="projects__header">
         <span className="projects__tag">
-          <span className="projects__tag-sparkle">✦</span> Featured Showcase
+          <span className="projects__tag-sparkle">✦</span> Interactive Wheel Showcase
         </span>
         <h2 className="projects__title">
           Selected <span className="projects__title-accent">Creations</span>
         </h2>
       </div>
 
-      {/* Webflow Style Horizontal Cards Row */}
+      {/* Main Split Layout: Left 1/3 Wheel + Right 2/3 Details */}
       <div className="projects__stage-container">
         {loading ? (
           <div className="projects__loading">
             <div className="projects__spinner" />
           </div>
-        ) : projects.length === 0 ? (
+        ) : totalProjects === 0 ? (
           <p className="projects__empty">No projects available.</p>
         ) : (
-          <div
-            className="sticky-wrap"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div
-              className={`scroll-inner ${isDragging ? 'scroll-inner--dragging' : ''}`}
-              ref={trackRef}
-              style={{
-                transform: `translate3d(${trackTranslateX}px, 0, 0)`,
-                paddingLeft: `calc(50vw - ${cardMetrics.width / 2}px)`,
-                paddingRight: `calc(50vw - ${cardMetrics.width / 2}px)`,
-              }}
-            >
-              {projects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  totalCards={projects.length}
-                  isActive={index === activeIndex}
-                  offset={index - activeIndex}
-                  onClick={goToIndex}
-                  isDragging={hasDragged.current}
-                />
-              ))}
+          <div className="projects__split-layout">
+            {/* ── Left 1/3rd: 3D Infinite Vertical Scroll Wheel ── */}
+            <div className="projects__wheel-column">
+              {/* Cylindrical 3D Wheel Stage */}
+              <div
+                className="projects__wheel-viewport"
+                ref={wheelContainerRef}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                <div className="projects__wheel-drum">
+                  {VISIBLE_SLOTS.map((slotOffset) => {
+                    const virtualIdx = centerInt + slotOffset;
+                    const projIdx =
+                      ((virtualIdx % totalProjects) + totalProjects) % totalProjects;
+                    const proj = projects[projIdx];
+                    if (!proj) return null;
+
+                    // Physical continuous distance from center
+                    const dist = virtualIdx - scrollPos;
+                    const rotateX = -dist * 24; // Deg
+                    const translateY = dist * SLOT_HEIGHT; // Px
+                    const translateZ = Math.max(-160, -Math.abs(dist) * 38);
+                    const scale = Math.max(0.72, 1 - Math.abs(dist) * 0.075);
+                    const opacity = Math.max(0, 1 - Math.abs(dist) * 0.28);
+                    const zIndex = 30 - Math.abs(Math.round(dist));
+                    const isActive = Math.abs(dist) < 0.45;
+
+                    return (
+                      <div
+                        key={`vslot-${virtualIdx}`}
+                        className="projects__wheel-item"
+                        style={{
+                          transform: `translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) scale(${scale})`,
+                          opacity: opacity,
+                          zIndex: zIndex,
+                        }}
+                      >
+                        <WheelCard
+                          project={proj}
+                          index={projIdx}
+                          offset={Math.round(dist)}
+                          isActive={isActive}
+                          onClick={() => handleCardClick(virtualIdx)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Top and Bottom Fade Vignettes */}
+                <div className="projects__wheel-vignette projects__wheel-vignette--top" />
+                <div className="projects__wheel-vignette projects__wheel-vignette--bottom" />
+              </div>
+            </div>
+
+            {/* ── Right 2/3rds: Focused Project Details Showcase ── */}
+            <div className="projects__details-column">
+              <ProjectDetail
+                project={currentProject}
+                index={activeIndex}
+                totalCount={totalProjects}
+                onPrev={goToPrev}
+                onNext={goToNext}
+              />
             </div>
           </div>
         )}
       </div>
 
-      {/* Bottom Controls */}
-      {!loading && projects.length > 0 && (
-        <div className="projects__controls">
-          <div className="projects__pagination">
-            {projects.map((p, idx) => (
-              <button
-                key={p.id}
-                type="button"
-                className={`projects__dot ${idx === activeIndex ? 'projects__dot--active' : ''}`}
-                onClick={() => goToIndex(idx)}
-                aria-label={`Go to project ${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          <div className="projects__counter">
-            <span className="projects__counter-current">
-              {String(activeIndex + 1).padStart(2, '0')}
-            </span>
-            <span className="projects__counter-sep">/</span>
-            <span className="projects__counter-total">
-              {String(projects.length).padStart(2, '0')}
-            </span>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
-

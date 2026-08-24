@@ -116,17 +116,23 @@ export default function Contact() {
         {/* Left column — CTA + Socials */}
         <div className="contact__left">
           <div className="contact__intro">
-            <span className="contact__tag">Get in Touch</span>
+            <span className="contact__tag">Open for Opportunities</span>
             <h2 className="contact__title">
-              Let's create
+              Let's build something
               <br />
-              something{' '}
-              <span className="contact__title-accent">amazing</span>
+              <span className="contact__title-accent">intelligent</span> together
             </h2>
             <p className="contact__subtitle">
-              Have a project in mind, a question, or just want to say hello?
-              I'd love to hear from you. Let's build something great together.
+              I'm actively seeking opportunities in <strong>Data Science</strong>, <strong>Artificial Intelligence</strong>, and <strong>Machine Learning</strong>. Whether you have an internship or full-time role opening, an ML project idea, or a complex data problem to solve — I'd love to connect!
             </p>
+          </div>
+
+          {/* Opportunity Scope Chips */}
+          <div className="contact__opportunities" aria-label="Areas open for collaboration">
+            <span className="contact__opp-tag">💼 Data Science & AI Roles</span>
+            <span className="contact__opp-tag">🤝 ML Project Collaborations</span>
+            <span className="contact__opp-tag">📊 Predictive Analytics</span>
+            <span className="contact__opp-tag">🚀 Research & Innovation</span>
           </div>
 
           <div className="contact__social-grid">
@@ -216,7 +222,7 @@ export default function Contact() {
               <textarea
                 name="message"
                 id="contact-message"
-                placeholder="Tell me about your project..."
+                placeholder="Tell me about your AI/Data project, role opportunity, or what you'd like to collaborate on..."
                 rows="5"
                 value={formData.message}
                 onChange={handleChange}
@@ -281,7 +287,7 @@ export default function Contact() {
           <div className="contact__footer-brand">
             <span className="contact__footer-name">Chamila</span>
             <span className="contact__footer-tagline">
-              Developer & Tech Enthusiast
+              Data Science & AI / ML Enthusiast
             </span>
           </div>
           <div className="contact__footer-links">
@@ -291,7 +297,7 @@ export default function Contact() {
             <a href="#contact" className="contact__footer-link">Contact</a>
           </div>
           <div className="contact__footer-copy">
-            <p>© 2026 Chamila. Crafted with passion & curiosity.</p>
+            <p>© 2026 Chamila. Exploring the future of AI & Data Science.</p>
           </div>
         </div>
       </footer>

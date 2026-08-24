@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════
-   Navbar Component — Modern Top-Floating Horizontal Capsule Dock
+   Navbar Component — Light Theme
+   Modern Top-Floating Horizontal Capsule Dock
    With Dynamic Per-Section Color Palettes
    ═══════════════════════════════════════════════ */
 
@@ -23,15 +24,15 @@
   transform: translateY(-32px) translateX(-50%) !important;
 }
 
-/* ── Horizontal Floating Capsule Dock ── */
+/* ── Horizontal Floating Capsule Dock (Light Frosted Glass) ── */
 .navbar__dock {
   pointer-events: all;
   border-radius: 9999px;
   padding: 6px 8px;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
   transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .navbar__list {
@@ -111,139 +112,139 @@
 }
 
 /* ═══════════════════════════════════════════════
-   DYNAMIC SECTION COLOR PALETTES
+   DYNAMIC SECTION COLOR PALETTES — LIGHT THEME
    ═══════════════════════════════════════════════ */
 
-/* ── 1. About Section Theme (Deep Indigo & Violet) ── */
+/* ── 1. About Section Theme (#fb8500 & #ffb703) ── */
 .navbar--about .navbar__dock {
-  background: rgba(22, 22, 40, 0.82);
-  border: 1px solid rgba(139, 92, 246, 0.28);
-  box-shadow: 0 16px 40px rgba(10, 10, 25, 0.5), 0 0 28px rgba(99, 102, 241, 0.15);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(251, 133, 0, 0.25);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(251, 133, 0, 0.08);
 }
 
 .navbar--about .navbar__link {
-  color: rgba(203, 213, 225, 0.65);
+  color: #64748b;
 }
 
 .navbar--about .navbar__link:hover {
-  color: #ffffff;
-  background: rgba(139, 92, 246, 0.14);
+  color: #1e293b;
+  background: rgba(251, 133, 0, 0.08);
 }
 
 .navbar--about .navbar__link--active {
-  color: #ffffff;
+  color: #c45b00;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(167, 139, 250, 0.22));
-  border: 1px solid rgba(167, 139, 250, 0.45);
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+  background: linear-gradient(135deg, rgba(251, 133, 0, 0.18), rgba(255, 183, 3, 0.1));
+  border: 1px solid rgba(251, 133, 0, 0.35);
+  box-shadow: 0 2px 8px rgba(251, 133, 0, 0.15);
 }
 
 .navbar--about .navbar__link--active .navbar__link-icon {
-  color: #a78bfa;
+  color: #fb8500;
 }
 
 .navbar--about .navbar__active-indicator {
-  background: #a78bfa;
-  box-shadow: 0 0 8px rgba(167, 139, 250, 0.9);
+  background: #fb8500;
+  box-shadow: 0 0 6px rgba(251, 133, 0, 0.7);
 }
 
-/* ── 2. Journey Section Theme (Warm Cream & Terracotta Orange) ── */
+/* ── 2. Journey Section Theme (Green / Emerald) ── */
 .navbar--journey .navbar__dock {
-  background: rgba(252, 248, 242, 0.92);
-  border: 1px solid rgba(234, 88, 12, 0.24);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(234, 88, 12, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(16, 185, 129, 0.06);
 }
 
 .navbar--journey .navbar__link {
-  color: rgba(45, 45, 45, 0.65);
+  color: #64748b;
 }
 
 .navbar--journey .navbar__link:hover {
-  color: #1a1a1a;
-  background: rgba(234, 88, 12, 0.09);
+  color: #1e293b;
+  background: rgba(16, 185, 129, 0.08);
 }
 
 .navbar--journey .navbar__link--active {
-  color: #ea580c;
+  color: #047857;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(234, 88, 12, 0.14));
-  border: 1px solid rgba(234, 88, 12, 0.35);
-  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.15);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(34, 197, 94, 0.08));
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
 }
 
 .navbar--journey .navbar__link--active .navbar__link-icon {
-  color: #ea580c;
+  color: #059669;
 }
 
 .navbar--journey .navbar__active-indicator {
-  background: #ea580c;
-  box-shadow: 0 0 8px rgba(234, 88, 12, 0.85);
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
 }
 
-/* ── 3. Projects Section Theme (Deep Slate & Platinum Gray) ── */
+/* ── 3. Projects Section Theme (Cyan / Sky / Blue) ── */
 .navbar--projects .navbar__dock {
-  background: rgba(18, 21, 26, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 28px rgba(148, 163, 184, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(6, 182, 212, 0.22);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(6, 182, 212, 0.06);
 }
 
 .navbar--projects .navbar__link {
-  color: rgba(203, 213, 225, 0.65);
+  color: #64748b;
 }
 
 .navbar--projects .navbar__link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  color: #1e293b;
+  background: rgba(6, 182, 212, 0.08);
 }
 
 .navbar--projects .navbar__link--active {
-  color: #ffffff;
+  color: #0369a1;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(148, 163, 184, 0.12));
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(14, 165, 233, 0.08));
+  border: 1px solid rgba(6, 182, 212, 0.32);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.12);
 }
 
 .navbar--projects .navbar__link--active .navbar__link-icon {
-  color: #f1f5f9;
+  color: #0891b2;
 }
 
 .navbar--projects .navbar__active-indicator {
-  background: #cbd5e1;
-  box-shadow: 0 0 8px rgba(203, 213, 225, 0.9);
+  background: #06b6d4;
+  box-shadow: 0 0 6px rgba(6, 182, 212, 0.7);
 }
 
-/* ── 4. Contact Section Theme (Slate-900 & Ocean Blue #0077b6) ── */
+/* ── 4. Contact Section Theme (Violet / Purple / Fuchsia) ── */
 .navbar--contact .navbar__dock {
-  background: rgba(15, 23, 42, 0.86);
-  border: 1px solid rgba(0, 119, 182, 0.32);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 28px rgba(0, 119, 182, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(139, 92, 246, 0.24);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(139, 92, 246, 0.06);
 }
 
 .navbar--contact .navbar__link {
-  color: rgba(203, 213, 225, 0.62);
+  color: #64748b;
 }
 
 .navbar--contact .navbar__link:hover {
-  color: #ffffff;
-  background: rgba(0, 119, 182, 0.16);
+  color: #1e293b;
+  background: rgba(139, 92, 246, 0.08);
 }
 
 .navbar--contact .navbar__link--active {
-  color: #0096c7;
+  color: #6d28d9;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(0, 119, 182, 0.32), rgba(0, 150, 199, 0.18));
-  border: 1px solid rgba(0, 119, 182, 0.5);
-  box-shadow: 0 4px 16px rgba(0, 119, 182, 0.3);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.16), rgba(168, 85, 247, 0.08));
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.14);
 }
 
 .navbar--contact .navbar__link--active .navbar__link-icon {
-  color: #0096c7;
+  color: #7c3aed;
 }
 
 .navbar--contact .navbar__active-indicator {
-  background: #0096c7;
-  box-shadow: 0 0 8px rgba(0, 150, 199, 0.95);
+  background: #a855f7;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.7);
 }
 
 /* ═══════════════════════════════════════════════
@@ -255,15 +256,12 @@
   .navbar-vertical-wrapper {
     top: 16px;
   }
-
   .navbar__dock {
     padding: 5px 6px;
   }
-
   .navbar__list {
     gap: 4px;
   }
-
   .navbar__link {
     padding: 7px 12px;
     font-size: 0.8rem;
@@ -279,23 +277,19 @@
     display: flex;
     justify-content: center;
   }
-
   .navbar__dock {
     padding: 4px 6px;
     max-width: 100%;
   }
-
   .navbar__list {
     gap: 3px;
     justify-content: center;
   }
-
   .navbar__link {
     padding: 6px 10px;
     font-size: 0.74rem;
     gap: 5px;
   }
-
   .navbar__active-indicator {
     display: none;
   }

@@ -75,7 +75,7 @@ export default function Timeline() {
     <section
       id="journey"
       className={`section timeline ${isVisible ? 'timeline--visible' : ''}`}
-      data-bg="cream"
+      data-bg="dark"
       ref={sectionRef}
     >
       <span className="section-label timeline__label">Journey</span>
@@ -96,9 +96,9 @@ export default function Timeline() {
         <h2 className="timeline__title">
           My <span className="timeline__title-accent">Journey</span>
         </h2>
-        <p className="timeline__subtitle">
+        {/*<p className="timeline__subtitle">
           Timeline of my academic milestones and professional experiences
-        </p>
+        </p>*/}
       </div>
 
       <div className="timeline__container">
@@ -106,11 +106,11 @@ export default function Timeline() {
         <div className="timeline__line" />
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: 'rgba(0,0,0,0.4)' }}>
+          <div style={{ textAlign: 'center', padding: '40px 0', color: 'rgba(255,255,255,0.4)' }}>
             Loading journey...
           </div>
         ) : timelineData.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: 'rgba(0,0,0,0.4)' }}>
+          <div style={{ textAlign: 'center', padding: '40px 0', color: 'rgba(255,255,255,0.4)' }}>
             No journey entries found. Add items to journey.json!
           </div>
         ) : (

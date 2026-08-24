@@ -6,8 +6,16 @@ const interests = [
   { label: 'Machine Learning', icon: '🧠' },
   { label: 'Data Science', icon: '📊' },
   { label: 'Deep Learning', icon: '🔬' },
-  { label: 'Problem Solving', icon: '💡' },
-  { label: 'Innovation', icon: '🚀' },
+  { label: 'Generative AI', icon: '⚡' },
+  { label: 'NLP & LLMs', icon: '💬' },
+  { label: 'Computer Vision', icon: '👁️' },
+  { label: 'Predictive AI', icon: '📈' },
+  { label: 'Neural Networks', icon: '🕸️' },
+  { label: 'Data Analytics', icon: '📉' },
+  { label: 'MLOps & Pipelines', icon: '⚙️' },
+  { label: 'Reinforcement Learning', icon: '🎯' },
+  { label: 'Python & PyTorch', icon: '🐍' },
+  { label: 'Autonomous Agents', icon: '🦾' },
 ];
 
 export default function About() {
@@ -62,25 +70,27 @@ export default function About() {
         {/* Left column — text content */}
         <div className="about__left">
           <div className="about__intro">
-            <span className="about__tag">Hello there 👋</span>
+            <div className="about__badge-row">
+              <span className="about__tag">Hello there 👋</span>
+              <div className="about__status-badge">
+                <span className="about__status-dot" />
+                <span>Open for Data Science & AI Opportunities</span>
+              </div>
+            </div>
             <h2 className="about__name">
               I'm <span className="about__name-highlight">Chamila</span>
             </h2>
-            <p className="about__role">Developer & Tech Enthusiast</p>
+            <p className="about__role">Data Science & AI / ML Enthusiast</p>
           </div>
 
           <div className="about__divider" />
 
           <p className="about__bio">
-            I'm a passionate tech enthusiast interested in{' '}
+            I'm a passionate technology enthusiast and Computer Science & Data Science student with a deep interest in{' '}
             <strong>
-              Artificial Intelligence, Machine Learning, Data Science, and
-              innovative technology
+              Artificial Intelligence, Machine Learning, Data Analytics, and Intelligent Systems
             </strong>
-            . I enjoy exploring new ideas, solving real-world problems, and
-            building practical solutions. I'm curious about how technology works
-            and always looking for opportunities to learn, experiment, and create
-            something meaningful.
+            . I enjoy transforming raw data into actionable insights, designing robust predictive models, and building practical, AI-driven solutions. I'm actively exploring new frontiers in AI and eagerly seeking collaborative projects, internships, and career opportunities in Data Science and Machine Learning.
           </p>
 
           <button className="about__cta" onClick={handleContact}>
@@ -110,7 +120,11 @@ export default function About() {
               <div
                 className="about__interest-chip"
                 key={item.label}
-                style={{ animationDelay: `${0.15 + i * 0.1}s` }}
+                style={{
+                  animationDelay: `${0.12 + (i % 6) * 0.06}s`,
+                  '--float-delay': `${(i * 0.35) % 3}s`,
+                  '--float-duration': `${3.2 + (i % 4) * 0.6}s`,
+                }}
               >
                 <span className="about__interest-icon">{item.icon}</span>
                 <span className="about__interest-label">{item.label}</span>
