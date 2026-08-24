@@ -251,7 +251,7 @@ export default function Projects() {
       data-bg="dark"
       ref={sectionRef}
     >
-      <span className="section-label projects__label">Projects</span>
+      {/*<span className="section-label projects__label">Projects</span>*/}
 
       {/* Subtle theme gradient background behind frosted glass */}
       <div className="projects__gradient-bg" aria-hidden="true">

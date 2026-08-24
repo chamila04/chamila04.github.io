@@ -78,7 +78,7 @@ export default function Timeline() {
       data-bg="dark"
       ref={sectionRef}
     >
-      <span className="section-label timeline__label">Journey</span>
+      {/*<span className="section-label timeline__label">Journey</span>*/}
 
       {/* Subtle theme gradient background behind frosted glass */}
       <div className="timeline__gradient-bg" aria-hidden="true">

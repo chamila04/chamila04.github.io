@@ -53,7 +53,7 @@ export default function About() {
       data-bg="dark"
       ref={sectionRef}
     >
-      <span className="section-label about__label">About</span>
+      {/*<span className="section-label about__label">About</span>*/}
 
       {/* Subtle theme gradient background behind frosted glass */}
       <div className="about__gradient-bg" aria-hidden="true">
@@ -72,10 +72,10 @@ export default function About() {
           <div className="about__intro">
             <div className="about__badge-row">
               <span className="about__tag">Hello there 👋</span>
-              <div className="about__status-badge">
+              {/*<div className="about__status-badge">
                 <span className="about__status-dot" />
                 <span>Open for Data Science & AI Opportunities</span>
-              </div>
+              </div>*/}
             </div>
             <h2 className="about__name">
               I'm <span className="about__name-highlight">Chamila</span>

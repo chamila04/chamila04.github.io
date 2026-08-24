@@ -99,7 +99,7 @@ export default function Contact() {
       data-bg="slate"
       ref={sectionRef}
     >
-      <span className="section-label contact__label">Contact</span>
+      {/*<span className="section-label contact__label">Contact</span>*/}
 
       {/* Subtle theme gradient background behind frosted glass */}
       <div className="contact__gradient-bg" aria-hidden="true">
@@ -125,14 +125,6 @@ export default function Contact() {
             <p className="contact__subtitle">
               I'm actively seeking opportunities in <strong>Data Science</strong>, <strong>Artificial Intelligence</strong>, and <strong>Machine Learning</strong>. Whether you have an internship or full-time role opening, an ML project idea, or a complex data problem to solve — I'd love to connect!
             </p>
-          </div>
-
-          {/* Opportunity Scope Chips */}
-          <div className="contact__opportunities" aria-label="Areas open for collaboration">
-            <span className="contact__opp-tag">💼 Data Science & AI Roles</span>
-            <span className="contact__opp-tag">🤝 ML Project Collaborations</span>
-            <span className="contact__opp-tag">📊 Predictive Analytics</span>
-            <span className="contact__opp-tag">🚀 Research & Innovation</span>
           </div>
 
           <div className="contact__social-grid">
@@ -222,7 +214,7 @@ export default function Contact() {
               <textarea
                 name="message"
                 id="contact-message"
-                placeholder="Tell me about your AI/Data project, role opportunity, or what you'd like to collaborate on..."
+                placeholder="Write your message here..."
                 rows="5"
                 value={formData.message}
                 onChange={handleChange}
