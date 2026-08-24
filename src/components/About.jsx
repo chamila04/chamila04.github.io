@@ -18,9 +18,15 @@ const interests = [
   { label: 'Autonomous Agents', icon: '🦾' },
 ];
 
-export default function About() {
+export default function About({ isHeroExiting = false }) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isHeroExiting) {
+      setIsVisible(true);
+    }
+  }, [isHeroExiting]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,7 +92,7 @@ export default function About() {
           <div className="about__divider" />
 
           <p className="about__bio">
-            I'm a passionate technology enthusiast and Computer Science & Data Science student with a deep interest in{' '}
+            I'm a passionate technology enthusiast and Computer Science & Data Science undergraduate with a deep interest in{' '}
             <strong>
               Artificial Intelligence, Machine Learning, Data Analytics, and Intelligent Systems
             </strong>

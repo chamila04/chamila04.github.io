@@ -58,7 +58,7 @@ function App() {
       setHeroExiting(false);
       setCurrentIndex(0);
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 700);
+    }, 850);
   }, [heroVisible, heroExiting]);
 
   // Keep currentIndex in sync when user clicks navbar or scrolls
@@ -230,14 +230,20 @@ function App() {
     };
   }, [heroVisible]);
 
+  const mainClass = heroVisible
+    ? heroExiting
+      ? 'main main--page-slide-up'
+      : 'main main--hero-active'
+    : 'main main--ready';
+
   return (
     <div className="app">
       <Navbar heroVisible={heroVisible} />
       {heroVisible && (
         <Hero exiting={heroExiting} onDismiss={dismissHero} />
       )}
-      <main>
-        <About />
+      <main className={mainClass}>
+        <About isHeroExiting={heroExiting} />
         <Timeline />
         <Projects />
         <Contact />
