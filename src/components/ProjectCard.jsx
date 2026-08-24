@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './ProjectCard.css';
 
 /**
@@ -61,7 +62,44 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
   const total = String(totalCount).padStart(2, '0');
   const techStack = project.techStack || project.tags || [];
   const badge = project.badge || project.category || 'Featured';
-  const projectImage = resolveAssetUrl(project.image);
+
+  // Normalize image list
+  const rawImages =
+    Array.isArray(project.images) && project.images.length > 0
+      ? project.images
+      : project.image
+      ? [project.image]
+      : [];
+
+  const images = rawImages.map(resolveAssetUrl).filter(Boolean);
+
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  // Reset currentImgIndex when project changes
+  useEffect(() => {
+    setCurrentImgIndex(0);
+  }, [project.id, project.title]);
+
+  // Preload images for seamless cycling
+  useEffect(() => {
+    if (images.length > 1) {
+      images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+  }, [images]);
+
+  // Cycle image every 2 seconds (2000ms)
+  useEffect(() => {
+    if (images.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % images.length);
+    }, 2000);
+
+    return () => clearInterval(timer);
+  }, [images.length, project.id]);
 
   return (
     <article className="project-detail" key={project.id || index}>
@@ -124,31 +162,64 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
           )}
         </div>
 
-        {/* Media Frame */}
+        {/* Media Frame with 1-second Image Cycling */}
         <div className="project-detail__media-wrapper">
-          <div
-            className="project-detail__image"
-            style={{
-              backgroundImage: projectImage ? `url("${projectImage}")` : 'none',
-            }}
-          >
-            {!projectImage && (
-              <div className="project-detail__media-placeholder">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="3" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
+          {images.length > 0 ? (
+            images.map((imgSrc, i) => (
+              <div
+                key={imgSrc || i}
+                className={`project-detail__image-slide ${
+                  i === currentImgIndex ? 'project-detail__image-slide--active' : ''
+                }`}
+                style={{
+                  backgroundImage: `url("${imgSrc}")`,
+                }}
+              />
+            ))
+          ) : (
+            <div className="project-detail__media-placeholder">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="3" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+            </div>
+          )}
+
+          {/* Image slide counter & live indicator badge */}
+          {images.length > 1 && (
+            <>
+              <div className="project-detail__image-badge">
+                <span className="project-detail__image-badge-live" />
+                <span>
+                  {currentImgIndex + 1} / {images.length}
+                </span>
               </div>
-            )}
-          </div>
+
+              {/* Slide Dots navigation */}
+              <div className="project-detail__image-dots">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`project-detail__image-dot ${
+                      i === currentImgIndex ? 'project-detail__image-dot--active' : ''
+                    }`}
+                    onClick={() => setCurrentImgIndex(i)}
+                    aria-label={`Show image ${i + 1} of ${images.length}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
           <div className="project-detail__media-overlay" />
           <div className="project-detail__media-shine" />
         </div>
