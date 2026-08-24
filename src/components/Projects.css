@@ -348,84 +348,81 @@
 }
 
 /* ── Responsive Adaptations ── */
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
+  .projects__split-layout {
+    gap: 36px;
+  }
+}
+
+@media (max-width: 768px) {
   .projects {
     height: auto;
-    min-height: 100vh;
+    min-height: auto;
     max-height: none;
     padding-top: 76px;
-    padding-bottom: 24px;
-    overflow-y: auto;
+    padding-bottom: 48px;
+    overflow: visible;
+  }
+
+  .projects__header {
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 18px;
+    margin-bottom: 10px;
+  }
+
+  .projects__title {
+    font-size: clamp(1.65rem, 6.5vw, 2.2rem);
+  }
+
+  .projects__stage-container {
+    padding: 0;
+    overflow: visible;
   }
 
   .projects__split-layout {
     flex-direction: column;
     height: auto;
-    gap: 20px;
-  }
-
-  .projects__wheel-column {
-    flex: none;
     width: 100%;
-    max-width: 540px;
-    height: 240px;
-    max-height: 240px;
+    max-width: 600px;
+    padding: 0 18px;
+    margin: 0 auto;
+    gap: 0;
   }
 
-  .projects__wheel-viewport {
-    min-height: 160px;
+  /* Hide unnecessary 3D scroll wheel on mobile touch devices */
+  .projects__wheel-column {
+    display: none !important;
   }
 
   .projects__details-column {
     flex: none;
     width: 100%;
-    max-width: 540px;
+    max-width: 100%;
     height: auto;
     max-height: none;
   }
-
-  .project-detail__card {
-    height: auto;
-  }
-
-  .project-detail__media-wrapper {
-    height: 200px;
-  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .projects {
-    padding-top: 68px;
-    padding-bottom: 20px;
+    padding-top: 66px;
+    padding-bottom: 36px;
   }
 
   .projects__header {
-    padding: 0 16px;
+    padding: 0 14px;
+    margin-bottom: 6px;
+  }
+
+  .projects__title {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
   }
 
   .projects__split-layout {
-    padding: 0 16px;
-  }
-
-  .projects__wheel-column {
-    max-width: 100%;
-    height: 220px;
-  }
-
-  .projects__details-column {
-    max-width: 100%;
-  }
-
-
-  .project-detail__title {
-    font-size: 1.25rem;
-  }
-
-  .project-detail__media-wrapper {
-    height: 160px;
-  }
-
-  .project-detail__description {
-    font-size: 0.85rem;
+    padding: 0 14px;
   }
 }
+

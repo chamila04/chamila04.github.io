@@ -130,8 +130,20 @@ html {
 
 /* ───────── Responsive ───────── */
 @media (max-width: 768px) {
+  html {
+    scroll-snap-type: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   .section {
-    padding: 60px 24px;
+    min-height: auto;
+    padding: 72px 20px 48px;
+    scroll-snap-align: none;
   }
 
   .section-label {
@@ -140,3 +152,10 @@ html {
     font-size: 0.75rem;
   }
 }
+
+@media (max-width: 480px) {
+  .section {
+    padding: 64px 16px 36px;
+  }
+}
+

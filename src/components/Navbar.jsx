@@ -50,6 +50,7 @@ const navItems = [
 
 export default function Navbar({ heroVisible = false }) {
   const [activeSection, setActiveSection] = useState('about');
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,6 +81,7 @@ export default function Navbar({ heroVisible = false }) {
 
   const handleClick = (e, href) => {
     e.preventDefault();
+    setIsMobileOpen(false);
     const target = document.querySelector(href);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -87,39 +89,75 @@ export default function Navbar({ heroVisible = false }) {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileOpen((prev) => !prev);
+  };
+
   const isHidden = heroVisible || activeSection === 'hero';
 
+  const currentItem = navItems.find((item) => item.id === activeSection) || navItems[0];
+
   return (
-    <aside
-      className={`navbar-wrapper navbar--${activeSection} ${
-        isHidden ? 'navbar-wrapper--hidden' : ''
-      }`}
-      aria-label="Page navigation"
-    >
-      {/* Floating Horizontal Capsule Dock */}
-      <nav className="navbar__dock">
-        <ul className="navbar__list">
-          {navItems.map((item) => {
-            const isActive = activeSection === item.id;
-            return (
-              <li key={item.label} className="navbar__item">
-                <a
-                  href={item.href}
-                  className={`navbar__link ${isActive ? 'navbar__link--active' : ''}`}
-                  onClick={(e) => handleClick(e, item.href)}
-                  aria-label={item.label}
-                  aria-current={isActive ? 'true' : undefined}
-                >
-                  <span className="navbar__link-icon" aria-hidden="true">{item.icon}</span>
-                  <span className="navbar__link-text">{item.label}</span>
-                  {isActive && <span className="navbar__active-indicator" />}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </aside>
+    <>
+      {/* Mobile Backdrop when menu is open */}
+      {isMobileOpen && (
+        <div
+          className="navbar__mobile-backdrop"
+          onClick={() => setIsMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`navbar-wrapper navbar--${activeSection} ${
+          isHidden ? 'navbar-wrapper--hidden' : ''
+        } ${isMobileOpen ? 'navbar-wrapper--mobile-open' : ''}`}
+        aria-label="Page navigation"
+      >
+        {/* Mobile Toggle Button (Visible only on <= 768px) */}
+        <button
+          type="button"
+          className="navbar__mobile-toggle"
+          onClick={toggleMobileMenu}
+          aria-label={isMobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileOpen}
+        >
+          <span className="navbar__mobile-toggle-curr">
+            <span className="navbar__mobile-toggle-icon">{currentItem.icon}</span>
+            <span className="navbar__mobile-toggle-label">{currentItem.label}</span>
+          </span>
+          <span className={`navbar__mobile-burger ${isMobileOpen ? 'navbar__mobile-burger--open' : ''}`}>
+            <span className="navbar__mobile-burger-line" />
+            <span className="navbar__mobile-burger-line" />
+          </span>
+        </button>
+
+        {/* Dock: Horizontal on Desktop, Collapsible Vertical on Mobile */}
+        <nav className={`navbar__dock ${isMobileOpen ? 'navbar__dock--mobile-open' : ''}`}>
+          <ul className="navbar__list">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <li key={item.label} className="navbar__item">
+                  <a
+                    href={item.href}
+                    className={`navbar__link ${isActive ? 'navbar__link--active' : ''}`}
+                    onClick={(e) => handleClick(e, item.href)}
+                    aria-label={item.label}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
+                    <span className="navbar__link-icon" aria-hidden="true">{item.icon}</span>
+                    <span className="navbar__link-text">{item.label}</span>
+                    {isActive && <span className="navbar__active-indicator" />}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </aside>
+    </>
   );
 }
+
 

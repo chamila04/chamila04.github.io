@@ -481,34 +481,41 @@
   100% { transform: translateY(-4px); }
 }
 
-/* ── Collective Hover Reaction ── */
-/* When hovering over the cluster, all chips gently soften to create focus depth */
-.about__interests:hover .about__interest-chip {
-  opacity: 0.72;
-  transform: scale(0.96);
-}
+/* ── Collective Hover Reaction (Desktop Only) ── */
+@media (hover: hover) {
+  /* When hovering over the cluster, all chips gently soften to create focus depth */
+  .about__interests:hover .about__interest-chip {
+    opacity: 0.72;
+    transform: scale(0.96);
+  }
 
-/* The actively hovered chip pops with vibrant elevation and golden amber glow */
-.about__interests .about__interest-chip:hover {
-  opacity: 1 !important;
-  transform: translateY(-5px) scale(1.09) !important;
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(251, 133, 0, 0.6);
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.95),
-    0 10px 28px rgba(251, 133, 0, 0.28),
-    0 0 14px rgba(255, 183, 3, 0.35);
-  z-index: 10;
+  /* The actively hovered chip pops with vibrant elevation and golden amber glow */
+  .about__interests .about__interest-chip:hover {
+    opacity: 1 !important;
+    transform: translateY(-5px) scale(1.09) !important;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(251, 133, 0, 0.6);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.95),
+      0 10px 28px rgba(251, 133, 0, 0.28),
+      0 0 14px rgba(255, 183, 3, 0.35);
+    z-index: 10;
+  }
+
+  .about__interest-chip:hover .about__interest-icon {
+    transform: scale(1.22) rotate(6deg);
+  }
+
+  .about__interest-chip:hover .about__interest-label {
+    color: #c45b00;
+    font-weight: 600;
+  }
 }
 
 .about__interest-icon {
   font-size: 1.12rem;
   line-height: 1;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.about__interest-chip:hover .about__interest-icon {
-  transform: scale(1.22) rotate(6deg);
 }
 
 .about__interest-label {
@@ -518,11 +525,6 @@
   color: #475569;
   white-space: nowrap;
   transition: color 0.25s ease, font-weight 0.25s ease;
-}
-
-.about__interest-chip:hover .about__interest-label {
-  color: #c45b00;
-  font-weight: 600;
 }
 
 .about__right-caption {
@@ -557,32 +559,49 @@
 
 @media (max-width: 768px) {
   .about {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 80px;
+    padding-bottom: 50px;
   }
   .about__container {
     flex-direction: column;
-    gap: 48px;
+    gap: 36px;
     align-items: flex-start;
     transform: none;
+    max-width: 100%;
+  }
+  .about__left {
+    max-width: 100%;
+    width: 100%;
   }
   .about__right {
     flex: none;
     width: 100%;
+    max-width: 100%;
     align-items: flex-start;
   }
   .about__interests {
     justify-content: flex-start;
     width: 100%;
+    gap: 8px 8px;
   }
   .about__name {
-    font-size: clamp(2rem, 8vw, 2.8rem);
+    font-size: clamp(2rem, 7.5vw, 2.6rem);
   }
   .about__bio {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
+    line-height: 1.72;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+  .about__cta {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
   }
   .about__interest-chip {
-    padding: 8px 14px;
+    padding: 8px 12px;
   }
   .about__interest-label {
     font-size: 0.76rem;
@@ -590,11 +609,31 @@
 }
 
 @media (max-width: 480px) {
+  .about {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 72px;
+    padding-bottom: 40px;
+  }
+  .about__name {
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+  }
+  .about__bio {
+    font-size: 0.84rem;
+    line-height: 1.68;
+  }
   .about__interest-chip {
-    padding: 7px 12px;
-    gap: 6px;
+    padding: 6px 10px;
+    gap: 5px;
   }
   .about__interest-icon {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+  }
+  .about__interest-label {
+    font-size: 0.72rem;
+  }
+  .about__right-caption {
+    font-size: 0.68rem;
   }
 }
+

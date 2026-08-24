@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './ProjectCard.css';
 
 /**
@@ -74,6 +74,8 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
   const images = rawImages.map(resolveAssetUrl).filter(Boolean);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
 
   // Reset currentImgIndex when project changes
   useEffect(() => {
@@ -101,8 +103,31 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
     return () => clearInterval(timer);
   }, [images.length, project.id]);
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      if (deltaX > 0) {
+        onNext();
+      } else {
+        onPrev();
+      }
+    }
+  };
+
   return (
-    <article className="project-detail" key={project.id || index}>
+    <article
+      className="project-detail"
+      key={project.id || index}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="project-detail__card">
         {/* Top Meta Bar */}
         <div className="project-detail__top-bar">

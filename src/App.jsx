@@ -90,6 +90,9 @@ function App() {
         return;
       }
 
+      // On mobile viewports (<= 768px), allow native smooth scrolling
+      if (window.innerWidth <= 768) return;
+
       if (e.defaultPrevented) return;
 
       if (isScrollingRef.current) {
@@ -140,13 +143,20 @@ function App() {
         return;
       }
 
+      // On mobile viewports (<= 768px), allow native smooth touch scrolling
+      if (window.innerWidth <= 768) return;
+
       if (isScrollingRef.current) {
         e.preventDefault();
       }
     };
 
     const handleTouchEnd = (e) => {
-      if (heroVisible || isScrollingRef.current || e.defaultPrevented) return;
+      if (heroVisible) return;
+      // On mobile viewports (<= 768px), allow native smooth touch scrolling
+      if (window.innerWidth <= 768) return;
+
+      if (isScrollingRef.current || e.defaultPrevented) return;
       const deltaY = touchStartY.current - e.changedTouches[0].clientY;
       const deltaX = touchStartX.current - e.changedTouches[0].clientX;
 

@@ -61,7 +61,7 @@ export default function Timeline() {
           }
         });
       },
-      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
     );
 
     itemRefs.current.forEach((ref) => {

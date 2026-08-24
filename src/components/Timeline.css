@@ -283,10 +283,16 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
-.timeline__item:hover .timeline__dot {
-  border-color: rgba(16, 185, 129, 0.7);
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2), 0 0 0 4px rgba(16, 185, 129, 0.1);
-  transform: translateX(-50%) scale(1.08);
+@media (hover: hover) {
+  .timeline__item:hover .timeline__dot {
+    border-color: rgba(16, 185, 129, 0.7);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2), 0 0 0 4px rgba(16, 185, 129, 0.1);
+    transform: translateX(-50%) scale(1.08);
+  }
+
+  .timeline__item:hover .timeline__dot-logo {
+    transform: scale(1.08);
+  }
 }
 
 .timeline__dot-logo {
@@ -295,10 +301,6 @@
   object-fit: contain;
   border-radius: 50%;
   transition: transform 0.3s ease;
-}
-
-.timeline__item:hover .timeline__dot-logo {
-  transform: scale(1.08);
 }
 
 .timeline__dot-icon {
@@ -340,17 +342,19 @@
   transition: opacity 0.35s ease;
 }
 
-.timeline__card:hover::before {
-  opacity: 1;
-}
+@media (hover: hover) {
+  .timeline__card:hover::before {
+    opacity: 1;
+  }
 
-.timeline__card:hover {
-  transform: translateY(-4px) scale(1.01);
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(16, 185, 129, 0.3);
-  box-shadow: 0 8px 28px rgba(16, 185, 129, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.06),
-    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  .timeline__card:hover {
+    transform: translateY(-4px) scale(1.01);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 28px rgba(16, 185, 129, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  }
 }
 
 .timeline__card-header {
@@ -425,64 +429,116 @@
 
 @media (max-width: 768px) {
   .timeline {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 72px;
+    padding-bottom: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .timeline__header {
-    margin-bottom: 48px;
+    margin-bottom: 36px;
+  }
+  .timeline__title {
+    font-size: clamp(1.85rem, 6.5vw, 2.5rem);
+  }
+  .timeline__container {
+    width: 100%;
+    max-width: 100%;
   }
   .timeline__line {
-    left: 24px;
+    left: 20px;
+  }
+  .timeline__item {
+    margin-bottom: 28px;
+    width: 100%;
   }
   .timeline__item--left,
   .timeline__item--right {
-    padding-left: 64px;
+    padding-left: 54px;
     padding-right: 0;
     justify-content: flex-start;
-  }
-  .timeline__item--left {
-    transform: translateX(-30px);
-  }
-  .timeline__item--right {
-    transform: translateX(-30px);
+    transform: translateX(-20px);
   }
   .timeline__item--visible {
     transform: translateX(0);
   }
   .timeline__dot {
-    left: 24px;
+    left: 20px;
     width: 38px;
     height: 38px;
-    padding: 4px;
+    top: 16px;
+    padding: 3px;
   }
   .timeline__card {
-    padding: 22px 24px;
+    padding: 20px 20px;
+    border-radius: 16px;
   }
   .timeline__card-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
   .timeline__card-title {
-    font-size: 1.05rem;
+    font-size: 1.08rem;
+    word-break: break-word;
+  }
+  .timeline__organization {
+    font-size: 0.8rem;
+  }
+  .timeline__description {
+    font-size: 0.8rem;
+    line-height: 1.6;
   }
 }
 
 @media (max-width: 480px) {
+  .timeline {
+    padding-top: 64px;
+    padding-bottom: 48px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .timeline__line {
+    left: 16px;
+  }
+  .timeline__item {
+    margin-bottom: 22px;
+  }
   .timeline__item--left,
   .timeline__item--right {
-    padding-left: 52px;
+    padding-left: 44px;
   }
   .timeline__dot {
-    width: 34px;
-    height: 34px;
-    padding: 3px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+    padding: 2px;
+    top: 14px;
   }
   .timeline__dot-icon {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   .timeline__card {
-    padding: 18px 20px;
+    padding: 16px 16px;
     border-radius: 14px;
+  }
+  .timeline__card-title {
+    font-size: 0.98rem;
+  }
+  .timeline__type {
+    font-size: 0.62rem;
+    padding: 3px 8px;
+  }
+  .timeline__period {
+    font-size: 0.68rem;
+  }
+  .timeline__organization {
+    font-size: 0.76rem;
+    margin-bottom: 8px;
+  }
+  .timeline__description {
+    font-size: 0.78rem;
+    line-height: 1.55;
   }
 }
