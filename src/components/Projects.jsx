@@ -267,10 +267,10 @@ export default function Projects() {
       {/* Section Header */}
       <div className="projects__header">
         <span className="projects__tag">
-          <span className="projects__tag-sparkle">✦</span> Interactive Wheel Showcase
+          <span className="projects__tag-sparkle">✦</span> Featured Projects
         </span>
         <h2 className="projects__title">
-          Selected <span className="projects__title-accent">Creations</span>
+          Selected <span className="projects__title-accent">Projects</span>
         </h2>
       </div>
 
