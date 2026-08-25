@@ -1,0 +1,94 @@
+.skeleton-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-off-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+/* Pulsing Animation */
+@keyframes skeletonPulse {
+  0% {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  50% {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.skeleton-label,
+.skeleton-header,
+.skeleton-line,
+.skeleton-card {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  animation: skeletonPulse 1.8s ease-in-out infinite;
+}
+
+.skeleton-label {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.skeleton-content {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton-header {
+  width: 40%;
+  height: 48px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+}
+
+.skeleton-line {
+  height: 16px;
+  border-radius: 8px;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.skeleton-card {
+  height: 220px;
+  border-radius: var(--radius-card);
+}
+
+@media (max-width: 768px) {
+  .skeleton-header {
+    width: 60%;
+    height: 36px;
+  }
+  
+  .skeleton-label {
+    top: 12px;
+    left: 12px;
+  }
+  
+  .skeleton-card {
+    height: 180px;
+  }
+}

@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Timeline from './components/Timeline';
-import Contact from './components/Contact';
+import SkeletonLoader from './components/SkeletonLoader';
+const About = lazy(() => import('./components/About'));
+const Projects = lazy(() => import('./components/Projects'));
+const Timeline = lazy(() => import('./components/Timeline'));
+const Contact = lazy(() => import('./components/Contact'));
 import './App.css';
 
 const SECTIONS = ['about', 'journey', 'projects', 'contact'];
@@ -247,10 +248,12 @@ function App() {
         <Hero exiting={heroExiting} onDismiss={dismissHero} />
       )}
       <main>
-        <About isHeroVisible={heroVisible} isHeroExiting={heroExiting} />
-        <Timeline />
-        <Projects />
-        <Contact />
+        <Suspense fallback={<SkeletonLoader />}>
+          <About isHeroVisible={heroVisible} isHeroExiting={heroExiting} />
+          <Timeline />
+          <Projects />
+          <Contact />
+        </Suspense>
       </main>
     </div>
   );

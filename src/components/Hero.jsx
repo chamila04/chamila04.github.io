@@ -1,71 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './Hero.css';
 
-const DEFAULT_QUOTES = [
-  {
-    quote: "Artificial intelligence is the new electricity.",
-    author: "Andrew Ng, Co-founder of Coursera & Google Brain"
-  },
-  {
-    quote: "Success in creating AI would be the biggest event in human history. Unfortunately, it might also be the last, unless we learn how to avoid the risks.",
-    author: "Stephen Hawking"
-  },
-  {
-    quote: "The question of whether a computer can think is no more interesting than the question of whether a submarine can swim.",
-    author: "Edsger W. Dijkstra"
-  },
-  {
-    quote: "AI is probably the most important thing humanity has ever worked on. I think of it as something more profound than electricity or fire.",
-    author: "Sundar Pichai"
-  },
-  {
-    quote: "Deep Learning is an algorithm which has no theory. Machine Learning is a theory without algorithms.",
-    author: "Vladimir Vapnik"
-  },
-  {
-    quote: "Take any problem where the human gives an answer in less than a second, and Deep Learning will eventually solve it.",
-    author: "Geoffrey Hinton"
-  },
-  {
-    quote: "Data is the new oil.",
-    author: "Clive Humby"
-  },
-  {
-    quote: "Without big data, you are blind and deaf and in the middle of a freeway.",
-    author: "Geoffrey Moore"
-  },
-  {
-    quote: "Torture the data, and it will confess to anything.",
-    author: "Ronald Coase"
-  }
-];
-
-function getRandomQuote(quotes = DEFAULT_QUOTES) {
-  const randomIndex = Math.floor(Math.random() * quotes.length);
-  return quotes[randomIndex] || DEFAULT_QUOTES[0];
-}
+// Import quotes directly to avoid network request and ensure instant loading
+import quotes from '../../public/quotes.json';
 
 export default function Hero({ exiting, onDismiss }) {
-  // Synchronously pick a random quote on initial render to prevent layout shifts & animation restarts
-  const [currentQuote, setCurrentQuote] = useState(() => getRandomQuote());
+  const [currentQuote] = useState(() => {
+    if (Array.isArray(quotes) && quotes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      return quotes[randomIndex];
+    }
+    return null;
+  });
 
-  // Also fetch any dynamic quotes from quotes.json if updated
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}quotes.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Network error');
-        return res.json();
-      })
-      .then((quotes) => {
-        if (Array.isArray(quotes) && quotes.length > 0) {
-          // If we want to randomly pick from newly loaded quotes without disturbing an active session:
-          // Keep the initial quote unless it wasn't valid
-        }
-      })
-      .catch((err) => {
-        console.warn('Quotes fallback to bundled data:', err.message);
-      });
-  }, []);
+  if (!currentQuote) {
+    return (
+      <section id="hero" className={`hero ${exiting ? 'hero--exiting' : ''}`}>
+        <div className="hero__backdrop-glow" aria-hidden="true" />
+        <div className="hero__loader" aria-label="Loading quote">
+          <span className="hero__loader-dot"></span>
+          <span className="hero__loader-dot"></span>
+          <span className="hero__loader-dot"></span>
+          <span className="hero__loader-dot"></span>
+          <span className="hero__loader-dot"></span>
+        </div>
+      </section>
+    );
+  }
 
   const words = currentQuote.quote.split(' ');
   const baseDelay = 0.15;
