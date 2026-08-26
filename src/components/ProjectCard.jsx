@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import './ProjectCard.css';
 
 /**
@@ -55,7 +55,7 @@ export function WheelCard({ project, index, offset, isActive, onClick }) {
 /**
  * ProjectDetail: Rich details showcase rendered on the right 2/3rds for the focused card
  */
-export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
+export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isActiveView = true }) {
   if (!project) return null;
 
   const num = String(index + 1).padStart(2, '0');
@@ -64,16 +64,18 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
   const badge = project.badge || project.category || 'Featured';
 
   // Normalize image list
-  const rawImages =
-    Array.isArray(project.images) && project.images.length > 0
-      ? project.images
-      : project.image
-      ? [project.image]
-      : [];
-
-  const images = rawImages.map(resolveAssetUrl).filter(Boolean);
+  const images = useMemo(() => {
+    const rawImages =
+      Array.isArray(project.images) && project.images.length > 0
+        ? project.images
+        : project.image
+        ? [project.image]
+        : [];
+    return rawImages.map(resolveAssetUrl).filter(Boolean);
+  }, [project.images, project.image]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
@@ -82,26 +84,40 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext }) {
     setCurrentImgIndex(0);
   }, [project.id, project.title]);
 
-  // Preload images for seamless cycling
+  // Preload images and track loading state
   useEffect(() => {
-    if (images.length > 1) {
-      images.forEach((src) => {
-        const img = new Image();
-        img.src = src;
-      });
+    if (images.length === 0) {
+      setImagesLoaded(true);
+      return;
     }
+
+    setImagesLoaded(false);
+    let loadedCount = 0;
+
+    images.forEach((src) => {
+      const img = new Image();
+      const onLoadOrError = () => {
+        loadedCount++;
+        if (loadedCount === images.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onload = onLoadOrError;
+      img.onerror = onLoadOrError;
+      img.src = src;
+    });
   }, [images]);
 
-  // Cycle image every 2 seconds (2000ms)
+  // Cycle image every 2 seconds (2000ms), only when loaded and in view
   useEffect(() => {
-    if (images.length <= 1) return;
+    if (images.length <= 1 || !imagesLoaded || !isActiveView) return;
 
     const timer = setInterval(() => {
       setCurrentImgIndex((prev) => (prev + 1) % images.length);
     }, 2000);
 
     return () => clearInterval(timer);
-  }, [images.length, project.id]);
+  }, [images.length, imagesLoaded, isActiveView, project.id]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;

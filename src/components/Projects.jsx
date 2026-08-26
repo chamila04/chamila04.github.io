@@ -9,6 +9,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const [scrollPos, setScrollPos] = useState(0);
 
   const sectionRef = useRef(null);
@@ -50,6 +51,7 @@ export default function Projects() {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
+        setIsInView(entry.isIntersecting);
       },
       { threshold: 0.12 }
     );
@@ -348,6 +350,7 @@ export default function Projects() {
                 totalCount={totalProjects}
                 onPrev={goToPrev}
                 onNext={goToNext}
+                isActiveView={isInView}
               />
             </div>
           </div>
