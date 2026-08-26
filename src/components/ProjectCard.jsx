@@ -75,6 +75,7 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
   }, [project.images, project.image]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -87,16 +88,25 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
   // Preload images and track loading state
   useEffect(() => {
     if (images.length === 0) {
+      setFirstImageLoaded(true);
       setImagesLoaded(true);
       return;
     }
 
+    setFirstImageLoaded(false);
     setImagesLoaded(false);
+    let active = true;
     let loadedCount = 0;
 
-    images.forEach((src) => {
+    images.forEach((src, idx) => {
       const img = new Image();
+      let handled = false;
       const onLoadOrError = () => {
+        if (handled || !active) return;
+        handled = true;
+        if (idx === 0) {
+          setFirstImageLoaded(true);
+        }
         loadedCount++;
         if (loadedCount === images.length) {
           setImagesLoaded(true);
@@ -105,7 +115,14 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
       img.onload = onLoadOrError;
       img.onerror = onLoadOrError;
       img.src = src;
+      if (img.complete) {
+        onLoadOrError();
+      }
     });
+
+    return () => {
+      active = false;
+    };
   }, [images]);
 
   // Cycle image every 2 seconds (2000ms), only when loaded and in view
@@ -203,8 +220,70 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
           )}
         </div>
 
-        {/* Media Frame with 1-second Image Cycling */}
+        {/* Media Frame with Image Cycling */}
         <div className="project-detail__media-wrapper">
+          {/* Loading animation inside the image box until the 1st image loads */}
+          {images.length > 0 && (
+            <div
+              className={`project-detail__image-loader ${
+                firstImageLoaded ? 'project-detail__image-loader--hidden' : ''
+              }`}
+              aria-hidden={firstImageLoaded}
+            >
+              <div className="project-detail__pacman-loader" aria-label="Loading image">
+                <svg
+                  className="project-detail__pacman-svg"
+                  viewBox="0 0 100 50"
+                  width="88"
+                  height="44"
+                >
+                  {/* Single continuous Pacman body with zero seams */}
+                  <path
+                    className="project-detail__pacman-path"
+                    d="M 25 25 L 42.34 11.45 A 22 22 0 1 0 42.34 38.55 Z"
+                    fill="#06b6d4"
+                  >
+                    <animate
+                      attributeName="d"
+                      dur="0.44s"
+                      repeatCount="indefinite"
+                      calcMode="spline"
+                      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+                      keyTimes="0; 0.5; 1"
+                      values="M 25 25 L 46.99 24.5 A 22 22 0 1 0 46.99 25.5 Z; M 25 25 L 42.34 11.45 A 22 22 0 1 0 42.34 38.55 Z; M 25 25 L 46.99 24.5 A 22 22 0 1 0 46.99 25.5 Z"
+                    />
+                  </path>
+
+                  {/* Traveling Food Dots */}
+                  <g className="project-detail__pacman-dots-group">
+                    <circle
+                      className="project-detail__pacman-svg-dot project-detail__pacman-svg-dot--1"
+                      cx="92"
+                      cy="25"
+                      r="4.5"
+                      fill="#38bdf8"
+                    />
+                    <circle
+                      className="project-detail__pacman-svg-dot project-detail__pacman-svg-dot--2"
+                      cx="92"
+                      cy="25"
+                      r="4.5"
+                      fill="#38bdf8"
+                    />
+                    <circle
+                      className="project-detail__pacman-svg-dot project-detail__pacman-svg-dot--3"
+                      cx="92"
+                      cy="25"
+                      r="4.5"
+                      fill="#38bdf8"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <span className="project-detail__image-loader-text">Loading preview...</span>
+            </div>
+          )}
+
           {images.length > 0 ? (
             images.map((imgSrc, i) => (
               <div
