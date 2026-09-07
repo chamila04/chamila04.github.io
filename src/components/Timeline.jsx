@@ -106,11 +106,11 @@ export default function Timeline() {
         <div className="timeline__line" />
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: 'rgba(255,255,255,0.4)' }}>
+          <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8' }}>
             Loading journey...
           </div>
         ) : timelineData.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: 'rgba(255,255,255,0.4)' }}>
+          <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8' }}>
             No journey entries found. Add items to journey.json!
           </div>
         ) : (

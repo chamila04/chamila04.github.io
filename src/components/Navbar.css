@@ -24,15 +24,15 @@
   transform: translateY(-32px) translateX(-50%) !important;
 }
 
-/* ── Horizontal Floating Capsule Dock (Light Frosted Glass) ── */
+/* ── Horizontal Floating Capsule Dock (Dark Frosted Glass) ── */
 .navbar__dock {
   pointer-events: all;
   border-radius: 9999px;
   padding: 6px 8px;
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
   transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(255, 255, 255, 0.05);
 }
 
 .navbar__list {
@@ -112,31 +112,31 @@
 }
 
 /* ═══════════════════════════════════════════════
-   DYNAMIC SECTION COLOR PALETTES — LIGHT THEME
+   DYNAMIC SECTION COLOR PALETTES — DARK THEME
    ═══════════════════════════════════════════════ */
 
 /* ── 1. About Section Theme (#fb8500 & #ffb703) ── */
 .navbar--about .navbar__dock {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(251, 133, 0, 0.25);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(251, 133, 0, 0.08);
+  background: rgba(18, 14, 10, 0.85);
+  border: 1px solid rgba(251, 133, 0, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 14px rgba(251, 133, 0, 0.12);
 }
 
 .navbar--about .navbar__link {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .navbar--about .navbar__link:hover {
-  color: #1e293b;
-  background: rgba(251, 133, 0, 0.08);
+  color: #f8fafc;
+  background: rgba(251, 133, 0, 0.12);
 }
 
 .navbar--about .navbar__link--active {
-  color: #c45b00;
+  color: #ffb703;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(251, 133, 0, 0.18), rgba(255, 183, 3, 0.1));
-  border: 1px solid rgba(251, 133, 0, 0.35);
-  box-shadow: 0 2px 8px rgba(251, 133, 0, 0.15);
+  background: linear-gradient(135deg, rgba(251, 133, 0, 0.28), rgba(255, 183, 3, 0.15));
+  border: 1px solid rgba(251, 133, 0, 0.5);
+  box-shadow: 0 2px 10px rgba(251, 133, 0, 0.25);
 }
 
 .navbar--about .navbar__link--active .navbar__link-icon {
@@ -145,106 +145,106 @@
 
 .navbar--about .navbar__active-indicator {
   background: #fb8500;
-  box-shadow: 0 0 6px rgba(251, 133, 0, 0.7);
+  box-shadow: 0 0 8px rgba(251, 133, 0, 0.85);
 }
 
 /* ── 2. Journey Section Theme (Green / Emerald) ── */
 .navbar--journey .navbar__dock {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(16, 185, 129, 0.22);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(16, 185, 129, 0.06);
+  background: rgba(10, 18, 14, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 14px rgba(16, 185, 129, 0.12);
 }
 
 .navbar--journey .navbar__link {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .navbar--journey .navbar__link:hover {
-  color: #1e293b;
-  background: rgba(16, 185, 129, 0.08);
+  color: #f8fafc;
+  background: rgba(16, 185, 129, 0.12);
 }
 
 .navbar--journey .navbar__link--active {
-  color: #047857;
+  color: #34d399;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(34, 197, 94, 0.08));
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(34, 197, 94, 0.15));
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
 }
 
 .navbar--journey .navbar__link--active .navbar__link-icon {
-  color: #059669;
+  color: #10b981;
 }
 
 .navbar--journey .navbar__active-indicator {
   background: #10b981;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
 }
 
 /* ── 3. Projects Section Theme (Cyan / Sky / Blue) ── */
 .navbar--projects .navbar__dock {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(6, 182, 212, 0.22);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(6, 182, 212, 0.06);
+  background: rgba(10, 16, 26, 0.85);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 14px rgba(6, 182, 212, 0.12);
 }
 
 .navbar--projects .navbar__link {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .navbar--projects .navbar__link:hover {
-  color: #1e293b;
-  background: rgba(6, 182, 212, 0.08);
+  color: #f8fafc;
+  background: rgba(6, 182, 212, 0.12);
 }
 
 .navbar--projects .navbar__link--active {
-  color: #0369a1;
+  color: #38bdf8;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(14, 165, 233, 0.08));
-  border: 1px solid rgba(6, 182, 212, 0.32);
-  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.12);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.26), rgba(14, 165, 233, 0.15));
+  border: 1px solid rgba(6, 182, 212, 0.5);
+  box-shadow: 0 2px 10px rgba(6, 182, 212, 0.25);
 }
 
 .navbar--projects .navbar__link--active .navbar__link-icon {
-  color: #0891b2;
+  color: #06b6d4;
 }
 
 .navbar--projects .navbar__active-indicator {
   background: #06b6d4;
-  box-shadow: 0 0 6px rgba(6, 182, 212, 0.7);
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.85);
 }
 
 /* ── 4. Contact Section Theme (Violet / Purple / Fuchsia) ── */
 .navbar--contact .navbar__dock {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(139, 92, 246, 0.24);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(139, 92, 246, 0.06);
+  background: rgba(16, 10, 26, 0.85);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 14px rgba(139, 92, 246, 0.12);
 }
 
 .navbar--contact .navbar__link {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .navbar--contact .navbar__link:hover {
-  color: #1e293b;
-  background: rgba(139, 92, 246, 0.08);
+  color: #f8fafc;
+  background: rgba(139, 92, 246, 0.12);
 }
 
 .navbar--contact .navbar__link--active {
-  color: #6d28d9;
+  color: #c084fc;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.16), rgba(168, 85, 247, 0.08));
-  border: 1px solid rgba(139, 92, 246, 0.35);
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.14);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(139, 92, 246, 0.5);
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.25);
 }
 
 .navbar--contact .navbar__link--active .navbar__link-icon {
-  color: #7c3aed;
+  color: #a855f7;
 }
 
 .navbar--contact .navbar__active-indicator {
   background: #a855f7;
-  box-shadow: 0 0 6px rgba(168, 85, 247, 0.7);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.85);
 }
 
 .navbar__mobile-toggle {
@@ -259,27 +259,27 @@
    DYNAMIC SECTION COLOR PALETTES FOR MOBILE TOGGLE
    ═══════════════════════════════════════════════ */
 .navbar--about .navbar__mobile-toggle {
-  color: #c45b00;
-  border-color: rgba(251, 133, 0, 0.35);
-  box-shadow: 0 4px 18px rgba(251, 133, 0, 0.12);
+  color: #ffb703;
+  border-color: rgba(251, 133, 0, 0.45);
+  box-shadow: 0 4px 18px rgba(251, 133, 0, 0.2);
 }
 
 .navbar--journey .navbar__mobile-toggle {
-  color: #047857;
-  border-color: rgba(16, 185, 129, 0.3);
-  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.2);
 }
 
 .navbar--projects .navbar__mobile-toggle {
-  color: #0369a1;
-  border-color: rgba(6, 182, 212, 0.32);
-  box-shadow: 0 4px 18px rgba(6, 182, 212, 0.12);
+  color: #38bdf8;
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 18px rgba(6, 182, 212, 0.2);
 }
 
 .navbar--contact .navbar__mobile-toggle {
-  color: #6d28d9;
-  border-color: rgba(139, 92, 246, 0.35);
-  box-shadow: 0 4px 18px rgba(139, 92, 246, 0.12);
+  color: #c084fc;
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 18px rgba(139, 92, 246, 0.2);
 }
 
 /* ═══════════════════════════════════════════════
@@ -297,9 +297,9 @@
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 998;
     animation: navbarBackdropFade 0.25s ease forwards;
   }
@@ -336,10 +336,10 @@
     gap: 8px;
     padding: 7px 14px;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(15, 20, 30, 0.9);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     cursor: pointer;
     pointer-events: all;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -411,7 +411,7 @@
     pointer-events: none;
     transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .navbar__dock--mobile-open {

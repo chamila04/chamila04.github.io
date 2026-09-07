@@ -3,6 +3,13 @@
    ========================================================================== */
 
 .hero {
+  /* Scoped original light theme tokens to keep hero exactly as before */
+  --color-off-white: #F5F5F5;
+  --color-charcoal: #2D2D2D;
+  --color-muted: #999999;
+  --color-dark-muted: #555555;
+  --color-black: #111111;
+
   position: fixed;
   inset: 0;
   z-index: 1000;

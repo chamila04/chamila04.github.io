@@ -16,13 +16,13 @@
 /* Pulsing Animation */
 @keyframes skeletonPulse {
   0% {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(255, 255, 255, 0.04);
   }
   50% {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(255, 255, 255, 0.09);
   }
   100% {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(255, 255, 255, 0.04);
   }
 }
 
@@ -30,7 +30,7 @@
 .skeleton-header,
 .skeleton-line,
 .skeleton-card {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   animation: skeletonPulse 1.8s ease-in-out infinite;
 }

@@ -1,16 +1,16 @@
 /* ═══════════════════════════════════════════════
-   Contact & Footer — Light Theme · Violet / Purple / Fuchsia
-   Gray background + subtle violet gradient · Frosted Glass
+   Contact & Footer — Dark Theme · Violet / Purple / Fuchsia
+   Deep royal purple obsidian + violet wash · Frosted Glass
    Font: Sora
    ═══════════════════════════════════════════════ */
 
 .contact {
-  background: linear-gradient(135deg, #f5f4f6 0%, #f2eef8 35%, #f4f0fa 70%, #f5f5f5 100%);
+  background: linear-gradient(135deg, #090610 0%, #120920 35%, #180b2a 70%, #090610 100%);
   justify-content: flex-start;
   align-items: center;
   padding: 0;
   z-index: 4;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.04);
   overflow: hidden;
   position: relative;
   min-height: 100vh;
@@ -45,10 +45,10 @@
   width: 150%;
   height: 150%;
   background:
-    radial-gradient(circle at 18% 22%, rgba(139, 92, 246, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 82% 78%, rgba(168, 85, 247, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 68% 18%, rgba(217, 70, 239, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 32% 82%, rgba(124, 58, 237, 0.06) 0%, transparent 45%);
+    radial-gradient(circle at 18% 22%, rgba(139, 92, 246, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 82% 78%, rgba(168, 85, 247, 0.13) 0%, transparent 45%),
+    radial-gradient(circle at 68% 18%, rgba(217, 70, 239, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 32% 82%, rgba(124, 58, 237, 0.09) 0%, transparent 45%);
   filter: blur(40px);
   animation: contactMeshFloat 20s ease-in-out infinite alternate;
   opacity: 1;
@@ -71,7 +71,7 @@
 .contact__orb--1 {
   width: 550px;
   height: 550px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(124, 58, 237, 0.03) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, rgba(124, 58, 237, 0.04) 45%, transparent 70%);
   top: -12%;
   right: -6%;
   animation: contactOrbFloat1 14s ease-in-out infinite alternate;
@@ -80,7 +80,7 @@
 .contact__orb--2 {
   width: 480px;
   height: 480px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(217, 70, 239, 0.03) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.14) 0%, rgba(217, 70, 239, 0.04) 45%, transparent 70%);
   bottom: 15%;
   left: -5%;
   animation: contactOrbFloat2 16s ease-in-out infinite alternate;
@@ -89,7 +89,7 @@
 .contact__orb--3 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(217, 70, 239, 0.08) 0%, rgba(139, 92, 246, 0.02) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.12) 0%, rgba(139, 92, 246, 0.03) 50%, transparent 70%);
   top: 35%;
   left: 45%;
   animation: contactOrbFloat3 18s ease-in-out infinite alternate;
@@ -122,17 +122,17 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: rgba(245, 245, 245, 0.42);
+  background: rgba(9, 6, 16, 0.45);
   backdrop-filter: blur(50px) saturate(130%);
   -webkit-backdrop-filter: blur(50px) saturate(130%);
-  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  border-top: 1px solid rgba(139, 92, 246, 0.2);
   background-image:
-    radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .contact__label {
-  color: rgba(0, 0, 0, 0.08) !important;
+  color: rgba(255, 255, 255, 0.18) !important;
   font-size: 0.75rem !important;
   letter-spacing: 3px !important;
   text-transform: uppercase !important;
@@ -177,38 +177,38 @@
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 1px;
-  color: #7c3aed;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.05));
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: #c084fc;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.42);
   padding: 6px 18px;
   border-radius: 100px;
   margin-bottom: 20px;
   text-transform: uppercase;
   backdrop-filter: blur(12px) saturate(130%);
   -webkit-backdrop-filter: blur(12px) saturate(130%);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(139, 92, 246, 0.06);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 2px 10px rgba(139, 92, 246, 0.12);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .contact__tag:hover {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(168, 85, 247, 0.1));
-  border-color: rgba(139, 92, 246, 0.45);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(168, 85, 247, 0.18));
+  border-color: rgba(139, 92, 246, 0.7);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 6px 20px rgba(139, 92, 246, 0.12);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), 0 6px 20px rgba(139, 92, 246, 0.25);
 }
 
 .contact__title {
   font-family: 'Sora', sans-serif;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 800;
-  color: #1e293b;
+  color: #f8fafc;
   margin-bottom: 16px;
   letter-spacing: -1.5px;
   line-height: 1.15;
 }
 
 .contact__title-accent {
-  background: linear-gradient(135deg, #7c3aed, #a855f7, #c026d3);
+  background: linear-gradient(135deg, #a855f7, #c084fc, #f472b6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -218,12 +218,12 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.92rem;
   line-height: 1.8;
-  color: #64748b;
+  color: #cbd5e1;
   max-width: 460px;
 }
 
 .contact__subtitle strong {
-  color: #334155;
+  color: #f8fafc;
   font-weight: 600;
 }
 
@@ -243,24 +243,24 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.76rem;
   font-weight: 600;
-  color: #6d28d9;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  color: #c084fc;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.35);
   padding: 6px 13px;
   border-radius: 100px;
   backdrop-filter: blur(14px) saturate(130%);
   -webkit-backdrop-filter: blur(14px) saturate(130%);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(139, 92, 246, 0.06);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 2px 6px rgba(139, 92, 246, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: default;
 }
 
 .contact__opp-tag:hover {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(168, 85, 247, 0.6);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 4px 14px rgba(139, 92, 246, 0.15);
-  color: #5b21b6;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 4px 14px rgba(139, 92, 246, 0.25);
+  color: #e9d5ff;
 }
 
 /* ── Social Cards — Frosted Glass ── */
@@ -275,27 +275,27 @@
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(139, 92, 246, 0.1);
+  background: rgba(22, 13, 36, 0.65);
+  border: 1px solid rgba(139, 92, 246, 0.2);
   border-radius: 14px;
   backdrop-filter: blur(16px) saturate(130%);
   -webkit-backdrop-filter: blur(16px) saturate(130%);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.25);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
-  color: #64748b;
+  color: #94a3b8;
   position: relative;
   overflow: hidden;
 }
 
 .contact__social-card:hover {
-  background: rgba(255, 255, 255, 0.88);
-  border-color: rgba(139, 92, 246, 0.35);
+  background: rgba(28, 17, 48, 0.85);
+  border-color: rgba(168, 85, 247, 0.5);
   transform: translateX(8px) scale(1.02);
-  color: #7c3aed;
+  color: #c084fc;
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.9),
-    0 6px 20px rgba(139, 92, 246, 0.12);
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 8px 24px rgba(139, 92, 246, 0.22);
 }
 
 .contact__social-card div {
@@ -308,7 +308,7 @@
   font-family: 'Sora', sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #1e293b;
+  color: #f8fafc;
 }
 
 .contact__social-handle {
@@ -326,13 +326,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(139, 92, 246, 0.1);
+  background: rgba(19, 11, 32, 0.7);
+  border: 1px solid rgba(139, 92, 246, 0.22);
   border-radius: 20px;
   padding: 36px;
   backdrop-filter: blur(20px) saturate(130%);
   -webkit-backdrop-filter: blur(20px) saturate(130%);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .contact__field {
@@ -347,16 +347,16 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #7c3aed;
+  color: #c084fc;
 }
 
 .contact__input {
   width: 100%;
   padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(139, 92, 246, 0.12);
+  background: rgba(12, 7, 21, 0.75);
+  border: 1px solid rgba(139, 92, 246, 0.25);
   border-radius: 12px;
-  color: #1e293b;
+  color: #f8fafc;
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
@@ -364,13 +364,13 @@
 }
 
 .contact__input::placeholder {
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .contact__input:focus {
-  border-color: rgba(139, 92, 246, 0.5);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1), 0 0 16px rgba(139, 92, 246, 0.08);
+  border-color: rgba(168, 85, 247, 0.65);
+  background: rgba(16, 9, 28, 0.95);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.15);
 }
 
 .contact__textarea {
@@ -388,7 +388,7 @@
   background: linear-gradient(135deg, #7c3aed, #a855f7);
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 14px;
   color: #fff;
   font-family: 'Sora', sans-serif;
@@ -401,9 +401,9 @@
   overflow: hidden;
   align-self: flex-start;
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    0 4px 16px rgba(139, 92, 246, 0.35),
-    0 1px 3px rgba(0, 0, 0, 0.08);
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    0 6px 24px rgba(124, 58, 237, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Shimmer Sweep */
@@ -538,9 +538,9 @@
 }
 
 .contact__alert--error {
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  color: #dc2626;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
 }
 
 .contact__alert svg {
@@ -565,8 +565,8 @@
   position: relative;
   width: 100%;
   margin-top: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 6, 17, 0.85);
   backdrop-filter: blur(20px) saturate(130%);
   -webkit-backdrop-filter: blur(20px) saturate(130%);
   z-index: 2;
@@ -593,7 +593,7 @@
   font-family: 'Sora', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #f8fafc;
   letter-spacing: -0.5px;
 }
 
@@ -619,7 +619,7 @@
 
 .contact__footer-copy {
   padding-top: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   width: 100%;
   text-align: center;
 }
@@ -627,7 +627,7 @@
 .contact__footer-copy p {
   font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
-  color: #cbd5e1;
+  color: #64748b;
   letter-spacing: 0.3px;
 }
 
