@@ -1,22 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './About.css';
-
-const interests = [
-  { label: 'Artificial Intelligence', icon: '🤖' },
-  { label: 'Machine Learning', icon: '🧠' },
-  { label: 'Data Science', icon: '📊' },
-  { label: 'Deep Learning', icon: '🔬' },
-  { label: 'Generative AI', icon: '⚡' },
-  { label: 'NLP & LLMs', icon: '💬' },
-  { label: 'Computer Vision', icon: '👁️' },
-  { label: 'Predictive AI', icon: '📈' },
-  { label: 'Neural Networks', icon: '🕸️' },
-  { label: 'Data Analytics', icon: '📉' },
-  { label: 'MLOps & Pipelines', icon: '⚙️' },
-  { label: 'Reinforcement Learning', icon: '🎯' },
-  { label: 'Python & PyTorch', icon: '🐍' },
-  { label: 'Autonomous Agents', icon: '🦾' },
-];
+import NeuralNetwork from './NeuralNetwork';
 
 export default function About({ isHeroVisible = false, isHeroExiting = false }) {
   const sectionRef = useRef(null);
@@ -67,12 +51,14 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
     >
       {/*<span className="section-label about__label">About</span>*/}
 
-      {/* Subtle theme gradient background behind frosted glass */}
+      {/* Dynamic 4-section animated blur gradient background */}
       <div className="about__gradient-bg" aria-hidden="true">
+        <div className="about__ambient-aurora" />
+        <div className="about__bg-glow about__bg-glow--amber about__bg-glow--1" />
+        <div className="about__bg-glow about__bg-glow--emerald about__bg-glow--2" />
+        <div className="about__bg-glow about__bg-glow--cyan about__bg-glow--3" />
+        <div className="about__bg-glow about__bg-glow--purple about__bg-glow--4" />
         <div className="about__gradient-mesh" />
-        <div className="about__bg-glow about__bg-glow--1" />
-        <div className="about__bg-glow about__bg-glow--2" />
-        <div className="about__bg-glow about__bg-glow--3" />
       </div>
 
       {/* Frosted Glass Layer */}
@@ -102,7 +88,7 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
             <strong>
               Artificial Intelligence, Machine Learning, Data Analytics, and Intelligent Systems
             </strong>
-            . I enjoy transforming raw data into actionable insights, designing robust predictive models, and building practical, AI-driven solutions. I'm actively exploring new frontiers in AI and eagerly seeking collaborative projects, internships, and career opportunities in Data Science and Machine Learning.
+            . I enjoy transforming raw data into actionable insights, designing robust predictive models, and building practical, AI-driven solutions. I'm actively exploring new frontiers in AI and eagerly seeking collaborative projects and career opportunities in Data Science and Machine Learning.
           </p>
 
           <button className="about__cta" onClick={handleContact}>
@@ -126,25 +112,9 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
           </button>
         </div>
 
-        {/* Right column — floating interest tags */}
+        {/* Right column — Neural Network Architecture Visualization */}
         <div className="about__right">
-          <div className="about__interests">
-            {interests.map((item, i) => (
-              <div
-                className="about__interest-chip"
-                key={item.label}
-                style={{
-                  animationDelay: `${0.12 + (i % 6) * 0.06}s`,
-                  '--float-delay': `${(i * 0.35) % 3}s`,
-                  '--float-duration': `${3.2 + (i % 4) * 0.6}s`,
-                }}
-              >
-                <span className="about__interest-icon">{item.icon}</span>
-                <span className="about__interest-label">{item.label}</span>
-              </div>
-            ))}
-          </div>
-          <p className="about__right-caption">Areas of Interest</p>
+          <NeuralNetwork />
         </div>
       </div>
     </section>

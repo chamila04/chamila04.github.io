@@ -45,7 +45,7 @@ button {
   font-family: inherit;
 }
 
-/* ───────── Design Tokens ───────── */
+/* ───────── Design Tokens (Linear / Modern Dark System) ───────── */
 :root {
   /* Colors - Dark Theme (preserving original hues) */
   --color-amber: #F0A500;
@@ -53,34 +53,51 @@ button {
   --color-amber-dark: #D49000;
   --color-charcoal: #161b26;
   --color-charcoal-light: #222938;
-  --color-off-white: #0a0d14;
+  --color-off-white: #07080a;
   --color-white: #FFFFFF;
   --color-black: #f1f5f9;
   --color-muted: #94a3b8;
   --color-muted-light: rgba(255, 255, 255, 0.22);
   --color-dark-muted: #64748b;
 
+  /* Linear System Canvas & Surface Tokens */
+  --bg-deep: #030407;
+  --bg-base: #07080a;
+  --bg-elevated: #0e121a;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --border-hairline: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.10);
+  --border-accent: rgba(240, 165, 0, 0.35);
+  --foreground: #EDEDEF;
+  --foreground-muted: #8A8F98;
+  --foreground-subtle: rgba(255, 255, 255, 0.55);
+
   /* Typography */
-  --font-display: 'Outfit', 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Outfit', 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, monospace;
 
   /* Spacing */
   --section-padding: 80px;
-  --container-max: 1200px;
+  --container-max: 1220px;
 
   /* Radius */
-  --radius-card: 24px;
-  --radius-card-inner: 18px;
-  --radius-btn: 50px;
+  --radius-card: 18px;
+  --radius-card-inner: 14px;
+  --radius-btn: 9999px;
+  --radius-control: 10px;
 
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-medium: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Precision Motion & Transitions (Expo-Out) */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Shadows */
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
-  --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.65);
+  /* Multi-Layer Shadows */
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 4px 24px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 40px rgba(0, 0, 0, 0.3);
+  --shadow-btn: 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.18), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* ───────── Utility Classes ───────── */

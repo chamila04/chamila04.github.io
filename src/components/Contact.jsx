@@ -92,6 +92,18 @@ export default function Contact() {
     }
   };
 
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <section
       id="contact"
@@ -276,23 +288,69 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Minimalist Compact Footer */}
       <footer className="contact__footer">
         <div className="contact__footer-inner">
-          <div className="contact__footer-brand">
+          <div className="contact__footer-left">
             <span className="contact__footer-name">Chamila</span>
-            <span className="contact__footer-tagline">
-              Data Science & AI / ML Enthusiast
-            </span>
+            <span className="contact__footer-sep" aria-hidden="true">•</span>
+            <span className="contact__footer-tagline">Data Science & AI</span>
+            <span className="contact__footer-sep" aria-hidden="true">•</span>
+            <span className="contact__footer-copy">© 2026</span>
           </div>
-          <div className="contact__footer-links">
-            <a href="#about" className="contact__footer-link">About</a>
-            <a href="#journey" className="contact__footer-link">Journey</a>
-            <a href="#projects" className="contact__footer-link">Projects</a>
-            <a href="#contact" className="contact__footer-link">Contact</a>
-          </div>
-          <div className="contact__footer-copy">
-            <p>© 2026 Chamila. Exploring the future of AI & Data Science.</p>
+
+          <div className="contact__footer-right">
+            <nav className="contact__footer-links" aria-label="Footer navigation">
+              <a
+                href="#about"
+                className="contact__footer-link"
+                onClick={(e) => handleNavClick(e, 'about')}
+              >
+                About
+              </a>
+              <a
+                href="#journey"
+                className="contact__footer-link"
+                onClick={(e) => handleNavClick(e, 'journey')}
+              >
+                Journey
+              </a>
+              <a
+                href="#projects"
+                className="contact__footer-link"
+                onClick={(e) => handleNavClick(e, 'projects')}
+              >
+                Projects
+              </a>
+              <a
+                href="#contact"
+                className="contact__footer-link"
+                onClick={(e) => handleNavClick(e, 'contact')}
+              >
+                Contact
+              </a>
+            </nav>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="contact__footer-top-btn"
+              aria-label="Back to top"
+              title="Back to top"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </footer>

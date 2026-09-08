@@ -72,7 +72,7 @@ export function ProjectCard({ project, index = 0 }) {
       <div className="awwwards-card__media-frame">
         {badge && (
           <span className="awwwards-card__badge" aria-label={`Badge: ${badge}`}>
-            {badge}
+            <span className="awwwards-card__badge-sparkle">✦</span> {badge}
           </span>
         )}
 

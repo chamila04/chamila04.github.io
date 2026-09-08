@@ -1,11 +1,10 @@
 /* ═══════════════════════════════════════════════
-   Projects Section — Dark Theme · Cyan / Sky / Blue
-   Deep cyber-obsidian + cyan gradient wash · Frosted Glass
-   Responsive Awwwards-style Grid Showcase
+   Projects Section — Linear / Modern Dark System
+   Cyber-Obsidian Canvas · Ambient Floating Cyan Light Pools · Bento Showcase Grid
    ═══════════════════════════════════════════════ */
 
 .projects {
-  background: linear-gradient(135deg, #070c14 0%, #0a1322 35%, #0d1b30 70%, #070c14 100%);
+  background: radial-gradient(ellipse at 50% 15%, #081226 0%, #050a18 50%, #02040b 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,11 +16,11 @@
   padding-right: 0;
   box-sizing: border-box;
   z-index: 2;
-  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.04);
   position: relative;
+  overflow: hidden;
 }
 
-/* ── Subtle Cyan Gradient Wash ── */
+/* ── Multi-Layer Background & Ambient Lighting ── */
 .projects__gradient-bg {
   position: absolute;
   inset: 0;
@@ -30,26 +29,23 @@
   overflow: hidden;
 }
 
+/* Technical 64px micro-grid pattern overlay */
 .projects__gradient-mesh {
   position: absolute;
-  inset: -25%;
-  width: 150%;
-  height: 150%;
-  background:
-    radial-gradient(circle at 18% 22%, rgba(6, 182, 212, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 82% 78%, rgba(14, 165, 233, 0.13) 0%, transparent 45%),
-    radial-gradient(circle at 68% 18%, rgba(59, 130, 246, 0.11) 0%, transparent 40%),
-    radial-gradient(circle at 32% 82%, rgba(56, 189, 248, 0.09) 0%, transparent 45%);
-  filter: blur(40px);
-  animation: projectsMeshFloat 20s ease-in-out infinite alternate;
-  opacity: 1;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
 }
 
-/* ── Ambient Glowing Orbs ── */
+/* Ambient Floating Blue Blobs */
 .projects__bg-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   opacity: 0;
   transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
@@ -62,49 +58,45 @@
 .projects__bg-glow--1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, rgba(14, 165, 233, 0.04) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.16) 0%, rgba(29, 78, 216, 0.03) 50%, transparent 70%);
   top: -12%;
   right: -6%;
-  animation: projectsGlowFloat1 14s ease-in-out infinite alternate;
+  animation: projectsBlobFloat1 10s ease-in-out infinite alternate;
 }
 
 .projects__bg-glow--2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.14) 0%, rgba(6, 182, 212, 0.03) 45%, transparent 70%);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.14) 0%, rgba(37, 99, 235, 0.03) 50%, transparent 70%);
   bottom: -12%;
-  left: 6%;
-  animation: projectsGlowFloat2 16s ease-in-out infinite alternate;
+  left: 5%;
+  animation: projectsBlobFloat2 12s ease-in-out infinite alternate;
 }
 
 .projects__bg-glow--3 {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, rgba(56, 189, 248, 0.03) 50%, transparent 70%);
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 65%);
   top: 35%;
   left: 35%;
-  animation: projectsGlowFloat3 18s ease-in-out infinite alternate;
+  animation: projectsBlobFloat3 14s ease-in-out infinite alternate;
 }
 
-@keyframes projectsMeshFloat {
+@keyframes projectsBlobFloat1 {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-3%, 2%) scale(1.05); }
-  100% { transform: translate(2%, -3%) scale(0.98); }
+  50% { transform: translate(-30px, 35px) scale(1.08); }
+  100% { transform: translate(25px, -20px) scale(0.96); }
 }
 
-@keyframes projectsGlowFloat1 {
+@keyframes projectsBlobFloat2 {
   0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-30px, 35px) scale(1.1); }
+  50% { transform: translate(35px, -25px) scale(1.06); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
 }
 
-@keyframes projectsGlowFloat2 {
+@keyframes projectsBlobFloat3 {
   0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(35px, -25px) scale(1.12); }
-}
-
-@keyframes projectsGlowFloat3 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-20px, -20px) scale(1.15); }
+  100% { transform: translate(-20px, -20px) scale(1.1); }
 }
 
 /* ── Frosted Glass Overlay ── */
@@ -113,14 +105,11 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: rgba(7, 12, 20, 0.45);
-  backdrop-filter: blur(50px) saturate(130%);
-  -webkit-backdrop-filter: blur(50px) saturate(130%);
-  border-top: 1px solid rgba(6, 182, 212, 0.2);
+  background: rgba(4, 8, 18, 0.48);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-top: 1px solid rgba(37, 99, 235, 0.22);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  background-image:
-    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
 }
 
 /* ── Section Header ── */
@@ -136,7 +125,7 @@
   position: relative;
   z-index: 5;
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(18px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: 0.08s;
@@ -148,51 +137,68 @@
   transform: translateY(0);
 }
 
+/* Linear Technical Tag */
 .projects__tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 1.4px;
-  color: #38bdf8;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(14, 165, 233, 0.1));
-  border: 1px solid rgba(6, 182, 212, 0.42);
-  padding: 3px 12px;
-  border-radius: 100px;
-  margin-bottom: 4px;
+  letter-spacing: 1.2px;
+  color: #3b82f6;
+  background: rgba(8, 18, 44, 0.62);
+  border: 1px solid rgba(37, 99, 235, 0.45);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
   text-transform: uppercase;
-  backdrop-filter: blur(12px) saturate(130%);
-  -webkit-backdrop-filter: blur(12px) saturate(130%);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(6, 182, 212, 0.12);
-  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
+    0 2px 10px rgba(10, 20, 50, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projects__tag:hover {
+  transform: translateY(-1px);
+  background: rgba(12, 26, 60, 0.75);
+  border-color: rgba(59, 130, 246, 0.65);
+  color: #60a5fa;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 4px 16px rgba(29, 78, 216, 0.35);
 }
 
 .projects__tag-sparkle {
-  color: #38bdf8;
+  color: #3b82f6;
   margin-right: 4px;
 }
 
 .projects__title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.65rem, 2.5vw, 2.15rem);
-  font-weight: 700;
-  color: #f8fafc;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #EDEDEF;
   line-height: 1.15;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.03em;
   margin: 0;
-}
-
-.projects__title-accent {
-  background: linear-gradient(135deg, #06b6d4, #38bdf8, #60a5fa);
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDEF 60%, rgba(255, 255, 255, 0.7) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 700;
 }
 
-/* ── Main Grid Container ── */
+.projects__title-accent {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb, #3b82f6, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.35));
+}
+
+/* ── Main Bento Grid Container ── */
 .projects__container {
   position: relative;
   z-index: 4;
@@ -203,8 +209,8 @@
   margin-top: 36px;
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: 0.12s;
 }
 
@@ -224,7 +230,7 @@
 @media (min-width: 1180px) {
   .projects__grid {
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 32px;
+    gap: 30px;
   }
 }
 
@@ -250,23 +256,22 @@
 }
 
 .projects__spinner {
-  width: 44px;
-  height: 44px;
-  border: 3px solid rgba(6, 182, 212, 0.16);
-  border-top-color: #06b6d4;
+  width: 38px;
+  height: 38px;
+  border: 2.5px solid rgba(37, 99, 235, 0.22);
+  border-top-color: #3b82f6;
   border-radius: 50%;
-  animation: projectsSpin 0.9s linear infinite;
+  animation: projectsSpin 0.8s linear infinite;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.3);
 }
 
 @keyframes projectsSpin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 .projects__empty {
-  font-family: 'Inter', sans-serif;
-  color: #94a3b8;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  color: #8A8F98;
   font-size: 1rem;
   text-align: center;
   padding: 60px 0;

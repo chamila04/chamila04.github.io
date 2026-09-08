@@ -28,7 +28,7 @@ export default function Hero({ exiting, onDismiss }) {
     );
   }
 
-  const words = currentQuote.quote.split(' ');
+  const words = currentQuote.quote.trim().split(/\s+/);
   const baseDelay = 0.15;
   const wordStep = 0.035;
   const authorDelay = baseDelay + words.length * wordStep + 0.15;
@@ -46,33 +46,89 @@ export default function Hero({ exiting, onDismiss }) {
 
       <div className="hero__content" onClick={(e) => e.stopPropagation()}>
         <div className="hero__quote-wrapper">
-          <span
-            className="hero__quote-mark hero__quote-mark--open"
-            style={{ animationDelay: `${baseDelay}s` }}
-            aria-hidden="true"
-          >
-            &ldquo;
-          </span>
-
           <h1 className="hero__headline">
-            {words.map((word, i) => (
-              <span
-                key={`word-${i}`}
-                className="hero__word"
-                style={{ animationDelay: `${baseDelay + i * wordStep}s` }}
-              >
-                {word}
-              </span>
-            ))}
-          </h1>
+            {words.map((word, i) => {
+              const isFirst = i === 0;
+              const isLast = i === words.length - 1;
 
-          <span
-            className="hero__quote-mark hero__quote-mark--close"
-            style={{ animationDelay: `${baseDelay + words.length * wordStep}s` }}
-            aria-hidden="true"
-          >
-            &rdquo;
-          </span>
+              if (isFirst && isLast) {
+                return (
+                  <span key={`word-${i}`} className="hero__word-group">
+                    <span
+                      className="hero__quote-mark hero__quote-mark--open"
+                      style={{ animationDelay: `${baseDelay}s` }}
+                      aria-hidden="true"
+                    >
+                      &ldquo;
+                    </span>
+                    <span
+                      className="hero__word hero__word--last"
+                      style={{ animationDelay: `${baseDelay}s` }}
+                    >
+                      {word}
+                    </span>
+                    <span
+                      className="hero__quote-mark hero__quote-mark--close"
+                      style={{ animationDelay: `${baseDelay + wordStep}s` }}
+                      aria-hidden="true"
+                    >
+                      &rdquo;
+                    </span>
+                  </span>
+                );
+              }
+
+              if (isFirst) {
+                return (
+                  <span key={`word-${i}`} className="hero__word-group">
+                    <span
+                      className="hero__quote-mark hero__quote-mark--open"
+                      style={{ animationDelay: `${baseDelay}s` }}
+                      aria-hidden="true"
+                    >
+                      &ldquo;
+                    </span>
+                    <span
+                      className="hero__word"
+                      style={{ animationDelay: `${baseDelay}s` }}
+                    >
+                      {word}
+                    </span>
+                  </span>
+                );
+              }
+
+              if (isLast) {
+                return (
+                  <span key={`word-${i}`} className="hero__word-group">
+                    <span
+                      className="hero__word hero__word--last"
+                      style={{ animationDelay: `${baseDelay + i * wordStep}s` }}
+                    >
+                      {word}
+                    </span>
+                    <span
+                      className="hero__quote-mark hero__quote-mark--close"
+                      style={{ animationDelay: `${baseDelay + words.length * wordStep}s` }}
+                      aria-hidden="true"
+                    >
+                      &rdquo;
+                    </span>
+                  </span>
+                );
+              }
+
+              return (
+                <span
+                  key={`word-${i}`}
+                  className="hero__word"
+                  style={{ animationDelay: `${baseDelay + i * wordStep}s` }}
+                >
+                  {word}
+                </span>
+              );
+            })}
+          </h1>
         </div>
 
         {currentQuote.author && (
@@ -85,24 +141,25 @@ export default function Hero({ exiting, onDismiss }) {
           </p>
         )}
 
-        <div
-          className="hero__scroll-hint"
-          style={{ animationDelay: `${hintDelay}s` }}
-          onClick={onDismiss}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              onDismiss();
-            }
-          }}
-          aria-label="Scroll to explore portfolio"
-        >
-          <span className="hero__scroll-text">Scroll to explore</span>
-          <div className="hero__scroll-indicator">
-            <span className="hero__scroll-dot" />
-          </div>
+      </div>
+
+      <div
+        className="hero__scroll-hint"
+        style={{ animationDelay: `${hintDelay}s` }}
+        onClick={onDismiss}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onDismiss();
+          }
+        }}
+        aria-label="Scroll to explore portfolio"
+      >
+        <span className="hero__scroll-text">Scroll to explore</span>
+        <div className="hero__scroll-indicator">
+          <span className="hero__scroll-dot" />
         </div>
       </div>
     </section>

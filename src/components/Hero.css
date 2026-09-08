@@ -1,19 +1,13 @@
 /* ==========================================================================
-   Hero Section - Clean, High-Performance Splash / Quote Screen
+   Hero Section — Linear / Modern Dark System (Amber Ambient Lighting)
+   Deep space obsidian background + amber glow pools + precision micro-interactions
    ========================================================================== */
 
 .hero {
-  /* Scoped original light theme tokens to keep hero exactly as before */
-  --color-off-white: #F5F5F5;
-  --color-charcoal: #2D2D2D;
-  --color-muted: #999999;
-  --color-dark-muted: #555555;
-  --color-black: #111111;
-
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: var(--color-off-white);
+  background: radial-gradient(ellipse at 50% 20%, #0d111a 0%, #07080a 55%, #030407 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,56 +15,79 @@
   user-select: none;
   cursor: pointer;
   will-change: transform;
-  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  box-shadow: none;
 }
 
-/* Subtle ambient background glow */
+/* ── Technical Micro-Grid & Ambient Lighting Layers ── */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+/* Layered floating amber ambient glow */
 .hero__backdrop-glow {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  width: 70vw;
-  max-width: 800px;
-  height: 50vh;
-  max-height: 500px;
+  width: 75vw;
+  max-width: 900px;
+  height: 55vh;
+  max-height: 550px;
   background: radial-gradient(ellipse at center,
-      rgba(240, 165, 0, 0.08) 0%,
-      rgba(240, 165, 0, 0.02) 45%,
+      rgba(240, 165, 0, 0.16) 0%,
+      rgba(255, 184, 32, 0.06) 40%,
       transparent 70%);
+  filter: blur(80px);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 0;
-  animation: heroGlowPulse 6s ease-in-out infinite alternate;
+  animation: heroGlowFloat 8s ease-in-out infinite alternate;
 }
 
-@keyframes heroGlowPulse {
+@keyframes heroGlowFloat {
   0% {
-    transform: translate(-50%, -50%) scale(0.92);
-    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.7;
   }
-
-  100% {
-    transform: translate(-50%, -50%) scale(1.08);
+  50% {
+    transform: translate(-48%, -52%) scale(1.08);
     opacity: 1;
   }
+  100% {
+    transform: translate(-52%, -48%) scale(0.98);
+    opacity: 0.85;
+  }
 }
 
-/* Smooth exit state - Cover lifts up to reveal the about section */
+/* Smooth exit state - Cover lifts up with cinematic ease */
 .hero--exiting {
   transform: translate3d(0, -100%, 0);
-  box-shadow: none;
   pointer-events: none;
 }
 
 .hero--exiting .hero__content {
-  transform: translate3d(0, -25%, 0);
-  opacity: 0.6;
+  transform: translate3d(0, -20%, 0);
+  opacity: 0.4;
   transition:
-    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.65s ease-out;
+}
+
+.hero--exiting .hero__scroll-hint {
+  opacity: 0 !important;
+  transform: translate3d(-50%, 10px, 0) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Loading Animation */
@@ -80,15 +97,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .hero__loader-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: var(--color-charcoal, #4a4a4a);
+  background-color: var(--color-amber, #F0A500);
   opacity: 0.4;
+  box-shadow: 0 0 10px rgba(240, 165, 0, 0.4);
   animation: heroTypingLoader 1.2s infinite ease-in-out both;
 }
 
@@ -113,7 +131,7 @@
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 1000px;
+  max-width: 1040px;
   width: 100%;
   text-align: center;
   padding: 0 48px;
@@ -127,45 +145,66 @@
 /* Quote Layout & Typography */
 .hero__quote-wrapper {
   position: relative;
-  display: inline;
+  display: block;
   width: 100%;
   line-height: 1.4;
 }
 
 .hero__headline {
-  display: inline;
+  display: block;
+  width: 100%;
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.75rem);
   font-weight: 700;
-  line-height: 1.36;
-  letter-spacing: -0.02em;
-  color: var(--color-charcoal);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  color: #EDEDEF;
   word-wrap: break-word;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
 }
 
-/* Staggered Word Reveal */
+/* Group quotation mark with adjacent word to prevent orphan punctuation */
+.hero__word-group {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero__word-group:not(:last-child) {
+  margin-right: 0.28em;
+}
+
+.hero__word-group .hero__word {
+  margin-right: 0;
+}
+
+/* Staggered Word Reveal with Linear vertical gradient */
 .hero__word {
   display: inline-block;
   margin-right: 0.28em;
   opacity: 0;
-  transform: translate3d(0, 22px, 0);
-  filter: blur(5px);
+  transform: translate3d(0, 20px, 0);
+  filter: blur(4px);
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDEF 65%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   animation: heroWordReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity, filter;
   backface-visibility: hidden;
 }
 
-.hero__word:last-child {
+.hero__word:last-child,
+.hero__word--last {
   margin-right: 0;
 }
 
 @keyframes heroWordReveal {
   0% {
     opacity: 0;
-    transform: translate3d(0, 22px, 0);
-    filter: blur(5px);
+    transform: translate3d(0, 20px, 0);
+    filter: blur(4px);
   }
-
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -173,17 +212,18 @@
   }
 }
 
-/* Quote Marks */
+/* Quote Marks — Amber Accent Tint */
 .hero__quote-mark {
   display: inline-block;
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.8rem, 3.5vw, 3.2rem);
   font-weight: 700;
-  color: var(--color-muted);
-  vertical-align: baseline;
+  color: var(--color-amber);
   opacity: 0;
-  transform: translate3d(0, 16px, 0);
+  transform: translate3d(0, 14px, 0);
+  vertical-align: baseline;
   animation: heroMarkReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  text-shadow: 0 0 16px rgba(240, 165, 0, 0.4);
 }
 
 .hero__quote-mark--open {
@@ -196,100 +236,121 @@
 
 @keyframes heroMarkReveal {
   to {
+    opacity: 0.9;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Author Section — Precision Technical Pill */
+.hero__author {
+  margin-top: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
+  font-weight: 500;
+  color: var(--color-muted);
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  animation: heroAuthorReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.hero__author-dash {
+  color: var(--color-amber);
+  font-weight: 700;
+}
+
+.hero__author-name {
+  color: #EDEDEF;
+  font-weight: 500;
+}
+
+@keyframes heroAuthorReveal {
+  to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 }
 
-/* Author Section */
-.hero__author {
-  margin-top: 26px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
-  font-weight: 500;
-  color: var(--color-dark-muted);
-  letter-spacing: 0.3px;
-  opacity: 0;
-  transform: translate3d(0, 14px, 0);
-  animation: heroAuthorReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity;
-}
-
-.hero__author-dash {
-  color: var(--color-muted);
-  font-weight: 700;
-}
-
-.hero__author-name {
-  color: #4a4a4a;
-}
-
-@keyframes heroAuthorReveal {
-  to {
-    opacity: 0.95;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-/* Scroll Hint Interactive Pill */
+/* Scroll Hint — Subtle, Minimalist Indicator at Bottom of Window */
 .hero__scroll-hint {
-  margin-top: 56px;
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translate3d(-50%, 12px, 0);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 7px;
   cursor: pointer;
   opacity: 0;
-  transform: translate3d(0, 16px, 0);
   animation: heroHintReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
-  padding: 8px 16px;
-  border-radius: 20px;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  z-index: 2;
 }
 
 .hero__scroll-hint:hover {
-  transform: translate3d(0, -3px, 0);
+  opacity: 0.9 !important;
+  transform: translate3d(-50%, -2px, 0) !important;
+}
+
+.hero__scroll-hint:active {
+  transform: translate3d(-50%, 0, 0) scale(0.97) !important;
 }
 
 .hero__scroll-text {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 2.2px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-muted);
-  transition: color var(--transition-fast);
+  opacity: 0.75;
+  transition: color 0.25s ease, opacity 0.25s ease;
 }
 
 .hero__scroll-hint:hover .hero__scroll-text {
-  color: var(--color-black);
+  color: #EDEDEF;
+  opacity: 1;
 }
 
-/* Modern Capsule Scroll Indicator */
+/* Slim, Refined Scroll Indicator */
 .hero__scroll-indicator {
-  width: 22px;
-  height: 38px;
-  border: 2px solid rgba(0, 0, 0, 0.22);
-  border-radius: 12px;
+  width: 16px;
+  height: 26px;
+  border: 1.2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9px;
   display: flex;
   justify-content: center;
-  padding-top: 6px;
+  padding-top: 4px;
   position: relative;
-  transition: border-color var(--transition-fast), transform var(--transition-fast);
+  transition: border-color 0.25s ease;
 }
 
 .hero__scroll-hint:hover .hero__scroll-indicator {
-  border-color: var(--color-amber);
+  border-color: rgba(240, 165, 0, 0.6);
 }
 
 .hero__scroll-dot {
-  width: 4px;
-  height: 8px;
+  width: 2.5px;
+  height: 5px;
   background: var(--color-amber);
-  border-radius: 3px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(240, 165, 0, 0.5);
   animation: heroScrollBob 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
@@ -298,30 +359,27 @@
     opacity: 0;
     transform: translateY(0);
   }
-
   30% {
-    opacity: 1;
+    opacity: 0.85;
   }
-
   80% {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
-
   100% {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
 }
 
 @keyframes heroHintReveal {
   to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-/* Responsive Styles */
+/* ── Responsive Styles ── */
 @media (max-width: 768px) {
   .hero__backdrop-glow {
     width: 90vw;
@@ -333,41 +391,40 @@
   }
 
   .hero__headline {
-    font-size: clamp(1.2rem, 5vw, 1.65rem);
-    letter-spacing: -0.01em;
+    font-size: clamp(1.25rem, 5.2vw, 1.8rem);
     line-height: 1.38;
   }
 
   .hero__quote-mark {
-    font-size: clamp(1.4rem, 6vw, 2rem);
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
   }
 
   .hero__author {
-    margin-top: 18px;
-    font-size: 0.85rem;
+    margin-top: 20px;
+    font-size: 0.82rem;
+    padding: 5px 14px;
   }
 
   .hero__scroll-hint {
-    margin-top: 36px;
-    padding: 6px 14px;
-    gap: 8px;
+    bottom: max(18px, calc(10px + env(safe-area-inset-bottom)));
+    gap: 6px;
+    padding: 4px 8px;
   }
 
   .hero__scroll-text {
-    font-size: 0.68rem;
+    font-size: 0.58rem;
     letter-spacing: 1.6px;
   }
 
   .hero__scroll-indicator {
-    width: 18px;
-    height: 30px;
-    border-radius: 10px;
-    padding-top: 4px;
+    width: 14px;
+    height: 22px;
+    border-radius: 8px;
   }
 
   .hero__scroll-dot {
-    width: 3.5px;
-    height: 6px;
+    width: 2px;
+    height: 4px;
   }
 }
 
@@ -377,16 +434,16 @@
   }
 
   .hero__headline {
-    font-size: clamp(1.1rem, 5.2vw, 1.45rem);
+    font-size: clamp(1.15rem, 5.5vw, 1.5rem);
     line-height: 1.4;
   }
 
   .hero__author {
-    margin-top: 16px;
-    font-size: 0.8rem;
+    margin-top: 18px;
+    font-size: 0.78rem;
   }
 
   .hero__scroll-hint {
-    margin-top: 28px;
+    bottom: max(14px, calc(8px + env(safe-area-inset-bottom)));
   }
 }

@@ -1,7 +1,11 @@
+/* ═══════════════════════════════════════════════
+   SkeletonLoader.css — Linear / Modern Dark Shimmer
+   ═══════════════════════════════════════════════ */
+
 .skeleton-wrapper {
   width: 100%;
   min-height: 100vh;
-  background: var(--color-off-white);
+  background: var(--bg-base, #07080a);
   position: relative;
   overflow: hidden;
 }
@@ -13,16 +17,16 @@
   position: relative;
 }
 
-/* Pulsing Animation */
+/* Pulsing Shimmer Animation */
 @keyframes skeletonPulse {
   0% {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.03);
   }
   50% {
-    background-color: rgba(255, 255, 255, 0.09);
+    background-color: rgba(255, 255, 255, 0.07);
   }
   100% {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.03);
   }
 }
 
@@ -30,7 +34,8 @@
 .skeleton-header,
 .skeleton-line,
 .skeleton-card {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   animation: skeletonPulse 1.8s ease-in-out infinite;
 }
@@ -45,36 +50,38 @@
 }
 
 .skeleton-content {
-  max-width: var(--container-max);
+  max-width: var(--container-max, 1220px);
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .skeleton-header {
-  width: 40%;
-  height: 48px;
+  width: 38%;
+  height: 44px;
   margin-bottom: 24px;
   border-radius: 12px;
 }
 
 .skeleton-line {
-  height: 16px;
-  border-radius: 8px;
+  height: 14px;
+  border-radius: 6px;
 }
 
 .skeleton-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  margin-top: 48px;
+  margin-top: 40px;
 }
 
 .skeleton-card {
-  height: 220px;
-  border-radius: var(--radius-card);
+  height: 240px;
+  border-radius: var(--radius-card, 18px);
 }
 
 @media (max-width: 768px) {
