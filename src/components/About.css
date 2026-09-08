@@ -88,24 +88,47 @@
 }
 
 @keyframes aboutMeshFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-3%, 2%) scale(1.05); }
-  100% { transform: translate(2%, -3%) scale(0.98); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-3%, 2%) scale(1.05);
+  }
+
+  100% {
+    transform: translate(2%, -3%) scale(0.98);
+  }
 }
 
 @keyframes aboutGlowFloat1 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-30px, 35px) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-30px, 35px) scale(1.1);
+  }
 }
 
 @keyframes aboutGlowFloat2 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(35px, -25px) scale(1.12); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(35px, -25px) scale(1.12);
+  }
 }
 
 @keyframes aboutGlowFloat3 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-20px, -20px) scale(1.15); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-20px, -20px) scale(1.15);
+  }
 }
 
 /* ── Frosted Glass Overlay ── */
@@ -233,8 +256,17 @@
 }
 
 @keyframes statusPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.35); opacity: 0.65; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: 0.65;
+  }
 }
 
 .about__name {
@@ -305,76 +337,67 @@
   font-weight: 600;
 }
 
-/* ── CTA Button — Ultra-Vibrant Saturated Amber Frosted Glass ── */
+/* ── CTA Button — Modern Pill Outline with Solid Glow Hover ── */
 .about__cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px 34px;
-  background: linear-gradient(135deg, #ff6b00 0%, #ff8800 45%, #ffa600 100%);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 14px;
-  color: #ffffff;
+  gap: 14px;
+  padding: 14px 34px;
+  background: rgba(251, 133, 0, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid #fb8500;
+  border-radius: 9999px;
+  color: #fb8500;
   font-family: 'Inter', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.3px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  opacity: 0;
-  transform: translateY(16px);
   position: relative;
   overflow: hidden;
-  box-shadow:
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.45),
-    0 6px 24px rgba(255, 107, 0, 0.45),
-    0 0 16px rgba(255, 183, 3, 0.25);
+  opacity: 0;
+  transform: translateY(16px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
 }
 
 .about--visible .about__cta {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.55s;
+  animation: ctaEntrance 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s backwards;
 }
 
-/* Shimmer Sweep */
+@keyframes ctaEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Background fill layer on hover */
 .about__cta::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -80%;
-  width: 60%;
-  height: 200%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: rotate(25deg);
-  pointer-events: none;
-  animation: aboutBtnShimmer 4.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes aboutBtnShimmer {
-  0% { left: -90%; }
-  35%, 100% { left: 150%; }
-}
-
-.about__cta::after {
-  content: '';
-  position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 180, 0, 0.3), rgba(255, 95, 0, 0.25));
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  background: linear-gradient(135deg, #fb8500 0%, #ff9500 100%);
   border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+  pointer-events: none;
 }
 
-.about__cta:hover::after {
+.about__cta:hover::before {
   opacity: 1;
 }
 
@@ -382,30 +405,34 @@
 .about__cta-icon {
   position: relative;
   z-index: 2;
+  transition: color 0.3s ease;
 }
 
 .about__cta:hover {
-  transform: translateY(-3px) scale(1.03);
-  background: linear-gradient(135deg, #ff5e00 0%, #ff7e00 45%, #ff9d00 100%);
-  border-color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  border-color: #fb8500;
+  transform: translateY(-2px);
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.75),
-    0 10px 32px rgba(255, 110, 0, 0.52),
-    0 0 20px rgba(255, 165, 0, 0.35);
+    0 0 28px rgba(251, 133, 0, 0.45),
+    0 8px 24px rgba(251, 133, 0, 0.3);
 }
 
 .about__cta:active {
   transform: translateY(0) scale(0.98);
+  box-shadow:
+    0 0 16px rgba(251, 133, 0, 0.35),
+    0 4px 12px rgba(251, 133, 0, 0.25);
+  transition-duration: 0.1s;
 }
 
 .about__cta-icon {
   display: flex;
   align-items: center;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .about__cta:hover .about__cta-icon {
-  transform: translate(4px, -3px);
+  transform: translateX(6px);
 }
 
 /* ── Right column — interests ── */
@@ -443,7 +470,7 @@
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06), 0 4px 16px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transform: translateY(16px) scale(0.95);
-  transition: 
+  transition:
     transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     background 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     border-color 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -455,7 +482,7 @@
 }
 
 .about--visible .about__interest-chip {
-  animation: 
+  animation:
     chipReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
     chipIdleFloat var(--float-duration, 3.5s) ease-in-out infinite alternate;
   animation-delay: inherit, var(--float-delay, 0s);
@@ -469,12 +496,18 @@
 }
 
 @keyframes chipIdleFloat {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-4px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-4px);
+  }
 }
 
 /* ── Collective Hover Reaction (Desktop Only) ── */
 @media (hover: hover) {
+
   /* When hovering over the cluster, all chips gently soften to create focus depth */
   .about__interests:hover .about__interest-chip {
     opacity: 0.72;
@@ -543,6 +576,7 @@
   .about__container {
     gap: 36px;
   }
+
   .about__right {
     flex: 1.1;
     max-width: 480px;
@@ -556,6 +590,7 @@
     padding-top: 80px;
     padding-bottom: 50px;
   }
+
   .about__container {
     flex-direction: column;
     gap: 36px;
@@ -563,38 +598,46 @@
     transform: none;
     max-width: 100%;
   }
+
   .about__left {
     max-width: 100%;
     width: 100%;
   }
+
   .about__right {
     flex: none;
     width: 100%;
     max-width: 100%;
     align-items: flex-start;
   }
+
   .about__interests {
     justify-content: flex-start;
     width: 100%;
     gap: 8px 8px;
   }
+
   .about__name {
     font-size: clamp(2rem, 7.5vw, 2.6rem);
   }
+
   .about__bio {
     font-size: 0.88rem;
     line-height: 1.72;
     max-width: 100%;
     margin-bottom: 24px;
   }
+
   .about__cta {
     width: 100%;
     justify-content: center;
     padding: 14px 24px;
   }
+
   .about__interest-chip {
     padding: 8px 12px;
   }
+
   .about__interest-label {
     font-size: 0.76rem;
   }
@@ -607,25 +650,30 @@
     padding-top: 72px;
     padding-bottom: 40px;
   }
+
   .about__name {
     font-size: clamp(1.8rem, 7vw, 2.2rem);
   }
+
   .about__bio {
     font-size: 0.84rem;
     line-height: 1.68;
   }
+
   .about__interest-chip {
     padding: 6px 10px;
     gap: 5px;
   }
+
   .about__interest-icon {
     font-size: 0.9rem;
   }
+
   .about__interest-label {
     font-size: 0.72rem;
   }
+
   .about__right-caption {
     font-size: 0.68rem;
   }
 }
-

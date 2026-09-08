@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import './ProjectCard.css';
 
 /**
@@ -12,59 +12,17 @@ const resolveAssetUrl = (url) => {
 };
 
 /**
- * WheelCard: Compact, wide card rendered inside the 3D vertical scroll wheel on the left
+ * ProjectCard: Editorial card inspired by Awwwards layout
+ * - Framed inset image thumbnail with hover zoom
+ * - Bold title
+ * - Accent-colored category (Cyan / Teal)
+ * - Muted publication / development date
+ * - Concise description & tech pills
+ * - Interactive repository / project view links
  */
-export function WheelCard({ project, index, offset, isActive, onClick }) {
-  const num = String(index + 1).padStart(2, '0');
-
-  return (
-    <div
-      className={`wheel-card ${isActive ? 'wheel-card--active' : ''} wheel-card--offset-${offset}`}
-      data-offset={offset}
-      data-index={index}
-      onClick={() => onClick(offset)}
-      role="button"
-      tabIndex={0}
-      aria-label={`Select project ${index + 1}: ${project.title}`}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick(offset);
-        }
-      }}
-    >
-      <div className="wheel-card__indicator" />
-      <div className="wheel-card__index">{num}</div>
-      <div className="wheel-card__body">
-        <h3 className="wheel-card__title" title={project.title}>
-          {project.title}
-        </h3>
-      </div>
-      {isActive && (
-        <div className="wheel-card__active-badge">
-          <span>Active</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * ProjectDetail: Rich details showcase rendered on the right 2/3rds for the focused card
- */
-export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isActiveView = true }) {
-  if (!project) return null;
-
-  const num = String(index + 1).padStart(2, '0');
-  const total = String(totalCount).padStart(2, '0');
-  const techStack = project.techStack || project.tags || [];
-  const badge = project.badge || project.category || 'Featured';
-
-  // Normalize image list
+export function ProjectCard({ project, index = 0 }) {
   const images = useMemo(() => {
+    if (!project) return [];
     const rawImages =
       Array.isArray(project.images) && project.images.length > 0
         ? project.images
@@ -72,235 +30,80 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
         ? [project.image]
         : [];
     return rawImages.map(resolveAssetUrl).filter(Boolean);
-  }, [project.images, project.image]);
+  }, [project]);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
-  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Reset currentImgIndex when project changes
+  // Auto-cycle through preview images when user hovers over card
   useEffect(() => {
-    setCurrentImgIndex(0);
-  }, [project.id, project.title]);
-
-  // Preload images and track loading state
-  useEffect(() => {
-    if (images.length === 0) {
-      setFirstImageLoaded(true);
-      setImagesLoaded(true);
-      return;
-    }
-
-    setFirstImageLoaded(false);
-    setImagesLoaded(false);
-    let active = true;
-    let loadedCount = 0;
-
-    images.forEach((src, idx) => {
-      const img = new Image();
-      let handled = false;
-      const onLoadOrError = () => {
-        if (handled || !active) return;
-        handled = true;
-        if (idx === 0) {
-          setFirstImageLoaded(true);
-        }
-        loadedCount++;
-        if (loadedCount === images.length) {
-          setImagesLoaded(true);
-        }
-      };
-      img.onload = onLoadOrError;
-      img.onerror = onLoadOrError;
-      img.src = src;
-      if (img.complete) {
-        onLoadOrError();
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [images]);
-
-  // Cycle image every 2 seconds (2000ms), only when loaded and in view
-  useEffect(() => {
-    if (images.length <= 1 || !imagesLoaded || !isActiveView) return;
+    if (images.length <= 1 || !isHovered) return;
 
     const timer = setInterval(() => {
       setCurrentImgIndex((prev) => (prev + 1) % images.length);
-    }, 2000);
+    }, 2200);
 
     return () => clearInterval(timer);
-  }, [images.length, imagesLoaded, isActiveView, project.id]);
+  }, [images.length, isHovered]);
 
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
+  if (!project) return null;
 
-  const handleTouchEnd = (e) => {
-    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
-    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+  const badge = project.badge || null;
+  const category = project.category || 'Project';
+  const techStack = project.techStack || project.tags || [];
 
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
-      if (deltaX > 0) {
-        onNext();
-      } else {
-        onPrev();
-      }
-    }
+  const handleDotClick = (e, idx) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setCurrentImgIndex(idx);
   };
 
   return (
     <article
-      className="project-detail"
-      key={project.id || index}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      className="awwwards-card"
+      data-index={index}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setCurrentImgIndex(0);
+      }}
     >
-      <div className="project-detail__card">
-        {/* Top Meta Bar */}
-        <div className="project-detail__top-bar">
-          <div className="project-detail__tags">
-            <span className="project-detail__badge">
-              <span className="project-detail__badge-sparkle">✦</span>
-              {badge}
+      {/* ── Inset Media Frame (Framed by card padding) ── */}
+      <div className="awwwards-card__media-frame">
+        {badge && (
+          <span className="awwwards-card__badge" aria-label={`Badge: ${badge}`}>
+            {badge}
+          </span>
+        )}
+
+        {/* Multi-image indicator badge */}
+        {images.length > 1 && (
+          <div className="awwwards-card__counter">
+            <span>
+              {currentImgIndex + 1}/{images.length}
             </span>
-            {project.category && project.category !== badge && (
-              <span className="project-detail__category">{project.category}</span>
-            )}
           </div>
+        )}
 
-          {/* Quick Step Controls & Counter */}
-          <div className="project-detail__nav">
-            <button
-              type="button"
-              className="project-detail__nav-btn"
-              onClick={onPrev}
-              aria-label="Previous project"
-              title="Previous project (Up)"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="18 15 12 9 6 15" />
-              </svg>
-            </button>
-            <div className="project-detail__counter">
-              <span className="project-detail__counter-curr">{num}</span>
-              <span className="project-detail__counter-sep">/</span>
-              <span className="project-detail__counter-total">{total}</span>
-            </div>
-            <button
-              type="button"
-              className="project-detail__nav-btn"
-              onClick={onNext}
-              aria-label="Next project"
-              title="Next project (Down)"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Title & Tech Stack in Same Row */}
-        <div className="project-detail__header-row">
-          <h3 className="project-detail__title">{project.title}</h3>
-          {techStack.length > 0 && (
-            <div className="project-detail__tech-tags">
-              {techStack.map((tech) => (
-                <span key={tech} className="project-detail__tech-tag">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Media Frame with Image Cycling */}
-        <div className="project-detail__media-wrapper">
-          {/* Loading animation inside the image box until the 1st image loads */}
-          {images.length > 0 && (
-            <div
-              className={`project-detail__image-loader ${
-                firstImageLoaded ? 'project-detail__image-loader--hidden' : ''
-              }`}
-              aria-hidden={firstImageLoaded}
-            >
-              <div className="project-detail__pacman-loader" aria-label="Loading image">
-                <svg
-                  className="project-detail__pacman-svg"
-                  viewBox="0 0 100 50"
-                  width="88"
-                  height="44"
-                >
-                  {/* Single continuous Pacman body with zero seams */}
-                  <path
-                    className="project-detail__pacman-path"
-                    d="M 25 25 L 42.34 11.45 A 22 22 0 1 0 42.34 38.55 Z"
-                    fill="#06b6d4"
-                  >
-                    <animate
-                      attributeName="d"
-                      dur="0.44s"
-                      repeatCount="indefinite"
-                      calcMode="spline"
-                      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
-                      keyTimes="0; 0.5; 1"
-                      values="M 25 25 L 46.99 24.5 A 22 22 0 1 0 46.99 25.5 Z; M 25 25 L 42.34 11.45 A 22 22 0 1 0 42.34 38.55 Z; M 25 25 L 46.99 24.5 A 22 22 0 1 0 46.99 25.5 Z"
-                    />
-                  </path>
-
-                  {/* Traveling Food Dots */}
-                  <g className="project-detail__pacman-dots-group">
-                    <circle
-                      className="project-detail__pacman-svg-dot project-detail__pacman-svg-dot--1"
-                      cx="92"
-                      cy="25"
-                      r="4.5"
-                      fill="#38bdf8"
-                    />
-                    <circle
-                      className="project-detail__pacman-svg-dot project-detail__pacman-svg-dot--2"
-                      cx="92"
-                      cy="25"
-                      r="4.5"
-                      fill="#38bdf8"
-                    />
-                    <circle
-                      className="project-detail__pacman-svg-dot project-detail__pacman-svg-dot--3"
-                      cx="92"
-                      cy="25"
-                      r="4.5"
-                      fill="#38bdf8"
-                    />
-                  </g>
-                </svg>
-              </div>
-              <span className="project-detail__image-loader-text">Loading preview...</span>
-            </div>
-          )}
-
+        {/* Image Container */}
+        <div className="awwwards-card__image-container">
           {images.length > 0 ? (
-            images.map((imgSrc, i) => (
-              <div
-                key={imgSrc || i}
-                className={`project-detail__image-slide ${
-                  i === currentImgIndex ? 'project-detail__image-slide--active' : ''
+            images.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={`${project.title} preview ${i + 1}`}
+                className={`awwwards-card__img ${
+                  i === currentImgIndex ? 'awwwards-card__img--active' : ''
                 }`}
-                style={{
-                  backgroundImage: `url("${imgSrc}")`,
-                }}
+                loading="lazy"
               />
             ))
           ) : (
-            <div className="project-detail__media-placeholder">
+            <div className="awwwards-card__placeholder">
               <svg
-                width="48"
-                height="48"
+                width="40"
+                height="40"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -312,67 +115,92 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
               </svg>
             </div>
           )}
+        </div>
 
-          {/* Image slide counter & live indicator badge */}
-          {images.length > 1 && (
-            <>
-              <div className="project-detail__image-badge">
-                <span className="project-detail__image-badge-live" />
-                <span>
-                  {currentImgIndex + 1} / {images.length}
-                </span>
-              </div>
+        {/* Slide navigation dots if multiple images */}
+        {images.length > 1 && (
+          <div className="awwwards-card__dots" role="tablist" aria-label="Image gallery dots">
+            {images.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                type="button"
+                className={`awwwards-card__dot ${
+                  dotIdx === currentImgIndex ? 'awwwards-card__dot--active' : ''
+                }`}
+                onClick={(e) => handleDotClick(e, dotIdx)}
+                aria-label={`Show image ${dotIdx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
-              {/* Slide Dots navigation */}
-              <div className="project-detail__image-dots">
-                {images.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    className={`project-detail__image-dot ${
-                      i === currentImgIndex ? 'project-detail__image-dot--active' : ''
-                    }`}
-                    onClick={() => setCurrentImgIndex(i)}
-                    aria-label={`Show image ${i + 1} of ${images.length}`}
-                  />
-                ))}
-              </div>
-            </>
+      {/* ── Content Area: Title -> Category -> Date (Awwwards order) ── */}
+      <div className="awwwards-card__body">
+        <h3 className="awwwards-card__title" title={project.title}>
+          {project.githubUrl ? (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="awwwards-card__title-link"
+            >
+              {project.title}
+            </a>
+          ) : (
+            project.title
           )}
+        </h3>
 
-          <div className="project-detail__media-overlay" />
-          <div className="project-detail__media-shine" />
-        </div>
+        {/* Category (Teal/Cyan Accent) */}
+        <div className="awwwards-card__category">{category}</div>
 
-        {/* Content Body: Description */}
-        <div className="project-detail__content">
-          <p className="project-detail__description">{project.description}</p>
-        </div>
+        {/* Brief Description */}
+        {project.description && (
+          <p className="awwwards-card__description">{project.description}</p>
+        )}
 
-        {/* Footer Actions */}
-        <div className="project-detail__footer">
+        {/* Tech Stack Chips */}
+        {techStack.length > 0 && (
+          <div className="awwwards-card__tech-list">
+            {techStack.slice(0, 4).map((tech) => (
+              <span key={tech} className="awwwards-card__tech-chip">
+                {tech}
+              </span>
+            ))}
+            {techStack.length > 4 && (
+              <span className="awwwards-card__tech-chip awwwards-card__tech-chip--more">
+                +{techStack.length - 4}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Footer Action */}
+        <div className="awwwards-card__footer">
           {project.githubUrl && project.githubUrl.trim() !== '' ? (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="project-detail__action-btn"
+              className="awwwards-card__btn"
+              aria-label={`View code for ${project.title}`}
             >
               <svg
-                className="project-detail__github-icon"
-                width="16"
-                height="16"
+                className="awwwards-card__github-icon"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden="true"
               >
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
-              <span>View Source & Project</span>
+              <span>View Source</span>
               <svg
-                className="project-detail__arrow-icon"
-                width="14"
-                height="14"
+                className="awwwards-card__arrow-icon"
+                width="13"
+                height="13"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -386,16 +214,18 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
               </svg>
             </a>
           ) : (
-            <div className="project-detail__action-btn project-detail__action-btn--disabled">
+            <div className="awwwards-card__btn awwwards-card__btn--disabled">
               <svg
-                className="project-detail__github-icon"
-                width="16"
-                height="16"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
-                fill="currentColor"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
                 aria-hidden="true"
               >
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
               <span>Repository Private</span>
             </div>
@@ -406,4 +236,4 @@ export function ProjectDetail({ project, index, totalCount, onPrev, onNext, isAc
   );
 }
 
-export default WheelCard;
+export default ProjectCard;
