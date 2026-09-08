@@ -49,8 +49,6 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
       data-bg="dark"
       ref={sectionRef}
     >
-      {/*<span className="section-label about__label">About</span>*/}
-
       {/* Dynamic 4-section animated blur gradient background */}
       <div className="about__gradient-bg" aria-hidden="true">
         <div className="about__ambient-aurora" />
@@ -65,51 +63,50 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
       <div className="about__frosted-glass" aria-hidden="true" />
 
       <div className="about__container">
-        {/* Left column — text content */}
+        {/* Left column — high-contrast, multi-font, gradient typography hero */}
         <div className="about__left">
-          <div className="about__intro">
-            <div className="about__badge-row">
-              <span className="about__tag">Hello there 👋</span>
-              {/*<div className="about__status-badge">
-                <span className="about__status-dot" />
-                <span>Open for Data Science & AI Opportunities</span>
-              </div>*/}
-            </div>
-            <h2 className="about__name">
-              I'm <span className="about__name-highlight">Chamila</span>
-            </h2>
-            <p className="about__role">Data Science & AI / ML Enthusiast</p>
+          <div className="about__eyebrow">
+            <span className="about__eyebrow-accent" aria-hidden="true">//</span>
+            <span className="about__eyebrow-text">Computer Science & Data Science</span>
           </div>
 
-          <div className="about__divider" />
+          <h1 className="about__name-headline">
+            <span className="about__name-first">Chamila</span>{' '}
+            <span className="about__name-last">Senaratne</span>
+          </h1>
 
-          <p className="about__bio">
-            I'm a passionate technology enthusiast and Computer Science & Data Science undergraduate with a deep interest in{' '}
-            <strong>
-              Artificial Intelligence, Machine Learning, Data Analytics, and Intelligent Systems
-            </strong>
-            . I enjoy transforming raw data into actionable insights, designing robust predictive models, and building practical, AI-driven solutions. I'm actively exploring new frontiers in AI and eagerly seeking collaborative projects and career opportunities in Data Science and Machine Learning.
+          <div className="about__pitch">
+            <span className="about__pitch-serif">Driven by curiosity,</span>
+            <span className="about__pitch-sans">
+              fascinated by <span className="about__gradient-phrase">how machines learn</span>.
+            </span>
+          </div>
+
+          <p className="about__sub">
+            Exploring the mathematical foundations and real-world impact of artificial intelligence.
           </p>
 
-          <button className="about__cta" onClick={handleContact}>
-            <span className="about__cta-text">Let's Connect</span>
-            <span className="about__cta-icon">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="13 6 19 12 13 18" />
-              </svg>
-            </span>
-          </button>
+          <div className="about__action-wrap">
+            <button className="about__cta" onClick={handleContact}>
+              <span className="about__cta-text">Let's Connect</span>
+              <span className="about__cta-icon">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="13 6 19 12 13 18" />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Right column — Neural Network Architecture Visualization */}
