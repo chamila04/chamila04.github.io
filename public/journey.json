@@ -11,7 +11,7 @@
   {
     "id": 2,
     "type": "education",
-    "title": "Higer National Deploma in Software Engineering",
+    "title": "Higher National Diploma in Software Engineering",
     "organization": "National Institute of Business Management",
     "period": "2024 — 2025",
     "logo": "/images/companies/NIBM.png",
@@ -38,7 +38,7 @@
   {
     "id": 5,
     "type": "work",
-    "title": "Technical Support Assosiate",
+    "title": "Technical Support Associate",
     "organization": "Torch Labs Software",
     "period": "2026 — Present",
     "logo": "/images/companies/torchlabs.png",

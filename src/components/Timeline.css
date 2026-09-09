@@ -254,44 +254,42 @@
   margin-bottom: 0;
 }
 
-/* ── Dot Node Marker ── */
+/* ── Dot Node Marker — Unified Light Frame (Option A) ── */
 .timeline__dot {
   position: absolute;
   left: 50%;
-  top: 22px;
-  width: 44px;
-  height: 44px;
-  background: rgba(10, 18, 13, 0.92);
-  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  top: 20px;
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  border: 2px solid rgba(16, 185, 129, 0.55);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateX(-50%);
   z-index: 3;
-  padding: 5px;
+  padding: 6px;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.4),
-    0 0 14px rgba(16, 185, 129, 0.2),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    0 0 0 3px rgba(16, 185, 129, 0.14),
+    0 6px 20px rgba(0, 0, 0, 0.45),
+    0 0 16px rgba(16, 185, 129, 0.22);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 @media (hover: hover) {
   .timeline__item:hover .timeline__dot {
-    border-color: rgba(16, 185, 129, 0.85);
+    border-color: #10b981;
     box-shadow:
-      0 6px 22px rgba(16, 185, 129, 0.35),
-      0 0 20px rgba(16, 185, 129, 0.3),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
-    transform: translateX(-50%) scale(1.08);
+      0 0 0 4px rgba(16, 185, 129, 0.32),
+      0 8px 26px rgba(0, 0, 0, 0.55),
+      0 0 22px rgba(16, 185, 129, 0.4);
+    transform: translateX(-50%) scale(1.1);
   }
 
   .timeline__item:hover .timeline__dot-logo {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 }
 
@@ -299,13 +297,17 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
   border-radius: 50%;
   transition: transform 0.25s ease;
 }
 
 .timeline__dot-icon {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Card — Linear Elevated Glass ── */
@@ -471,10 +473,14 @@
   }
   .timeline__dot {
     left: 20px;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     top: 16px;
-    padding: 3px;
+    padding: 5px;
+    box-shadow:
+      0 0 0 2px rgba(16, 185, 129, 0.14),
+      0 4px 14px rgba(0, 0, 0, 0.4),
+      0 0 12px rgba(16, 185, 129, 0.2);
   }
   .timeline__card {
     padding: 20px 20px;
@@ -519,10 +525,14 @@
   }
   .timeline__dot {
     left: 16px;
-    width: 30px;
-    height: 30px;
-    padding: 2px;
+    width: 34px;
+    height: 34px;
+    padding: 4px;
     top: 14px;
+    box-shadow:
+      0 0 0 2px rgba(16, 185, 129, 0.14),
+      0 3px 10px rgba(0, 0, 0, 0.4),
+      0 0 10px rgba(16, 185, 129, 0.2);
   }
   .timeline__dot-icon {
     font-size: 0.82rem;
