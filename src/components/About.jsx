@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import './About.css';
-import VectorFlowField from './VectorFlowField';
 
 export default function About({ isHeroVisible = false, isHeroExiting = false }) {
   const sectionRef = useRef(null);
@@ -49,7 +48,7 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
       data-bg="dark"
       ref={sectionRef}
     >
-      {/* Dynamic 4-section animated blur gradient background */}
+      {/* Dynamic multi-layer animated ambient aurora background */}
       <div className="about__gradient-bg" aria-hidden="true">
         <div className="about__ambient-aurora" />
         <div className="about__bg-glow about__bg-glow--amber about__bg-glow--1" />
@@ -63,18 +62,24 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
       <div className="about__frosted-glass" aria-hidden="true" />
 
       <div className="about__container">
-        {/* Left column — high-contrast, multi-font, gradient typography hero */}
-        <div className="about__left">
-          <div className="about__eyebrow">
-            <span className="about__eyebrow-accent" aria-hidden="true">//</span>
-            <span className="about__eyebrow-text">Computer Science & Data Science</span>
+        {/* Full-width clean minimalist editorial typography hero */}
+        <div className="about__content">
+          {/* Eyebrow */}
+          <div className="about__eyebrow-wrap">
+            <div className="about__eyebrow">
+              <span className="about__status-pulse" aria-hidden="true" />
+              <span className="about__eyebrow-accent" aria-hidden="true">//</span>
+              <span className="about__eyebrow-text">Computer Science & Data Science</span>
+            </div>
           </div>
 
+          {/* Monumental Dual-Tone Name Headline */}
           <h1 className="about__name-headline">
             <span className="about__name-first">Chamila</span>{' '}
             <span className="about__name-last">Senaratne</span>
           </h1>
 
+          {/* High-Contrast Editorial Statement */}
           <div className="about__pitch">
             <span className="about__pitch-serif">Driven by curiosity,</span>
             <span className="about__pitch-sans">
@@ -82,36 +87,43 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
             </span>
           </div>
 
+          {/* Refined Narrative Paragraph */}
           <p className="about__sub">
             Exploring the mathematical foundations and real-world impact of artificial intelligence.
+            Focused on neural architectures, statistical modeling, and building high-performance systems that bridge deep theory with production impact.
           </p>
 
+          {/* Action Button */}
           <div className="about__action-wrap">
-            <button className="about__cta" onClick={handleContact}>
-              <span className="about__cta-text">Let's Connect</span>
-              <span className="about__cta-icon">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="13 6 19 12 13 18" />
-                </svg>
+            <button
+              className="about__cta"
+              onClick={handleContact}
+              aria-label="Connect with Chamila Senaratne"
+            >
+              <span className="about__cta-glow" aria-hidden="true" />
+              <span className="about__cta-shimmer" aria-hidden="true" />
+              <span className="about__cta-inner">
+                <span className="about__cta-text">Let's Connect</span>
+                <span className="about__cta-badge">
+                  <svg
+                    className="about__cta-arrow"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
               </span>
             </button>
           </div>
-        </div>
-
-        {/* Right column — Generative Fluid & Vector Flow Field */}
-        <div className="about__right">
-          <VectorFlowField />
         </div>
       </div>
     </section>
