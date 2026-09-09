@@ -4,7 +4,6 @@
     "title": "Smart Travel Recommendation System",
     "badge": "WEB",
     "category": "Travel",
-    "date": "September 2025",
     "description": "A personalized travel planning system that recommends destinations based on user preferences and generates detailed trip itineraries based on budget, dates, and travel group. It also provides travel information, hotel and restaurant listings, booking options, an AI travel assistant, reviews and ratings, and an interactive AR feature for exploring locations.",
     "images": [
       "/project/project-01.1.jpg",
@@ -30,7 +29,6 @@
     "title": "News App",
     "badge": "FEATURED",
     "category": "Mobile App",
-    "date": "August 2025",
     "description": "A news management system that streamlines the process of creating, reviewing, approving, and publishing news articles. Reporters can submit articles, editors can review and provide feedback, and administrators can manage users and content. Published news is available to users in real time, with ratings to encourage engagement.",
     "images": [
       "/project/project-02.1.png",
@@ -52,7 +50,6 @@
     "title": "Horizon Cloud OS",
     "badge": "POPULAR",
     "category": "Cloud Platform",
-    "date": "July 2025",
     "description": "Collaborative browser-based operating system with drag-and-drop file organization, real-time sync, and distributed compute.",
     "images": [
       "/project/project3.jpg"
@@ -71,7 +68,6 @@
     "title": "Vortex 3D Engine",
     "badge": "GRAPHICS",
     "category": "WebGL / Shaders",
-    "date": "May 2025",
     "description": "Lightweight WebGL rendering sandbox for procedural generation, interactive physics simulations, and custom shader pipelines.",
     "images": [
       "/project/project-01.1.jpg"
@@ -90,7 +86,6 @@
     "title": "Neural Weather ML",
     "badge": "AI / ML",
     "category": "Predictive AI",
-    "date": "March 2025",
     "description": "Predictive meteorology model forecasting micro-climates using deep satellite data and atmospheric sensor grids.",
     "images": [
       "/project/project2.jpg"
@@ -109,7 +104,6 @@
     "title": "Luminary Design System",
     "badge": "SYSTEM",
     "category": "UI Framework",
-    "date": "January 2025",
     "description": "Comprehensive accessible UI component system with cross-platform token synchronization and live documentation.",
     "images": [
       "/project/project3.jpg"

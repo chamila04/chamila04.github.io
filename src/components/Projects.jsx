@@ -66,9 +66,10 @@ export default function Projects() {
 
       {/* Section Header */}
       <div className="projects__header">
-        <span className="projects__tag">
-          <span className="projects__tag-sparkle">✦</span> Featured Projects
-        </span>
+        <div className="projects__eyebrow">
+          <span className="projects__eyebrow-accent" aria-hidden="true">//</span>
+          <span className="projects__eyebrow-text">Featured Works & Systems</span>
+        </div>
         <h2 className="projects__title">
           Selected <span className="projects__title-accent">Projects</span>
         </h2>
