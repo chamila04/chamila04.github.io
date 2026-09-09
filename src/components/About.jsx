@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './About.css';
-import LossLandscape from './LossLandscape';
+import VectorFlowField from './VectorFlowField';
 
 export default function About({ isHeroVisible = false, isHeroExiting = false }) {
   const sectionRef = useRef(null);
@@ -109,9 +109,9 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
           </div>
         </div>
 
-        {/* Right column — 3D Mathematical Loss Landscape & Gradient Descent */}
+        {/* Right column — Generative Fluid & Vector Flow Field */}
         <div className="about__right">
-          <LossLandscape />
+          <VectorFlowField />
         </div>
       </div>
     </section>
