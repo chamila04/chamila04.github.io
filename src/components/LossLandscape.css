@@ -1,0 +1,315 @@
+/* ═══════════════════════════════════════════════
+   3D Mathematical Loss Landscape & Gradient Descent
+   High-Precision Interactive AI Simulation
+   ═══════════════════════════════════════════════ */
+
+.loss-landscape {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  height: 540px;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(251, 133, 0, 0.04) 0%,
+    rgba(14, 18, 27, 0.75) 45%,
+    rgba(7, 9, 13, 0.92) 100%
+  );
+  border: 1px solid rgba(251, 133, 0, 0.18);
+  box-shadow:
+    0 20px 50px -15px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(251, 133, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  cursor: grab;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loss-landscape:hover {
+  border-color: rgba(251, 133, 0, 0.32);
+  box-shadow:
+    0 24px 60px -15px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(251, 133, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.loss-landscape--dragging {
+  cursor: grabbing;
+}
+
+/* Ambient Radial Highlights inside the card */
+.loss-landscape__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 40% at 50% 55%, rgba(251, 133, 0, 0.12) 0%, transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+  z-index: 1;
+}
+
+/* Top HUD Glass Bar */
+.loss-landscape__header {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.loss-landscape__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.loss-landscape__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffb820;
+  box-shadow: 0 0 10px #ffb820, 0 0 20px rgba(255, 184, 32, 0.6);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+    box-shadow: 0 0 14px #ffb820, 0 0 26px rgba(255, 184, 32, 0.85);
+  }
+}
+
+.loss-landscape__title {
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.loss-landscape__formula {
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: 0.68rem;
+  color: #ffb820;
+  opacity: 0.9;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(251, 133, 0, 0.12);
+  border: 1px solid rgba(251, 133, 0, 0.25);
+}
+
+/* Live Telemetry Pill */
+.loss-landscape__telemetry {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(10, 14, 22, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 30px;
+  padding: 5px 14px;
+  backdrop-filter: blur(10px);
+}
+
+.loss-landscape__metric {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: 0.68rem;
+}
+
+.loss-landscape__metric-label {
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.loss-landscape__metric-val {
+  color: #ffb820;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+}
+
+.loss-landscape__metric-val--cyan {
+  color: #38bdf8;
+  min-width: 40px;
+}
+
+/* Main 3D Canvas */
+.loss-landscape__canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 2;
+}
+
+/* Bottom Interactive Toolbar */
+.loss-landscape__footer {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.loss-landscape__hint {
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: 0.65rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.02em;
+}
+
+.loss-landscape__hint kbd {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.62rem;
+  color: #cbd5e1;
+}
+
+.loss-landscape__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.loss-landscape__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: rgba(251, 133, 0, 0.12);
+  border: 1px solid rgba(251, 133, 0, 0.35);
+  color: #ffb820;
+  backdrop-filter: blur(8px);
+}
+
+.loss-landscape__btn:hover {
+  background: rgba(251, 133, 0, 0.22);
+  border-color: rgba(251, 133, 0, 0.6);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(251, 133, 0, 0.2);
+}
+
+.loss-landscape__btn:active {
+  transform: translateY(0);
+}
+
+.loss-landscape__btn--secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+.loss-landscape__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.loss-landscape__btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════
+   Responsive Breakpoints
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .loss-landscape {
+    max-width: 600px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .loss-landscape {
+    max-width: 520px;
+    height: 460px;
+  }
+
+  .loss-landscape__formula {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .loss-landscape {
+    max-width: 100%;
+    height: 420px;
+    margin-top: 24px;
+  }
+
+  .loss-landscape__header {
+    top: 10px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .loss-landscape__footer {
+    bottom: 10px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .loss-landscape__hint {
+    display: none;
+  }
+
+  .loss-landscape__telemetry {
+    padding: 3px 10px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loss-landscape {
+    height: 360px;
+  }
+
+  .loss-landscape__title {
+    font-size: 0.65rem;
+  }
+
+  .loss-landscape__metric-val {
+    min-width: 38px;
+  }
+}

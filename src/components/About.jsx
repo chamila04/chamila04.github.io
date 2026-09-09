@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './About.css';
-import NeuralNetwork from './NeuralNetwork';
+import LossLandscape from './LossLandscape';
 
 export default function About({ isHeroVisible = false, isHeroExiting = false }) {
   const sectionRef = useRef(null);
@@ -109,9 +109,9 @@ export default function About({ isHeroVisible = false, isHeroExiting = false }) 
           </div>
         </div>
 
-        {/* Right column — Neural Network Architecture Visualization */}
+        {/* Right column — 3D Mathematical Loss Landscape & Gradient Descent */}
         <div className="about__right">
-          <NeuralNetwork />
+          <LossLandscape />
         </div>
       </div>
     </section>
