@@ -4,7 +4,7 @@
     "title": "Smart Travel Recommendation System",
     "badge": "WEB",
     "category": "Travel",
-    "description": "A personalized travel planning system that recommends destinations based on user preferences and generates detailed trip itineraries based on budget, dates, and travel group. It also provides travel information, hotel and restaurant listings, booking options, an AI travel assistant, reviews and ratings, and an interactive AR feature for exploring locations.",
+    "description": "An AI-powered travel planning system generating personalized itineraries and destination recommendations based on user preferences, budget, and real-time insights.",
     "images": [
       "/project/project-01.1.jpg",
       "/project/project-01.2.jpeg",
@@ -29,7 +29,7 @@
     "title": "News App",
     "badge": "FEATURED",
     "category": "Mobile App",
-    "description": "A news management system that streamlines the process of creating, reviewing, approving, and publishing news articles. Reporters can submit articles, editors can review and provide feedback, and administrators can manage users and content. Published news is available to users in real time, with ratings to encourage engagement.",
+    "description": "A real-time news management and publishing platform streamlining article drafting, editorial review workflows, and live reader distribution.",
     "images": [
       "/project/project-02.1.png",
       "/project/project-02.2.png",
@@ -46,7 +46,7 @@
     "githubUrl": "https://github.com/chamila04/NewsApp"
   },
   {
-    "id": 0,
+    "id": 3,
     "title": "Horizon Cloud OS",
     "badge": "POPULAR",
     "category": "Cloud Platform",

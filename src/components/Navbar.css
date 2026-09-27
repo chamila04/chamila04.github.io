@@ -124,37 +124,37 @@
    DYNAMIC SECTION COLOR PALETTES (PRESERVING PAGE COLORS)
    ═══════════════════════════════════════════════ */
 
-/* ── 1. About Section Theme (Amber / Gold: #fb8500) ── */
+/* ── 1. About Section Theme (Cyber Lime / Forest Slate: #ccff00 / #0a1f1c) ── */
 .navbar--about .navbar__dock {
-  background: rgba(14, 11, 7, 0.82);
-  border-color: rgba(251, 133, 0, 0.25);
+  background: rgba(10, 31, 28, 0.85);
+  border-color: rgba(204, 255, 0, 0.25);
   box-shadow:
-    0 0 0 1px rgba(251, 133, 0, 0.12),
+    0 0 0 1px rgba(204, 255, 0, 0.12),
     0 8px 32px rgba(0, 0, 0, 0.55),
-    0 0 20px rgba(251, 133, 0, 0.08),
+    0 0 20px rgba(204, 255, 0, 0.08),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
 }
 
 .navbar--about .navbar__link:hover {
   color: #EDEDEF;
-  background: rgba(251, 133, 0, 0.08);
+  background: rgba(204, 255, 0, 0.08);
 }
 
 .navbar--about .navbar__link--active {
-  color: #ffb703;
+  color: #ccff00;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(251, 133, 0, 0.2), rgba(255, 183, 3, 0.1));
-  border: 1px solid rgba(251, 133, 0, 0.45);
-  box-shadow: 0 0 16px rgba(251, 133, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(204, 255, 0, 0.2), rgba(204, 255, 0, 0.08));
+  border: 1px solid rgba(204, 255, 0, 0.45);
+  box-shadow: 0 0 16px rgba(204, 255, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
 }
 
 .navbar--about .navbar__link--active .navbar__link-icon {
-  color: #fb8500;
+  color: #ccff00;
 }
 
 .navbar--about .navbar__active-indicator {
-  background: #fb8500;
-  box-shadow: 0 0 8px rgba(251, 133, 0, 0.9);
+  background: #ccff00;
+  box-shadow: 0 0 8px rgba(204, 255, 0, 0.9);
 }
 
 /* ── 2. Journey Section Theme (Emerald: #10b981) ── */
@@ -260,9 +260,9 @@
    DYNAMIC SECTION COLOR PALETTES FOR MOBILE TOGGLE
    ═══════════════════════════════════════════════ */
 .navbar--about .navbar__mobile-toggle {
-  color: #ffb703;
-  border-color: rgba(251, 133, 0, 0.4);
-  box-shadow: 0 4px 18px rgba(251, 133, 0, 0.18);
+  color: #ccff00;
+  border-color: rgba(204, 255, 0, 0.4);
+  box-shadow: 0 4px 18px rgba(204, 255, 0, 0.18);
 }
 
 .navbar--journey .navbar__mobile-toggle {

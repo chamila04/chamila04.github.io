@@ -1,31 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import './Projects.css';
+import projectsData from '../../public/projects.json';
 
 export default function Projects() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState(() => {
+    return Array.isArray(projectsData)
+      ? projectsData.filter((item) => item && item.title && Number(item.id) !== 0)
+      : [];
+  });
+  const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
-  // Fetch projects data
+  // Sync if projectsData changes
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}projects.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        const list = Array.isArray(data)
-          ? data.filter((item) => item && item.title && Number(item.id) !== 0)
-          : [];
-        setProjects(list);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Failed to load projects:', err);
-        setLoading(false);
-      });
+    if (Array.isArray(projectsData)) {
+      setProjects(projectsData.filter((item) => item && item.title && Number(item.id) !== 0));
+    }
   }, []);
 
   // Section reveal observer
@@ -64,15 +56,12 @@ export default function Projects() {
       {/* Frosted Glass Layer */}
       <div className="projects__frosted-glass" aria-hidden="true" />
 
-      {/* Section Header */}
+      {/* Section Header matching Persona creative layout */}
       <div className="projects__header">
-        <div className="projects__eyebrow">
-          <span className="projects__eyebrow-accent" aria-hidden="true">//</span>
-          <span className="projects__eyebrow-text">Featured Works & Systems</span>
-        </div>
-        <h2 className="projects__title">
-          Selected <span className="projects__title-accent">Projects</span>
+        <h2 className="projects__header-title">
+          02 / SELECTED WORKS
         </h2>
+        <div className="projects__header-line" aria-hidden="true" />
       </div>
 
       {/* Projects Grid Container */}

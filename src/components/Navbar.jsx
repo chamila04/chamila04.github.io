@@ -93,7 +93,7 @@ export default function Navbar({ heroVisible = false }) {
     setIsMobileOpen((prev) => !prev);
   };
 
-  const isHidden = heroVisible || activeSection === 'hero';
+  const isHidden = heroVisible || activeSection === 'hero' || activeSection === 'about' || activeSection === 'contact' || activeSection === 'projects';
 
   const currentItem = navItems.find((item) => item.id === activeSection) || navItems[0];
 
