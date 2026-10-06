@@ -78,96 +78,77 @@ export default function Timeline() {
       data-bg="dark"
       ref={sectionRef}
     >
-      {/*<span className="section-label timeline__label">Journey</span>*/}
-
-      {/* Subtle theme gradient background behind frosted glass */}
-      <div className="timeline__gradient-bg" aria-hidden="true">
-        <div className="timeline__gradient-mesh" />
-        <div className="timeline__bg-accent timeline__bg-accent--1" />
-        <div className="timeline__bg-accent timeline__bg-accent--2" />
-        <div className="timeline__bg-accent timeline__bg-accent--3" />
+      {/* ── Ambient Background ── */}
+      <div className="timeline__bg-wrapper" aria-hidden="true">
+        <div className="timeline__glow timeline__glow--primary" />
+        <div className="timeline__glow timeline__glow--secondary" />
+        <div className="timeline__grid-overlay" />
       </div>
 
-      {/* Frosted Glass Layer */}
-      <div className="timeline__frosted-glass" aria-hidden="true" />
-
+      {/* ── Section Header ── */}
       <div className="timeline__header">
-        <span className="timeline__tag">Education & Experience</span>
-        <h2 className="timeline__title">
-          My <span className="timeline__title-accent">Journey</span>
-        </h2>
-        {/*<p className="timeline__subtitle">
-          Timeline of my academic milestones and professional experiences
-        </p>*/}
+        <div className="timeline__header-left">
+          <span className="timeline__header-number">02</span>
+          <span className="timeline__header-slash">/</span>
+          <span className="timeline__header-label">TRAJECTORY & FOUNDATION</span>
+        </div>
+
       </div>
 
-      <div className="timeline__container">
-        {/* Central line */}
-        <div className="timeline__line" />
-
+      {/* ── Timeline Entries ── */}
+      <div className="timeline__entries">
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8' }}>
-            Loading journey...
-          </div>
+          <div className="timeline__loading">Loading journey…</div>
         ) : timelineData.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8' }}>
-            No journey entries found. Add items to journey.json!
-          </div>
+          <div className="timeline__loading">No journey entries found.</div>
         ) : (
           timelineData.map((item, index) => {
-            const side = index % 2 === 0 ? 'left' : 'right';
             const isItemVisible = visibleItems.has(index);
             const isEdu = item.type === 'education';
 
             return (
               <div
-                className={`timeline__item timeline__item--${side} ${isItemVisible ? 'timeline__item--visible' : ''
-                  }`}
+                className={`timeline__entry ${isEdu ? 'timeline__entry--education' : 'timeline__entry--work'
+                  } ${isItemVisible ? 'timeline__entry--visible' : ''}`}
                 key={item.id || index}
                 data-index={index}
                 ref={(el) => (itemRefs.current[index] = el)}
               >
-                {/* Dot on timeline */}
-                <div className="timeline__dot">
-                  {item.logo ? (
-                    <img
-                      src={
-                        item.logo.startsWith('http://') || item.logo.startsWith('https://')
-                          ? item.logo
-                          : `${import.meta.env.BASE_URL}${item.logo.startsWith('/') ? item.logo.slice(1) : item.logo}`
-                      }
-                      alt={item.organization}
-                      className="timeline__dot-logo"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span className="timeline__dot-icon">
-                      {isEdu ? '🎓' : '💼'}
-                    </span>
-                  )}
-                </div>
+                {/* Divider line above */}
+                <div className="timeline__divider" />
 
-                {/* Card */}
-                <div className="timeline__card">
-                  <div className="timeline__card-header">
+                <div className="timeline__entry-grid">
+                  {/* Left column: Date / Period */}
+                  <div className="timeline__entry-meta">
                     <span
-                      className={`timeline__type timeline__type--${isEdu ? 'education' : 'work'
+                      className={`timeline__entry-period ${isEdu ? 'timeline__entry-period--edu' : ''
                         }`}
                     >
-                      {isEdu ? 'Education' : 'Experience'}
+                      {item.period}
                     </span>
-                    <span className="timeline__period">{item.period}</span>
                   </div>
-                  <h3 className="timeline__card-title">{item.title}</h3>
-                  <p className="timeline__organization">{item.organization}</p>
-                  <p className="timeline__description">{item.description}</p>
+
+                  {/* Right column: Title, Org badge, Description */}
+                  <div className="timeline__entry-content">
+                    <div className="timeline__entry-title-row">
+                      <h3 className="timeline__entry-title">{item.title}</h3>
+                      <span className="timeline__org-badge">
+                        {item.organization}
+                      </span>
+                    </div>
+                    <p className="timeline__entry-description">{item.description}</p>
+                  </div>
                 </div>
               </div>
             );
           })
         )}
+
+        {/* Final divider */}
+        {!loading && timelineData.length > 0 && (
+          <div className="timeline__divider timeline__divider--final" />
+        )}
       </div>
     </section>
   );
 }
-

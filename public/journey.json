@@ -6,6 +6,7 @@
     "organization": "Trinity College Kandy",
     "period": "2008 — 2021",
     "logo": "/images/companies/trinity.png",
+    "color": "#ffc300",
     "description": "Completed my primary and secondary education, where I developed a strong academic foundation and essential skills in teamwork, communication, problem-solving, and leadership."
   },
   {
@@ -15,6 +16,7 @@
     "organization": "National Institute of Business Management",
     "period": "2024 — 2025",
     "logo": "/images/companies/NIBM.png",
+    "color": "#023e8a",
     "description": "Completed with a Merit Pass, covering software development, programming, databases, web development, and software engineering principles."
   },
   {
@@ -24,6 +26,7 @@
     "organization": "Board of Investment Sri Lanka",
     "period": "2025 Jun — 2025 Dec",
     "logo": "/images/companies/boi.png",
+    "color": "#ffffff",
     "description": "Assisted in software development, UI design, and provided IT support, including troubleshooting hardware and software issues across departments."
   },
   {
@@ -33,6 +36,7 @@
     "organization": "Coventry University",
     "period": "2026 — Present",
     "logo": "/images/companies/coventry.png",
+    "color": "#00b4d8",
     "description": "Focusing on Data Science, Artificial Intelligence, Machine Learning, and modern computing technologies."
   },
   {
@@ -42,6 +46,7 @@
     "organization": "Torch Labs Software",
     "period": "2026 — Present",
     "logo": "/images/companies/torchlabs.png",
+    "color": "#ff5400",
     "description": "Provided technical support for proxy services, troubleshooting issues, assisting with setup and configuration, and recommending suitable solutions."
   }
 ]
