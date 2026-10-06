@@ -1,6 +1,6 @@
 [
   {
-    "id": 3,
+    "id": 4,
     "title": "Waste Route Optimization Engine",
     "badge": "OPTIMIZATION",
     "category": "Backend & Algorithms",
@@ -17,6 +17,24 @@
       "Pydantic"
     ],
     "githubUrl": ""
+  },
+  {
+    "id": 3,
+    "title": "Helpdesk Management System",
+    "badge": "WEB APP",
+    "category": "Web Application",
+    "description": "A full-stack React and Python web application utilizing SQL Server to securely manage and automate IT helpdesk ticket workflows via role-specific dashboards.",
+    "images": [
+      "/project/helpdesk.png"
+    ],
+    "image": "/project/helpdesk.png",
+    "techStack": [
+      "React",
+      "Python",
+      "SQL Server"
+    ],
+    "githubUrl": "",
+    "liveUrl": ""
   },
   {
     "id": 2,
