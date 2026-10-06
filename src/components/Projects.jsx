@@ -6,7 +6,9 @@ import projectsData from '../../public/projects.json';
 export default function Projects() {
   const [projects, setProjects] = useState(() => {
     return Array.isArray(projectsData)
-      ? projectsData.filter((item) => item && item.title && Number(item.id) !== 0)
+      ? projectsData
+          .filter((item) => item && item.title && Number(item.id) !== 0)
+          .sort((a, b) => Number(b.id) - Number(a.id))
       : [];
   });
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,11 @@ export default function Projects() {
   // Sync if projectsData changes
   useEffect(() => {
     if (Array.isArray(projectsData)) {
-      setProjects(projectsData.filter((item) => item && item.title && Number(item.id) !== 0));
+      setProjects(
+        projectsData
+          .filter((item) => item && item.title && Number(item.id) !== 0)
+          .sort((a, b) => Number(b.id) - Number(a.id))
+      );
     }
   }, []);
 

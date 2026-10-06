@@ -1,26 +1,20 @@
 [
   {
-    "id": 1,
-    "title": "Smart Travel Recommendation System",
-    "badge": "WEB",
-    "category": "Travel",
-    "description": "An AI-powered travel planning system generating personalized itineraries and destination recommendations based on user preferences, budget, and real-time insights.",
+    "id": 3,
+    "title": "Waste Route Optimization Engine",
+    "badge": "OPTIMIZATION",
+    "category": "Backend & Algorithms",
+    "description": "High-performance decision-support microservice optimizing municipal waste collection routes using Capacitated Vehicle Routing (CVRP), Dijkstra graph topologies, and 2-Opt local search heuristics.",
     "images": [
-      "/project/project-01.1.jpg",
-      "/project/project-01.2.jpeg",
-      "/project/project-01.3.jpeg",
-      "/project/project-01.4.jpeg",
-      "/project/project-01.5.jpeg",
-      "/project/project-01.6.jpeg",
-      "/project/project-01.7.jpeg"
+      "/project/smart-city-waste.jpg"
     ],
-    "image": "/project/project-01.1.jpg",
+    "image": "/project/smart-city-waste.jpg",
     "techStack": [
-      "Next.js",
-      "Python Flask",
-      "Gemini API",
-      "MongoDB",
-      "Kotlin"
+      "Python",
+      "FastAPI",
+      "Supabase",
+      "NetworkX",
+      "Pydantic"
     ],
     "githubUrl": ""
   },
@@ -46,21 +40,27 @@
     "githubUrl": "https://github.com/chamila04/NewsApp"
   },
   {
-    "id": 3,
-    "title": "Smart City Waste Route Optimization Engine",
-    "badge": "OPTIMIZATION",
-    "category": "Backend & Algorithms",
-    "description": "High-performance decision-support microservice optimizing municipal waste collection routes using Capacitated Vehicle Routing (CVRP), Dijkstra graph topologies, and 2-Opt local search heuristics.",
+    "id": 1,
+    "title": "Travel Recommendation System",
+    "badge": "WEB",
+    "category": "Travel",
+    "description": "An AI-powered travel planning system generating personalized itineraries and destination recommendations based on user preferences, budget, and real-time insights.",
     "images": [
-      "/project/smart-city-waste.jpg"
+      "/project/project-01.1.jpg",
+      "/project/project-01.2.jpeg",
+      "/project/project-01.3.jpeg",
+      "/project/project-01.4.jpeg",
+      "/project/project-01.5.jpeg",
+      "/project/project-01.6.jpeg",
+      "/project/project-01.7.jpeg"
     ],
-    "image": "/project/smart-city-waste.jpg",
+    "image": "/project/project-01.1.jpg",
     "techStack": [
-      "Python",
-      "FastAPI",
-      "Supabase",
-      "NetworkX",
-      "Pydantic"
+      "Next.js",
+      "Python Flask",
+      "Gemini API",
+      "MongoDB",
+      "Kotlin"
     ],
     "githubUrl": ""
   },
