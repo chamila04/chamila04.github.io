@@ -46,22 +46,23 @@
     "githubUrl": "https://github.com/chamila04/NewsApp"
   },
   {
-    "id": 0,
-    "title": "Horizon Cloud OS",
-    "badge": "POPULAR",
-    "category": "Cloud Platform",
-    "description": "Collaborative browser-based operating system with drag-and-drop file organization, real-time sync, and distributed compute.",
+    "id": 3,
+    "title": "Smart City Waste Route Optimization Engine",
+    "badge": "OPTIMIZATION",
+    "category": "Backend & Algorithms",
+    "description": "High-performance decision-support microservice optimizing municipal waste collection routes using Capacitated Vehicle Routing (CVRP), Dijkstra graph topologies, and 2-Opt local search heuristics.",
     "images": [
-      "/project/project3.jpg"
+      "/project/smart-city-waste.jpg"
     ],
-    "image": "/project/project3.jpg",
+    "image": "/project/smart-city-waste.jpg",
     "techStack": [
-      "React",
-      "Firebase",
-      "WebSockets",
-      "Vite"
+      "Python",
+      "FastAPI",
+      "Supabase",
+      "NetworkX",
+      "Pydantic"
     ],
-    "githubUrl": "https://github.com"
+    "githubUrl": ""
   },
   {
     "id": 0,
